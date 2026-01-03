@@ -1,0 +1,23 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1;
+}
+
+.site-section {
+  padding: 48px 0;
+}
+
+.site-section h1,
+.site-section h2 {
+  margin: 0 0 12px;
+}
+
+.muted {
+  margin: 0;
+  opacity: 0.85;
+}
