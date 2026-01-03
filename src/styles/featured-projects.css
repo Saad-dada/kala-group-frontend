@@ -1,0 +1,228 @@
+.featured-section {
+  position: relative;
+  height: 100vh;
+  background-image: url("/images/projects/background.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.featured-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.88) 0%,
+    rgba(20, 20, 35, 0.82) 50%,
+    rgba(15, 25, 45, 0.78) 100%
+  );
+  z-index: 1;
+}
+
+.featured-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 100px 60px 40px;
+}
+
+.featured-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.featured-content {
+  display: flex;
+  align-items: center;
+  gap: 160px;
+}
+
+/* Project Info - Left Side */
+.project-info {
+  flex: 0 0 350px;
+  max-width: 400px;
+}
+
+.project-name {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0 0 30px 0;
+}
+
+.project-btn {
+  background: #ffffff;
+  color: #0a0a0a;
+  border: none;
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.project-btn:hover {
+  background: #f1f5f9;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Carousel - Right Side */
+.projects-carousel {
+  flex: 1;
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel-card {
+  position: absolute;
+  width: 200px;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  will-change: transform, opacity;
+}
+
+.carousel-card.active {
+  width: 260px;
+  height: 380px;
+}
+
+.card-image {
+  width: 100%;
+  height: 82%;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-title {
+  display: block;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 35, 50, 0.9),
+    rgba(20, 25, 40, 0.95)
+  );
+}
+
+.carousel-card.active .card-title {
+  font-size: 1rem;
+  padding: 14px 16px;
+}
+
+/* Navigation Buttons */
+.carousel-nav {
+  position: relative;
+  margin-top: 24px;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .featured-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .project-info {
+    flex: none;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .projects-carousel {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .featured-container {
+    padding: 60px 20px;
+  }
+
+  .carousel-card {
+    width: 160px;
+    height: 260px;
+  }
+
+  .carousel-card.active {
+    width: 180px;
+    height: 300px;
+  }
+
+  .carousel-card {
+    transform: translateX(calc(var(--position) * 170px)) scale(var(--scale));
+  }
+}
