@@ -2,6 +2,7 @@ import { Suspense, useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Center } from "@react-three/drei";
 import type { Group } from "three";
+import * as THREE from "three";
 import "../styles/hero.css";
 import "../styles/hero-blobs.css";
 
@@ -10,25 +11,40 @@ const MODEL_PATH = "/models/building3.glb";
 function BuildingModel({ scrollY }: { scrollY: number }) {
   const { scene } = useGLTF(MODEL_PATH);
   const modelRef = useRef<Group>(null);
-  const baseRotation = useRef(0);
   const baseScale = 0.08;
+  const maxScale = 0.16;
+  const currentRotation = useRef(0);
+  const currentScale = useRef(baseScale);
 
-  useFrame((_, delta) => {
+  // Target rotation based on scroll position
+  const targetRotation = scrollY * 0.006;
+  // Target scale based on scroll position
+  const targetScale = baseScale + Math.min(scrollY * 0.00005, maxScale - baseScale);
+
+  // Smooth interpolation using useFrame for eased rotation and scale
+  useFrame(() => {
     if (modelRef.current) {
-      const rotationSpeed = 0.3 + scrollY * 0.001;
-      baseRotation.current += delta * rotationSpeed;
-      modelRef.current.rotation.y = baseRotation.current;
+      // Lerp for smooth easing (0.08 = smoothing factor, lower = smoother)
+      currentRotation.current = THREE.MathUtils.lerp(
+        currentRotation.current,
+        targetRotation,
+        0.08
+      );
+      currentScale.current = THREE.MathUtils.lerp(
+        currentScale.current,
+        targetScale,
+        0.08
+      );
+      modelRef.current.rotation.y = currentRotation.current;
+      modelRef.current.scale.setScalar(currentScale.current);
     }
   });
 
-  const scrollScale = baseScale + Math.min(scrollY * 0.00003, 0.02);
-  const scrollPosY = -Math.min(scrollY * 0.003, 5);
-
   return (
-    <group position={[1, scrollPosY, 0]}>
-      <group ref={modelRef}>
+    <group position={[1, 0, 0]}>
+      <group ref={modelRef} scale={baseScale}>
         <Center>
-          <primitive object={scene} scale={scrollScale} />
+          <primitive object={scene} />
         </Center>
       </group>
     </group>
@@ -50,16 +66,9 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const maxScroll = 800;
-  const progress = Math.min(scrollY / maxScroll, 1);
-  const moveLeft = progress * 20;
-
   return (
     <>
-      <div
-        className="hero-canvas-layer"
-        style={{ transform: `translateX(-${moveLeft}vw)` }}
-      >
+      <div className="hero-canvas-layer">
         <Canvas
           camera={{ position: [5, 3, 5], fov: 50 }}
           gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
