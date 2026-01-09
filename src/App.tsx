@@ -1,12 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import "./styles/App.css";
 import Header from "./components/header";
 import Hero from "./components/hero";
+import AboutSection from "./components/AboutSection";
 import FeaturedProjects from "./components/FeaturedProjects";
 import CursorFollower from "./components/CursorFollower";
+import LoadingScreen from "./components/LoadingScreen";
+import ContactSection from "./components/ContactSection";
+import Footer from "./components/Footer";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   // Initialize Lenis smooth scrolling
   useEffect(() => {
     const lenis = new Lenis({
@@ -28,13 +34,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app-shell">
-      <CursorFollower />
-      <Header />
-      <main className="site-main">
-        <Hero />
-        <FeaturedProjects />
-      </main>
-    </div>
+    <>
+      {isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
+      <div className={`app-shell ${isLoading ? 'hidden' : ''}`}>
+        <CursorFollower />
+        <Header />
+        <main className="site-main">
+          <Hero />
+          <FeaturedProjects />
+          <AboutSection />
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../styles/header.css";
 import logo from "../assets/logo.png";
 
@@ -16,9 +17,29 @@ const rightNavItems: RightNavItem[] = [
 ];
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="site-header">
       <div className="site-container header-inner">
+        <button 
+          className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
+        >
+          <span className="burger-line"></span>
+          <span className="burger-line"></span>
+          <span className="burger-line"></span>
+        </button>
 
         <nav className="primary-nav" aria-label="Primary navigation">
           {leftNavItems.map(({ href, label }) => (
@@ -47,6 +68,25 @@ export default function Header() {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={closeMobileMenu}>
+        <nav className="mobile-nav" onClick={(e) => e.stopPropagation()}>
+          {leftNavItems.map(({ href, label }) => (
+            <a key={href} className="mobile-nav-link" href={href} onClick={closeMobileMenu}>
+              {label}
+            </a>
+          ))}
+          {rightNavItems.map(({ href, label }) => (
+            <a key={href} className="mobile-nav-link" href={href} onClick={closeMobileMenu}>
+              {label}
+            </a>
+          ))}
+          <a className="btn btn-contact mobile-contact" href="#contact" onClick={closeMobileMenu}>
+            Contact Us
+          </a>
+        </nav>
       </div>
     </header>
   );

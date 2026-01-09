@@ -1,0 +1,148 @@
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a0a;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  z-index: 2;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.loading-screen.exiting .loading-content {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.loading-logo img {
+  height: 80px;
+  filter: brightness(0) invert(1);
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.loading-bar-container {
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff, #94a3b8);
+  border-radius: 3px;
+  transition: width 0.1s ease-out;
+  position: relative;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-text {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.1em;
+}
+
+.loading-percentage {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Exit animation - reveal overlay slides up */
+.loading-reveal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a0a;
+  transform: translateY(100%);
+  z-index: 1;
+}
+
+.loading-screen.exiting .loading-reveal-overlay {
+  animation: revealSlideUp 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes revealSlideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+/* After overlay slides up, the whole screen slides up */
+.loading-screen.exiting {
+  animation: screenSlideUp 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.5s forwards;
+}
+
+@keyframes screenSlideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .loading-logo img {
+    height: 60px;
+  }
+
+  .loading-bar-container {
+    width: 160px;
+  }
+
+  .loading-text {
+    font-size: 12px;
+  }
+}

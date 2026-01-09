@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import "../styles/featured-projects.css";
 
 interface Project {
@@ -44,6 +44,9 @@ const AUTOPLAY_INTERVAL = 4000;
 export default function FeaturedProjects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const handlePrev = useCallback(() => {
     setActiveIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
@@ -51,6 +54,35 @@ export default function FeaturedProjects() {
 
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -68,8 +100,11 @@ export default function FeaturedProjects() {
     const isActive = position === 0;
     const isVisible = Math.abs(position) <= 1;
 
+    // Adjust spacing for mobile
+    const spacing = isMobile ? 160 : 280;
+
     return {
-      transform: `translateX(${position * 280}px) scale(${isActive ? 1 : 0.85})`,
+      transform: `translateX(${position * spacing}px) scale(${isActive ? 1 : 0.85})`,
       zIndex: isActive ? 3 : 2 - Math.abs(position),
       opacity: isVisible ? 1 : 0,
       visibility: isVisible ? "visible" : "hidden",
@@ -79,7 +114,7 @@ export default function FeaturedProjects() {
   const activeProject = projects[activeIndex];
 
   return (
-    <section className="featured-section">
+    <section ref={sectionRef} className={`featured-section ${isVisible ? 'in-view' : ''}`}>
       <div className="featured-bg-overlay" />
 
       <div className="featured-container">
@@ -96,17 +131,25 @@ export default function FeaturedProjects() {
             className="projects-carousel"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
           >
             <div className="carousel-track">
               {projects.map((project, index) => (
                 <div
                   key={project.id}
-                  className={`carousel-card ${index === activeIndex ? "active" : ""}`}
+                  className={`carousel-card ${
+                    index === activeIndex ? "active" : ""
+                  }`}
                   style={getCardStyle(index)}
                   onClick={() => setActiveIndex(index)}
                 >
                   <div className="card-image">
-                    <img src={project.image} alt={project.title} loading="lazy" />
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                    />
                   </div>
                   <span className="card-title">{project.title}</span>
                 </div>
@@ -114,14 +157,34 @@ export default function FeaturedProjects() {
             </div>
 
             <div className="carousel-nav">
-              <button className="nav-btn prev" onClick={handlePrev} aria-label="Previous project">
+              <button
+                className="nav-btn prev"
+                onClick={handlePrev}
+                aria-label="Previous project"
+              >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M15 18L9 12L15 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
-              <button className="nav-btn next" onClick={handleNext} aria-label="Next project">
+              <button
+                className="nav-btn next"
+                onClick={handleNext}
+                aria-label="Next project"
+              >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M9 18L15 12L9 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>

@@ -20,6 +20,13 @@
 /* Hide on touch devices */
 @media (hover: none) and (pointer: coarse) {
   .cursor-follower {
-    display: none;
+    display: none !important;
+  }
+}
+
+/* Also hide on smaller screens as extra safety */
+@media (max-width: 768px) {
+  .cursor-follower {
+    display: none !important;
   }
 }

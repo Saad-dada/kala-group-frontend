@@ -1,10 +1,163 @@
 .hero-section {
-  min-height: 160vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  min-height: 120vh;
+  background: #0a0a0a;
   display: flex;
   align-items: flex-start;
   overflow: visible;
   position: relative;
+}
+
+/* ========== Video Background ========== */
+.hero-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.75) 0%,
+    rgba(10, 10, 10, 0.5) 50%,
+    rgba(10, 10, 10, 0.65) 100%
+  );
+  z-index: 1;
+}
+
+/* Video entrance animation */
+.hero-video-bg {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1.5s ease, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-section.loaded .hero-video-bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========== Hero Entrance Animations ========== */
+.hero-animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-delay-1 {
+  transition-delay: 0.2s;
+}
+
+.hero-delay-2 {
+  transition-delay: 0.4s;
+}
+
+.hero-section.loaded .hero-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Title with blur reveal */
+.hero-section.loaded .hero-title {
+  animation: heroTitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both,
+             heroGlow 2.5s ease-in-out 1.2s;
+}
+
+@keyframes heroTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroGlow {
+  0%, 100% {
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.2),
+                 0 0 80px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Description fade in */
+.hero-section.loaded .hero-description {
+  animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CTA button pop */
+.hero-section.loaded .hero-cta {
+  animation: heroButtonPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+@keyframes heroButtonPop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 3D Canvas layer entrance */
+.hero-canvas-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60vw;
+  height: 120vh;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translateX(60px) scale(0.95);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.hero-canvas-layer.loaded {
+  opacity: 1;
+  transform: translateX(0) scale(1);
 }
 
 .hero-container {
@@ -47,38 +200,26 @@
 }
 
 .hero-cta {
-  background: #ffffff;
-  color: #0a0a0a;
   border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: #ffffff;
   padding: 14px 32px;
   font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ef4444, #8b5cf6);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.25);
 }
 
 .hero-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
-  background: #f1f5f9;
+  filter: brightness(1.05);
 }
 
 .hero-cta:active {
   transform: translateY(0);
-}
-
-.hero-canvas-layer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 60vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-  transition: transform 0.1s ease-out;
-  will-change: transform;
 }
 
 .hero-canvas-layer canvas {
@@ -109,12 +250,17 @@
   }
 }
 
-/* Responsive Design */
+/* Tablet */
 @media (max-width: 1024px) {
+  .hero-section {
+    min-height: 100vh;
+  }
+
   .hero-container {
     flex-direction: column;
     padding: 0 40px;
     text-align: center;
+    margin: 20vw auto 0;
   }
 
   .hero-content {
@@ -130,35 +276,74 @@
     max-width: 100%;
   }
 
-  .hero-model {
-    position: relative;
-    right: 0;
-    top: 0;
-    transform: none;
+  .hero-canvas-layer {
+    position: absolute;
     width: 100%;
-    min-width: unset;
-    max-width: 600px;
-    height: 500px;
-    margin-top: -50px;
+    height: 50vh;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .hero-section {
-    min-height: auto;
-    padding: 40px 0 60px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
   }
 
   .hero-container {
     padding: 0 20px;
+    margin: 100px auto 0;
     gap: 20px;
   }
 
-  .hero-model {
-    height: 400px;
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    margin-bottom: 28px;
   }
 
   .hero-cta {
     padding: 12px 28px;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Place the 3D model visually above the button and center it */
+  .hero-content {
+    padding-bottom: 44vh; /* reserve space for the model above the button */
+  }
+
+  .hero-canvas-layer {
+    position: absolute; /* already absolute from tablet rule */
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60vh;
+    top: 40vh;
+    bottom: auto; /* override tablet bottom:0 */
+    transform: translateY(-50%);
+    opacity: 0.85;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+  .hero-container {
+    padding: 0 16px;
+    margin-top: 90px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
   }
 }
