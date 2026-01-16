@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./footer.css";
 import logo from "../../assets/logo.png";
 
@@ -6,14 +7,14 @@ export default function Footer() {
 
   const footerLinks = {
     company: [
-      { label: "About Us", href: "#about" },
-      { label: "Projects", href: "#projects" },
-      { label: "Services", href: "#services" },
-      { label: "Team", href: "#team" },
+      { label: "About Us", href: "/about" },
+      { label: "Projects", href: "/projects" },
+      { label: "Services", href: "/services" },
+      { label: "Team", href: "/team" },
     ],
     support: [
-      { label: "Contact", href: "#contact" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Contact", href: "/contact" },
+      { label: "Clients", href: "/clients" },
       { label: "Privacy Policy", href: "#privacy" },
       { label: "Terms of Service", href: "#terms" },
     ],
@@ -31,9 +32,9 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand Section */}
           <div className="footer-brand">
-            <a href="/" className="footer-logo">
+            <Link to="/" className="footer-logo">
               <img src={logo} alt="Kala Group Logo" />
-            </a>
+            </Link>
             <p className="footer-tagline">
               Building with purpose. Delivering with integrity.
             </p>
@@ -45,9 +46,9 @@ export default function Footer() {
             <ul className="footer-links">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="footer-link">
+                  <Link to={link.href} className="footer-link">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -59,9 +60,15 @@ export default function Footer() {
             <ul className="footer-links">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="footer-link">
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link to={link.href} className="footer-link">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="footer-link">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
