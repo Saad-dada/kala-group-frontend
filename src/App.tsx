@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import "./styles/App.css";
 import Header from "./components/layout/Header";
@@ -8,6 +8,7 @@ import LoadingScreen from "./components/ui/LoadingScreen";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home/Home";
 import Projects from "./pages/Projects/Projects";
+import ProjectDetail from "./pages/ProjectDetail/ProjectDetail";
 import About from "./pages/About/About";
 import Services from "./pages/Services/Services";
 import Team from "./pages/Team/Team";
@@ -17,6 +18,17 @@ import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { duration: 0.5 });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   // Initialize Lenis smooth scrolling
   useEffect(() => {
@@ -25,6 +37,8 @@ export default function App() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -35,6 +49,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
@@ -47,6 +62,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/team" element={<Team />} />

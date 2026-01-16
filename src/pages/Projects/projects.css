@@ -1,0 +1,131 @@
+.projects-page {
+  background: #050607;
+  color: #e5e7eb;
+  min-height: 100vh;
+}
+
+.projects-hero {
+  position: relative;
+  padding: 120px 24px 80px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 30%, rgba(120, 119, 198, 0.15), transparent 50%),
+              linear-gradient(180deg, #0a0b10 0%, #08090c 100%);
+  overflow: hidden;
+}
+
+.projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projects-hero h1 {
+  font-size: clamp(36px, 4vw, 56px);
+  margin: 0 0 16px;
+  letter-spacing: -0.03em;
+  color: #f8fafc;
+}
+
+.projects-hero p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 13, 17, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(12px);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 14px;
+  color: #a1a1aa;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-button.active {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.35);
+}
+
+.results-count {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.projects-section {
+  padding: 32px 24px 80px;
+}
+
+.projects-section .projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.state-block {
+  display: grid;
+  place-items: center;
+  padding: 80px 24px;
+  color: #cbd5e1;
+  text-align: center;
+}
+
+.state-block .spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(139, 92, 246, 0.25);
+  border-top-color: #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+  .filters-bar { position: static; justify-content: flex-start; gap: 16px; }
+  .projects-section { padding: 24px 18px 60px; }
+}

@@ -4,6 +4,7 @@ import { useGLTF, Center } from "@react-three/drei";
 import type { Group } from "three";
 import * as THREE from "three";
 import "./hero.css";
+import { useNavigate } from "react-router-dom";
 
 // ============================================================================
 // CONSTANTS
@@ -143,6 +144,7 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isCanvasVisible, setIsCanvasVisible] = useState(true);
   const canvasRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // ──────────────────────────────────────────────────────────────────────
   // INITIALIZATION & ANIMATIONS
@@ -270,7 +272,7 @@ export default function Hero() {
               Thoughtfully designed residential and commercial projects shaped by
               quality, safety, and innovation.
             </p>
-            <button className="hero-cta hero-animate hero-delay-2">
+            <button className="hero-cta hero-animate hero-delay-2" onClick={() => navigate("/projects")}>
               Explore Projects
             </button>
           </div>

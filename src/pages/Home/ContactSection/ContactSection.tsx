@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import "./contact-section.css";
 import contactRightAnimation from "../../../assets/contact-right.json";
@@ -61,7 +62,7 @@ export default function ContactSection() {
             <textarea id="message" name="message" placeholder="Message" rows={5} />
 
             <div className="form-actions">
-              <button className="contact-btn" type="submit">Contact Us</button>
+              <button className="contact-btn" type="button" onClick={() => navigate("/contact")}>Contact Us</button>
             </div>
           </form>
         </div>

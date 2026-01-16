@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import "./about-section.css";
+import { useNavigate } from "react-router-dom";
 
 type Stat = {
   number: string;
@@ -75,6 +76,7 @@ export default function AboutSection() {
   const [animatedNumbers, setAnimatedNumbers] = useState<string[]>(() =>
     statsData.map((stat) => stat.number)
   );
+    const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
 
   const stats = useMemo(() => statsData, []);
@@ -152,7 +154,7 @@ export default function AboutSection() {
               by our proven track record: quality, expertise, workmanship, service, competence,
               and reliability to deliver our impressive portfolio of clients/projects.
             </p>
-            <button className="about-cta about-animate about-delay-3">
+            <button className="about-cta about-animate about-delay-3" onClick={() => navigate("/about")}>
               Know More About Us
             </button>
           </div>
