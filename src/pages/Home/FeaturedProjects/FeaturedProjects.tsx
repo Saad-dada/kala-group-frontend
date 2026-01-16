@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProjects } from "../../../hooks/useProjects";
 import type { Project, ScopeOfWork } from "../../../types/project";
@@ -40,8 +40,6 @@ export default function FeaturedProjects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
   const displayProjects = projects.slice(0, 4);
 
@@ -61,25 +59,6 @@ export default function FeaturedProjects() {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "-50px 0px",
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -152,7 +131,7 @@ export default function FeaturedProjects() {
   const activeProject = displayProjects[activeIndex];
 
   return (
-    <section ref={sectionRef} className="featured-section in-view">
+    <section className="featured-section in-view">
       <div className="featured-bg-overlay" />
 
       <div className="featured-container">
