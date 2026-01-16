@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "../styles/cursor-follower.css";
+import "./cursor-follower.css";
 
 export default function CursorFollower() {
   const [isVisible, setIsVisible] = useState(false);

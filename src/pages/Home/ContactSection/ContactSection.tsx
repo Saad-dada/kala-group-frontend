@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import Lottie from "lottie-react";
-import "../styles/contact-section.css";
-import contactRightAnimation from "../assets/contact-right.json";
+import "./contact-section.css";
+import contactRightAnimation from "../../../assets/contact-right.json";
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false);

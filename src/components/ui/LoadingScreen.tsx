@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/loading-screen.css";
-import logo from "../assets/logo.png";
+import "./loading-screen.css";
+import logo from "../../assets/logo.png";
 
 interface LoadingScreenProps {
   onLoadComplete: () => void;

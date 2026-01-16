@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import "../styles/about-section.css";
+import "./about-section.css";
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);

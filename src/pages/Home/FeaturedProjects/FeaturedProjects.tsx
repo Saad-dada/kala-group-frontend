@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import "../styles/featured-projects.css";
+import "./featured-projects.css";
 
 interface Project {
   id: number;

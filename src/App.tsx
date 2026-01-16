@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import "./styles/App.css";
-import Header from "./components/header";
-import Hero from "./components/hero";
-import AboutSection from "./components/AboutSection";
-import FeaturedProjects from "./components/FeaturedProjects";
-import CursorFollower from "./components/CursorFollower";
-import LoadingScreen from "./components/LoadingScreen";
-import ContactSection from "./components/ContactSection";
-import Footer from "./components/Footer";
+import Header from "./components/layout/Header";
+import CursorFollower from "./components/ui/CursorFollower";
+import LoadingScreen from "./components/ui/LoadingScreen";
+import Footer from "./components/layout/Footer";
+import Home from "./pages/Home/Home";
+import Projects from "./pages/Projects/Projects";
+import About from "./pages/About/About";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,12 +39,11 @@ export default function App() {
       <div className={`app-shell ${isLoading ? 'hidden' : ''}`}>
         <CursorFollower />
         <Header />
-        <main className="site-main">
-          <Hero />
-          <FeaturedProjects />
-          <AboutSection />
-          <ContactSection />
-        </main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
         <Footer />
       </div>
     </>

@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   background: #0a0a0a;
-  z-index: 9999;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,6 +121,7 @@
 /* After overlay slides up, the whole screen slides up */
 .loading-screen.exiting {
   animation: screenSlideUp 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.5s forwards;
+  pointer-events: none;
 }
 
 @keyframes screenSlideUp {
