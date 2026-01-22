@@ -12,6 +12,7 @@ import ProjectDetail from "./pages/ProjectDetail/ProjectDetail";
 import About from "./pages/About/About";
 import Services from "./pages/Services/Services";
 import Team from "./pages/Team/Team";
+import Awards from "./pages/Awards/Awards";
 import Clients from "./pages/Clients/Clients";
 import Contact from "./pages/Contact/Contact";
 import NotFound from "./pages/NotFound/NotFound";
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/awards" element={<Awards />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

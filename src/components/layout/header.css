@@ -69,6 +69,12 @@
   transform: translateY(-1px);
 }
 
+.nav-link.active {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-weight: 700;
+}
+
 /* Ensure links don't revert to browser default blue on hover/visited */
 .nav-link,
 .nav-link:link,
@@ -79,27 +85,39 @@
   color: rgba(10, 10, 10, 0.92);
 }
 
+.nav-link.active,
+.nav-link.active:link,
+.nav-link.active:visited,
+.nav-link.active:hover,
+.nav-link.active:active,
+.nav-link.active:focus {
+  color: #ef4444;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
 }
 
 .btn-contact {
-  font-family: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  font-weight: 600;
-  font-size: 14px;
+  display: inline-block;
+  padding: 8px 20px;
   background: #0a0a0a;
   color: #ffffff;
-  padding: 0.5vw 1vw;
+  font-weight: 600;
+  font-size: 0.9rem;
   border-radius: 8px;
   text-decoration: none;
-  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
 }
 
 .btn-contact:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   background: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-contact:active {
@@ -286,6 +304,21 @@
 
 .mobile-nav-link:hover {
   background: rgba(0, 0, 0, 0.04);
+}
+
+.mobile-nav-link.active {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.mobile-nav-link.active,
+.mobile-nav-link.active:link,
+.mobile-nav-link.active:visited,
+.mobile-nav-link.active:hover,
+.mobile-nav-link.active:active,
+.mobile-nav-link.active:focus {
+  color: #ef4444;
 }
 
 .mobile-contact {

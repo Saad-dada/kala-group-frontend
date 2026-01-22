@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./header.css";
 import logo from "../../assets/logo.png";
 
@@ -14,11 +14,13 @@ const leftNavItems: LeftNavItem[] = [
 
 const rightNavItems: RightNavItem[] = [
     { label: "Team", href: "/team" },
+    { label: "Awards", href: "/awards" },
     { label: "About Us", href: "/about" },
 ];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -26,6 +28,10 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const isActiveLink = (href: string) => {
+    return location.pathname === href;
   };
 
   return (
@@ -44,7 +50,7 @@ export default function Header() {
 
         <nav className="primary-nav" aria-label="Primary navigation">
           {leftNavItems.map(({ href, label }) => (
-            <Link key={href} className="nav-link" to={href}>
+            <Link key={href} className={`nav-link ${isActiveLink(href) ? 'active' : ''}`} to={href}>
               {label}
             </Link>
           ))}
@@ -57,7 +63,7 @@ export default function Header() {
         <div className="right-area">
           <nav className="primary-nav" aria-label="Primary navigation">
             {rightNavItems.map(({ href, label }) => (
-              <Link key={href} className="nav-link" to={href}>
+              <Link key={href} className={`nav-link ${isActiveLink(href) ? 'active' : ''}`} to={href}>
                 {label}
               </Link>
             ))}
@@ -75,12 +81,12 @@ export default function Header() {
       <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={closeMobileMenu}>
         <nav className="mobile-nav" onClick={(e) => e.stopPropagation()}>
           {leftNavItems.map(({ href, label }) => (
-            <Link key={href} className="mobile-nav-link" to={href} onClick={closeMobileMenu}>
+            <Link key={href} className={`mobile-nav-link ${isActiveLink(href) ? 'active' : ''}`} to={href} onClick={closeMobileMenu}>
               {label}
             </Link>
           ))}
           {rightNavItems.map(({ href, label }) => (
-            <Link key={href} className="mobile-nav-link" to={href} onClick={closeMobileMenu}>
+            <Link key={href} className={`mobile-nav-link ${isActiveLink(href) ? 'active' : ''}`} to={href} onClick={closeMobileMenu}>
               {label}
             </Link>
           ))}

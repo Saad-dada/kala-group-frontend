@@ -11,6 +11,7 @@ export default function Footer() {
       { label: "Projects", href: "/projects" },
       { label: "Services", href: "/services" },
       { label: "Team", href: "/team" },
+      { label: "Awards", href: "/awards" },
     ],
     support: [
       { label: "Contact", href: "/contact" },

@@ -1,16 +1,26 @@
+import './clients.css';
+
 export default function Clients() {
   return (
-    <main className="page page-clients">
-      <section className="page-header">
-        <h1>Clients</h1>
-        <p>Brands and partners we collaborate with.</p>
+    <main className="site-main clients-page">
+      <section className="clients-hero">
+        <div className="hero-boundary">
+          <div className="hero-badge">Our Clients</div>
+          <h1 className="clients-headline">
+            Trusted Partners & Success Stories
+          </h1>
+          <p className="clients-lede">
+            Discover the brands and organizations that trust us with their building
+            projects, from residential developments to commercial complexes.
+          </p>
+        </div>
       </section>
 
-      <section className="page-content">
-        <div className="site-container">
+      <section className="clients-content site-section">
+        <div className="clients-container">
           <p>
-            We’re compiling a showcase of our clients, testimonials, and
-            long‑term partnerships. Stay tuned for highlights and success
+            We're compiling a showcase of our clients, testimonials, and
+            long-term partnerships. Stay tuned for highlights and success
             stories.
           </p>
         </div>

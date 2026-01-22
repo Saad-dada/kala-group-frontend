@@ -22,11 +22,12 @@ export default function Projects() {
   return (
     <main className="projects-page">
       <section className="projects-hero">
-        <div className="projects-container">
-          <h1>
-            Our <span style={{ color: "#ff0000" }}>Projects</span>
+        <div className="hero-boundary">
+          <div className="hero-badge">Our Projects</div>
+          <h1 className="projects-headline">
+            Our Projects
           </h1>
-          <p>Explore our portfolio of residential, commercial, and industrial projects across India.</p>
+          <p className="projects-lede">Explore our portfolio of residential, commercial, and industrial projects across India.</p>
         </div>
       </section>
 
