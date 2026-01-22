@@ -69,6 +69,13 @@
   transform: translateY(-1px);
 }
 
+@media (hover: none) {
+  .nav-link:hover {
+    background: transparent;
+    transform: none;
+  }
+}
+
 .nav-link.active {
   background: rgba(239, 68, 68, 0.1);
   color: #ef4444;
@@ -118,6 +125,14 @@
   background: #1a1a1a;
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (hover: none) {
+  .btn-contact:hover {
+    background: #0a0a0a;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .btn-contact:active {
@@ -304,6 +319,12 @@
 
 .mobile-nav-link:hover {
   background: rgba(0, 0, 0, 0.04);
+}
+
+@media (hover: none) {
+  .mobile-nav-link:hover {
+    background: transparent;
+  }
 }
 
 .mobile-nav-link.active {

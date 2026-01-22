@@ -98,6 +98,13 @@
   transform: translateX(4px);
 }
 
+@media (hover: none) {
+  .footer-link:hover {
+    color: rgba(10, 10, 10, 0.7);
+    transform: none;
+  }
+}
+
 /* Social Links */
 .footer-social {
   display: flex;

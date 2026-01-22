@@ -10,6 +10,8 @@ export function useProjects() {
 
   useEffect(() => {
     const controller = new AbortController();
+    const startTime = Date.now();
+    const minLoadingTime = 1500; // 1.5 seconds minimum loading time
     
     const fetchProjects = async () => {
       try {
@@ -25,14 +27,29 @@ export function useProjects() {
         }
 
         const projects = (await response.json()) as Project[];
-        setData(projects);
+        
+        // Ensure minimum loading time
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        setTimeout(() => {
+          setData(projects);
+          setLoading(false);
+        }, remainingTime);
+        
       } catch (err: any) {
         if (err.name !== "AbortError") {
-          setError(err.message ?? "Failed to load projects");
+          // Ensure minimum loading time even for errors
+          const elapsedTime = Date.now() - startTime;
+          const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+          
+          setTimeout(() => {
+            setError(err.message ?? "Failed to load projects");
+            setLoading(false);
+          }, remainingTime);
+          
           console.error("Error fetching projects:", err);
         }
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -51,6 +68,8 @@ export function useProject(slug: string) {
 
   useEffect(() => {
     const controller = new AbortController();
+    const startTime = Date.now();
+    const minLoadingTime = 1500; // 1.5 seconds minimum loading time
     
     const fetchProject = async () => {
       try {
@@ -71,14 +90,28 @@ export function useProject(slug: string) {
           throw new Error("Project not found");
         }
         
-        setData(projects[0]);
+        // Ensure minimum loading time
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        setTimeout(() => {
+          setData(projects[0]);
+          setLoading(false);
+        }, remainingTime);
+        
       } catch (err: any) {
         if (err.name !== "AbortError") {
-          setError(err.message ?? "Failed to load project");
+          // Ensure minimum loading time even for errors
+          const elapsedTime = Date.now() - startTime;
+          const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+          
+          setTimeout(() => {
+            setError(err.message ?? "Failed to load project");
+            setLoading(false);
+          }, remainingTime);
+          
           console.error("Error fetching project:", err);
         }
-      } finally {
-        setLoading(false);
       }
     };
 

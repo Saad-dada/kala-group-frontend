@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useProject } from "../../hooks/useProjects";
+import GalleryLightbox from "../../components/GalleryLightbox";
 import type { ScopeOfWork } from "../../types/project";
 import "./project-detail.css";
 
@@ -43,6 +44,8 @@ const typeLabels = {
 export default function ProjectDetail() {
   const { slug = "" } = useParams();
   const { data: project, loading, error } = useProject(slug);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const galleryImages = useMemo(() => {
     if (!project) return [] as string[];
@@ -51,6 +54,15 @@ export default function ProjectDetail() {
     }
     return project.featured_image_url ? [project.featured_image_url] : [];
   }, [project]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
 
   if (loading) {
     return (
@@ -85,6 +97,12 @@ export default function ProjectDetail() {
         className="project-detail-hero"
         style={{ backgroundImage: featured_image_url ? `url(${featured_image_url})` : undefined }}
       >
+        <Link to="/projects" className="back-button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </Link>
+
         <div className="project-detail-hero-content">
           <div className="breadcrumb">
             <Link to="/projects">Projects</Link> / <span>{title.rendered}</span>
@@ -157,12 +175,26 @@ export default function ProjectDetail() {
           {galleryImages.length > 0 && (
             <div className="gallery-grid">
               {galleryImages.map((img, idx) => (
-                <img key={idx} src={img} alt={`${title.rendered} ${idx + 1}`} loading="lazy" />
+                <img
+                  key={idx}
+                  src={img}
+                  alt={`${title.rendered} ${idx + 1}`}
+                  loading="lazy"
+                  onClick={() => openLightbox(idx)}
+                  style={{ cursor: 'pointer' }}
+                />
               ))}
             </div>
           )}
         </div>
       </section>
+
+      <GalleryLightbox
+        images={galleryImages}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={closeLightbox}
+      />
     </main>
   );
 }

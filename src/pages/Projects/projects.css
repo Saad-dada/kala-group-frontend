@@ -70,7 +70,7 @@
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 20px 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(12, 13, 17, 0.9);
@@ -80,10 +80,67 @@
   backdrop-filter: blur(12px);
 }
 
-.projects-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 14px;
+  color: #a1a1aa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.filter-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+@media (hover: none) {
+  .filter-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: none;
+  }
+}
+
+.filter-button.active {
+  background: linear-gradient(90deg, #ef4444 0%, #0ea5e9 100%);
+  color: #ffffff;
+  border-color: transparent;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.filter-button.active:hover {
+  background: linear-gradient(90deg, #0ea5e9 0%, #ef4444 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
 .results-count {
@@ -141,7 +198,12 @@
   }
 
   .projects-container {
-    padding: 0 24px;
+    padding: 0;
+  }
+
+  .filter-button {
+    padding: 7px 14px;
+    font-size: 12px;
   }
 }
 
@@ -163,10 +225,25 @@
     position: static;
     justify-content: flex-start;
     gap: 16px;
-    padding: 20px 20px;
+    padding: 12px;
   }
 
   .projects-container {
-    padding: 0 20px;
+    padding: 0;
+  }
+
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .filter-buttons {
+    gap: 6px;
+  }
+
+  .filter-button {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }

@@ -78,16 +78,23 @@ export default function Projects() {
             </div>
           )}
 
-          {error && (
+          {error && !loading && (
             <div className="state-block">
               <div style={{ color: "#f87171", fontWeight: 600 }}>Failed to load projects</div>
               <div style={{ color: "#fca5a5", fontSize: 13, marginTop: 6 }}>{error}</div>
             </div>
           )}
 
-          {!loading && !error && filteredProjects.length === 0 && (
+          {!loading && !error && projects.length === 0 && (
             <div className="state-block">
               <p style={{ fontSize: 18, fontWeight: 600 }}>No projects found</p>
+              <p style={{ color: "#9ca3af", fontSize: 14 }}>Check back later for new projects</p>
+            </div>
+          )}
+
+          {!loading && !error && projects.length > 0 && filteredProjects.length === 0 && (
+            <div className="state-block">
+              <p style={{ fontSize: 18, fontWeight: 600 }}>No projects match your filters</p>
               <p style={{ color: "#9ca3af", fontSize: 14 }}>Try adjusting your filters</p>
             </div>
           )}

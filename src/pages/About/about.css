@@ -670,8 +670,4 @@
   .about-grid {
     grid-template-columns: 1fr;
   }
-
-  .brand-grid {
-    grid-template-columns: 1fr;
-  }
 }
