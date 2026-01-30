@@ -1,10 +1,13 @@
 import './contact.css';
+import ContactInfo from "./ContactInfo";
 import ContactSection from "../Home/ContactSection/ContactSection";
+import OurFirms from "../../components/OurFirms/OurFirms";
 
 export default function Contact() {
+
   return (
     <main className="site-main contact-page">
-      <section className="contact-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Get In Touch</div>
           <h1 className="contact-headline">
@@ -16,8 +19,11 @@ export default function Contact() {
           </p>
         </div>
       </section>
-
       <ContactSection />
+      <ContactInfo />
+
+      {/* Our firms (reusable component) */}
+      <OurFirms limit={6} />
     </main>
   );
 }

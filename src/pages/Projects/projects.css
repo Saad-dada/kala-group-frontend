@@ -3,7 +3,7 @@
   min-height: 100vh;
 }
 
-.projects-hero {
+.projects-hero, .default-hero {
   padding: 120px 40px 80px;
   text-align: center;
   background: linear-gradient(135deg, rgba(120, 119, 198, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
@@ -11,7 +11,7 @@
   overflow: hidden;
 }
 
-.projects-hero::before {
+.projects-hero::before, .default-hero::before {
   content: '';
   position: absolute;
   top: 0;
@@ -101,32 +101,28 @@
   flex-wrap: wrap;
 }
 
+
 .filter-button {
   display: inline-block;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
   color: #e5e7eb;
   font-weight: 500;
   font-size: 13px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.18s ease;
   text-transform: capitalize;
+  background: transparent; /* visuals now come from global `.btn` when applied */
 }
 
+/* Hover: only translate, no background/border changes */
 .filter-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
 }
 
 @media (hover: none) {
-  .filter-button:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: none;
-  }
+  .filter-button:hover { transform: none; }
 }
 
 .filter-button.active {
@@ -137,10 +133,9 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
+/* Active hover: only translate, don't alter border/background */
 .filter-button.active:hover {
-  background: linear-gradient(90deg, #0ea5e9 0%, #ef4444 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
 .results-count {
@@ -185,7 +180,7 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .projects-hero {
+  .projects-hero, .default-hero {
     padding: 100px 24px 60px;
   }
 
@@ -209,7 +204,7 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .projects-hero {
+  .projects-hero, .default-hero {
     padding: 80px 20px 40px;
   }
 

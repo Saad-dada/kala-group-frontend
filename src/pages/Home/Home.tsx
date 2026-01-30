@@ -1,6 +1,7 @@
 import Hero from "./Hero";
 import FeaturedProjects from "./FeaturedProjects";
 import AboutSection from "./AboutSection";
+import Firms from "./Firms";
 import ContactSection from "./ContactSection";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <FeaturedProjects />
       <AboutSection />
       <ContactSection />
+      <Firms />
     </main>
   );
 }

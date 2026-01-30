@@ -24,7 +24,8 @@ export function useTeam() {
         }
 
         const members = (await response.json()) as TeamMember[];
-        setData(members);
+        // return teams in reverse order (newest first)
+        setData(members.slice().reverse());
       } catch (err: any) {
         if (err.name !== "AbortError") {
           setError(err.message ?? "Failed to load team");

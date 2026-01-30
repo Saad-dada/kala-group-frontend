@@ -272,7 +272,7 @@ export default function Hero() {
               Thoughtfully designed residential and commercial projects shaped by
               quality, safety, and innovation.
             </p>
-            <button className="hero-cta hero-animate hero-delay-2" onClick={() => navigate("/projects")}>
+            <button className="btn btn--primary" onClick={() => navigate("/projects")}>
               Explore Projects
             </button>
           </div>

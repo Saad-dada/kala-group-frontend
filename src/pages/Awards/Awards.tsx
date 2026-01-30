@@ -6,7 +6,7 @@ export default function Awards() {
 
   return (
     <main className="site-main awards-page">
-      <section className="awards-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Awards & Recognition</div>
           <h1 className="awards-headline">

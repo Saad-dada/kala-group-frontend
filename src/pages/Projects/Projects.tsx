@@ -21,7 +21,7 @@ export default function Projects() {
 
   return (
     <main className="projects-page">
-      <section className="projects-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Our Projects</div>
           <h1 className="projects-headline">

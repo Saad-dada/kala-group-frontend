@@ -1,0 +1,27 @@
+.our-firms-section {
+    padding: 48px 0;
+}
+
+.our-firms-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.our-firms-header {
+    margin-bottom: 18px;
+}
+
+.our-firms-title {
+    font-size: 1.75rem;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    text-align: center;
+}
+
+.our-firms-lede {
+    color: #dbe8f0;
+    margin: 0 0 18px 0;
+}
+
+/* Reuse FirmsGrid's responsive rules - nothing else needed here */

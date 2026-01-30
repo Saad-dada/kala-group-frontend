@@ -52,20 +52,20 @@ export default function About() {
 
   return (
     <main className="site-main about-page">
-      <section className="about-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">About Kala Group</div>
           <div className="about-hero-grid">
             <div className="about-hero-copy">
               <h1 className="about-headline">
-                Building with purpose.
+                Resourceful. Reliable.
                 <br />
-                Delivering with integrity.
+                Refined
               </h1>
               <p className="about-lede">
-                We are a new-generation building services firm headquartered in Mumbai—pairing
-                customer-first delivery with uncompromised quality, workmanship, and schedule
-                discipline across every engagement.
+                We are a professional painting and surface-finishing contracting firm, based in Mumbai, specializing in high-rise, façade, and large-scale interior &amp; exterior painting works. With disciplined execution, skilled manpower, and proven systems, we deliver durable finishes, clean handovers, and on-time completion—even on the most complex sites. 
+                <br />
+                We are among the very few painting contracting firms in the industry to operate on a fully integrated <strong>ERP</strong> system—bringing structure, transparency, and control to every stage of execution.
               </p>
               <div className="hero-meta">
                 <span>Founded 2014-15</span>
@@ -96,10 +96,8 @@ export default function About() {
           <p className="about-eyebrow">Who we are</p>
           <h2>Delivering excellence across every stroke.</h2>
           <p className="about-body">
-            We are a one-stop civil service partner known for perfection and reliability. Our team
-            combines on-site mastery with tight project governance to meet demanding timelines.
-            Each project is approached with empathy toward client needs and a solution-centric
-            mindset, enabling long-term partnerships and repeat engagements.
+            We operate with a strong in-house infrastructure, including over 65 company-owned cradles (RSP systems), enabling us to execute high-rise and façade painting works safely, efficiently, and without reliance on external resources.
+Our operations are further supported by dedicated in-house technicians and fully equipped workshops for routine maintenance and servicing, ensuring optimal equipment performance, minimal downtime, and uninterrupted site execution.
           </p>
         </div>
         <div className="about-grid">
@@ -200,7 +198,7 @@ export default function About() {
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: '32px' }}>
-          <Link to="/team" className="view-more-btn">View More Details</Link>
+          <Link to="/team" className="btn btn--primary">View More Details</Link>
         </div>
       </section>
 

@@ -50,31 +50,7 @@
 }
 
 /* Outline button variant for secondary action */
-.btn-outline {
-  display: inline-block;
-  padding: 12px 32px;
-  background: #ffffff;
-  color: #0a0a0a;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-
-.btn-outline:hover {
-  background: #f1f5f9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
-}
-
-.btn-outline:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
+/* Outline button styling moved to src/styles/global.css as .btn--outline */
 
 @keyframes nf-rise {
   from { opacity: 0; transform: translateY(8px); }

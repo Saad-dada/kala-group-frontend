@@ -16,7 +16,7 @@ export default function Team() {
 
   return (
     <main className="site-main team-page">
-      <section className="team-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Our Team</div>
           <h1 className="team-headline">

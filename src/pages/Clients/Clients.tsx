@@ -1,21 +1,18 @@
 import './clients.css';
+import { useClients } from '../../hooks/useClients';
+import type { Client } from '../../types/client';
 
 export default function Clients() {
-  // Sample brand data - replace with actual data from API
-  const brands = [
-    { name: "TechCorp", category: "Technology", logo: "🏢" },
-    { name: "BuildPro", category: "Construction", logo: "🏗️" },
-    { name: "UrbanDev", category: "Real Estate", logo: "🏙️" },
-    { name: "GreenBuild", category: "Sustainable", logo: "🌱" },
-    { name: "MetroGroup", category: "Infrastructure", logo: "🚇" },
-    { name: "PrimeProperties", category: "Residential", logo: "🏠" },
-    { name: "CommerceHub", category: "Commercial", logo: "🏪" },
-    { name: "FutureWorks", category: "Innovation", logo: "🚀" },
-  ];
+  const { data, loading, error } = useClients();
+
+  const getImageUrl = (c: Client) => {
+    const embedded = c._embedded?.['wp:featuredmedia']?.[0];
+    return embedded?.source_url ?? embedded?.media_details?.sizes?.thumbnail?.source_url ?? embedded?.media_details?.sizes?.medium?.source_url ?? null;
+  };
 
   return (
     <main className="site-main clients-page">
-      <section className="clients-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Our Clients</div>
           <h1 className="clients-headline">
@@ -30,34 +27,21 @@ export default function Clients() {
 
       <section className="clients-content site-section">
         <div className="clients-container">
-          <div className="brands-grid">
-            {brands.map((brand, index) => (
-              <div key={index} className="brand-card">
-                <div className="brand-logo">
-                  <span className="brand-icon">{brand.logo}</span>
-                </div>
-                <div className="brand-info">
-                  <h3 className="brand-name">{brand.name}</h3>
-                  <p className="brand-category">{brand.category}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {loading && <p style={{color:'#e5e7eb'}}>Loading clients...</p>}
+          {error && <p style={{color:'#fca5a5'}}>Failed to load clients.</p>}
 
-          <div className="clients-stats">
-            <div className="stat-item">
-              <div className="stat-number">50+</div>
-              <div className="stat-label">Projects Completed</div>
+          {!loading && !error && (
+            <div className="clients-logos">
+              {data.map((c: Client) => {
+                const img = getImageUrl(c);
+                return (
+                  <div className="client-tile" key={c.id}>
+                    {img ? <img src={img} alt={(c.title?.rendered ?? 'client').replace(/<[^>]*>/g, '')} /> : <div className="client-placeholder" />}
+                  </div>
+                );
+              })}
             </div>
-            <div className="stat-item">
-              <div className="stat-number">25+</div>
-              <div className="stat-label">Happy Clients</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">5+</div>
-              <div className="stat-label">Years Experience</div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </main>

@@ -109,7 +109,7 @@ export default function FeaturedProjects() {
         <div className="featured-container">
           <h2 className="featured-title">Featured Projects</h2>
           <p className="featured-error">Could not load projects right now. Please try again.</p>
-          <button className="project-btn" onClick={() => navigate("/projects")}>View All Projects</button>
+          <button className="btn btn--primary" onClick={() => navigate("/projects")}>View All Projects</button>
         </div>
       </section>
     );
@@ -122,7 +122,7 @@ export default function FeaturedProjects() {
         <div className="featured-container">
           <h2 className="featured-title">Featured Projects</h2>
           <p className="featured-error">No projects available yet.</p>
-          <button className="project-btn" onClick={() => navigate("/projects")}>View All Projects</button>
+          <button className="btn btn--primary" onClick={() => navigate("/projects")}>View All Projects</button>
         </div>
       </section>
     );
@@ -172,7 +172,7 @@ export default function FeaturedProjects() {
                 })}
               </div>
             )}
-            <button className="project-btn" onClick={() => navigate(`/projects/${activeProject.slug}`)}>
+            <button className="btn btn--primary" onClick={() => navigate(`/projects/${activeProject.slug}`)}>
               View Project
             </button>
           </div>

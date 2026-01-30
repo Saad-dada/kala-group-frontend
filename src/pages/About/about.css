@@ -1,93 +1,4 @@
-/* Standardized Button Styles */
-
-/* Type 1: Multicolor Gradient Button */
-.btn-gradient {
-  display: inline-block;
-  padding: 12px 32px;
-  background: linear-gradient(90deg, #ef4444 0%, #0ea5e9 100%);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.08rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.12);
-  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-
-.btn-gradient:hover {
-  background: linear-gradient(90deg, #0ea5e9 0%, #ef4444 100%);
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
-}
-
-/* Type 2: Black Background Button */
-.btn-black {
-  display: inline-block;
-  padding: 12px 32px;
-  background: #0a0a0a;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-
-.btn-black:hover {
-  background: #1a1a1a;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Type 3: White Background Button */
-.btn-white {
-  display: inline-block;
-  padding: 12px 32px;
-  background: #ffffff;
-  color: #0a0a0a;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-
-.btn-white:hover {
-  background: #f1f5f9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
-}
-
-/* Legacy support - update existing classes */
-.view-more-btn {
-  display: inline-block;
-  padding: 12px 32px;
-  background: linear-gradient(90deg, #ef4444 0%, #0ea5e9 100%);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.08rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.12);
-  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-
-.view-more-btn:hover {
-  background: linear-gradient(90deg, #0ea5e9 0%, #ef4444 100%);
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
-  color: #fff;
-}
+/* Buttons moved to src/styles/global.css for consistent usage across the app */
 
 /* Team Page Styles */
 .page {
@@ -185,21 +96,7 @@
   gap: 22px;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f87171;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  align-self: flex-start;
-}
+
 
 .about-hero-grid {
   display: grid;

@@ -70,7 +70,7 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
-            <Link className="btn btn-contact" to="/about">
+            <Link className="btn btn--primary" to="/contact">
               Contact Us
             </Link>
           </div>
@@ -90,7 +90,7 @@ export default function Header() {
               {label}
             </Link>
           ))}
-          <Link className="btn btn-contact mobile-contact" to="/about" onClick={closeMobileMenu}>
+          <Link className="btn btn--primary mobile-contact" to="/contact" onClick={closeMobileMenu}>
             Contact Us
           </Link>
         </nav>

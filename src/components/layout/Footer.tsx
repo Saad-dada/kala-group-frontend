@@ -37,7 +37,7 @@ export default function Footer() {
               <img src={logo} alt="Kala Group Logo" />
             </Link>
             <p className="footer-tagline">
-              Building with purpose. Delivering with integrity.
+              Resourceful. Reliable. Refined.
             </p>
           </div>
 

@@ -46,24 +46,25 @@
   margin-bottom: 24px;
 }
 
-.team-headline {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
-  color: #ffffff;
-  line-height: 1.1;
-  margin: 0 0 24px 0;
-  background: linear-gradient(90deg, #ffffff 0%, #e5e7eb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.team-hero, .default-hero {
+  padding: 120px 40px 80px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.team-lede {
-  font-size: 1.2rem;
-  color: #e5e7eb;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
+.team-hero::before, .default-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
   opacity: 0.9;
 }
 
@@ -179,7 +180,7 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .team-hero {
+  .team-hero, .default-hero {
     padding: 100px 24px 60px;
   }
 
@@ -200,7 +201,7 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .team-hero {
+  .team-hero, .default-hero {
     padding: 80px 20px 40px;
   }
 

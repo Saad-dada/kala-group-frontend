@@ -11,9 +11,9 @@ export default function NotFound() {
           <p>
             Try the navigation above, or head back to the homepage.
           </p>
-          <a className="btn btn-contact" href="/">Go Home</a>
+          <a className="btn btn--primary" href="/">Go Home</a>
         </div>
       </section>
-    </main>
+    </main> 
   );
 }

@@ -8,7 +8,7 @@
 .clients-hero {
   padding: 120px 40px 80px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -20,8 +20,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 30% 20%, rgba(239, 68, 68, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -35,10 +35,10 @@
 .hero-badge {
   display: inline-block;
   padding: 8px 16px;
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.12);
   border-radius: 20px;
-  color: #22c55e;
+  color: var(--accent-1);
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -77,29 +77,41 @@
   padding: 0 40px;
 }
 
-.brands-grid {
+.clients-logos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
   gap: 24px;
   margin-bottom: 80px;
+  align-items: center;
 }
 
-.brand-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  cursor: pointer;
+.client-tile {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  height: 140px; /* larger tiles */
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.brand-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border-color: rgba(34, 197, 94, 0.3);
+.client-tile img { max-width: 100%; max-height: 100px; object-fit: contain; display:block }
+
+.client-tile:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.5); }
+
+.client-placeholder { width: 60px; height: 60px; border-radius: 8px; background: rgba(255,255,255,0.03); }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .clients-logos { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; }
 }
 
+/* Mobile */
+@media (max-width: 768px) {
+  .clients-logos { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-bottom: 60px; }
+  .client-tile { height: 90px; padding: 16px; }
+}
 @media (hover: none) {
   .brand-card:hover {
     transform: none;
@@ -126,7 +138,7 @@
 
 .brand-category {
   font-size: 0.9rem;
-  color: #22c55e;
+  color: var(--accent-1);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -143,7 +155,7 @@
 .stat-item {
   text-align: center;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--stat-card-color, rgba(255, 255, 255, 0.02));
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
 }
@@ -151,9 +163,9 @@
 .stat-number {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #22c55e;
+  color: var(--accent-1);
   margin-bottom: 8px;
-  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(90deg, #c52222 0%, #a31616 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

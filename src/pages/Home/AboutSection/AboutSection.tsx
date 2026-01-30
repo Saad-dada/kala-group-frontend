@@ -15,7 +15,7 @@ const statsData: Stat[] = [
       image: "linear-gradient(135deg, #1f2937, #0f172a)",
     },
     {
-      number: "15+",
+      number: "15k+",
       label: "Apartments Handed Over",
       image: "linear-gradient(135deg, #172554, #0b1224)",
     },
@@ -25,22 +25,22 @@ const statsData: Stat[] = [
       image: "linear-gradient(135deg, #1c1917, #0f0a0a)",
     },
     {
-      number: "1.8 Cr",
+      number: "1.8 Cr sqft",
       label: "Internal Painting (In Hand)",
       image: "linear-gradient(135deg, #1b1d2e, #0f1624)",
     },
     {
-      number: "2 Cr",
+      number: "2 Cr sqft",
       label: "Internal Painting (Handed Over)",
       image: "linear-gradient(135deg, #2a1b1f, #12090d)",
     },
     {
-      number: "1 Cr",
+      number: "1 Cr sqft",
       label: "External Painting (In Hand)",
       image: "linear-gradient(135deg, #0f1e1a, #07100c)",
     },
     {
-      number: "1 Cr",
+      number: "1 Cr sqft",
       label: "External Painting (Handed Over)",
       image: "linear-gradient(135deg, #1e1a0f, #0f0c07)",
     },
@@ -139,27 +139,25 @@ export default function AboutSection() {
       <div className="about-container">
         <div className="about-content">
           <div className="about-text">
-            <h2 className="about-header about-animate">
+            <h2 className="about-header">
               About <span className="about-highlight">Kala Group</span>
             </h2>
-            <h1 className="about-title about-animate about-delay-1">
-              Building with purpose.
+            <h1 className="about-title">
+              Resourceful. Reliable
               <br />
-              Delivering with integrity.
+              Refined.
             </h1>
-            <p className="about-description about-animate about-delay-2">
+            <p className="about-description">
               A New Generation firm with a core focus on building activities, at kala we strive for
               customer satisfaction, without compromising on the quality of our work and
               structures. We hold an unmatched reputation for perfection, which is backed up
               by our proven track record: quality, expertise, workmanship, service, competence,
               and reliability to deliver our impressive portfolio of clients/projects.
             </p>
-            <button className="about-cta about-animate about-delay-3" onClick={() => navigate("/about")}>
-              Know More About Us
-            </button>
+            <button className="btn btn--outline" onClick={() => navigate("/about")}>Know More About Us</button>
           </div>
 
-          <div className="about-image-wrapper about-animate about-delay-2">
+          <div className="about-image-wrapper">
             <div className="about-image-container">
               <img
                 src="/images/about-building.jpg"
@@ -171,15 +169,12 @@ export default function AboutSection() {
         </div>
 
         <div className="about-stats">
-          {stats.map((stat, index) => (
+            {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className={`stat-card about-animate about-delay-${4 + index}`}
+              className={`stat-card`}
             >
-              <div
-                className="stat-card-bg"
-                style={{ background: stat.image }}
-              />
+              <div className="stat-card-bg" />
               <div className="stat-card-overlay" />
               <div className="stat-card-content">
                 <h3 className="stat-number animated">{animatedNumbers[index]}</h3>

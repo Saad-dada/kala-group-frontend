@@ -3,7 +3,7 @@ import './services.css';
 export default function Services() {
   return (
     <main className="site-main services-page">
-      <section className="services-hero">
+      <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Our Services</div>
           <h1 className="services-headline">
@@ -17,12 +17,45 @@ export default function Services() {
       </section>
 
       <section className="services-content site-section">
-        <div className="services-container">
-          <p>
-            We are preparing a detailed overview of our services, including
-            strategy, design, engineering, and production. This page will soon
-            showcase case studies and capabilities tailored to your needs.
-          </p>
+        <div className="services-container services-grid-wrap">
+          <div className="services-surface" aria-hidden />
+
+          <ul className="services-grid">
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>🎨</div>
+              <div className="service-label">Internal Painting</div>
+            </li>
+
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>🖌️</div>
+              <div className="service-label">External Painting</div>
+            </li>
+
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>🧱</div>
+              <div className="service-label">Gypsum Work</div>
+            </li>
+
+            <li className="service-item wide">
+              <div className="service-icon" aria-hidden>🛠️</div>
+              <div className="service-label">Structural Repairing</div>
+            </li>
+
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>💧</div>
+              <div className="service-label">Water Proofing</div>
+            </li>
+
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>👷</div>
+              <div className="service-label">Civil Works</div>
+            </li>
+
+            <li className="service-item">
+              <div className="service-icon" aria-hidden>🧰</div>
+              <div className="service-label">Floor Coatings</div>
+            </li>
+          </ul>
         </div>
       </section>
     </main>

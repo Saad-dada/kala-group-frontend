@@ -94,7 +94,7 @@ export default function ProjectDetail() {
   return (
     <main className="project-detail-page">
       <section
-        className="project-detail-hero"
+        className="default-hero"
         style={{ backgroundImage: featured_image_url ? `url(${featured_image_url})` : undefined }}
       >
         <Link to="/projects" className="back-button">
