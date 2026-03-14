@@ -73,6 +73,11 @@ export default function GalleryLightbox({ images, initialIndex, isOpen, onClose 
     }
   };
 
+  const isVideoUrl = (url: string) => {
+    const cleanUrl = url.split("?")[0].toLowerCase();
+    return [".mp4", ".webm", ".ogg", ".mov", ".m4v"].some((ext) => cleanUrl.endsWith(ext));
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -101,15 +106,27 @@ export default function GalleryLightbox({ images, initialIndex, isOpen, onClose 
         )}
 
         <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-          <img
-            src={images[currentIndex]}
-            alt={`Gallery image ${currentIndex + 1}`}
-            className="lightbox-image"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            draggable={false}
-          />
+          {isVideoUrl(images[currentIndex]) ? (
+            <video
+              src={images[currentIndex]}
+              className="lightbox-video"
+              controls
+              playsInline
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            />
+          ) : (
+            <img
+              src={images[currentIndex]}
+              alt={`Gallery image ${currentIndex + 1}`}
+              className="lightbox-image"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              draggable={false}
+            />
+          )}
         </div>
 
         <div className="lightbox-counter">

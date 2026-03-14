@@ -139,27 +139,6 @@
   }
 }
 
-/* 3D Canvas layer entrance */
-.hero-canvas-layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60vw;
-  height: 120vh;
-  z-index: 1;
-  pointer-events: none;
-  will-change: transform, opacity;
-  opacity: 0;
-  transform: translateX(60px) scale(0.95);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
-              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
-}
-
-.hero-canvas-layer.loaded {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-}
-
 .hero-container {
   max-width: 1400px;
   width: 100%;
@@ -224,34 +203,6 @@
   transform: translateY(0);
 }
 
-.hero-canvas-layer canvas {
-  background: transparent !important;
-  pointer-events: auto;
-}
-
-/* Loading spinner */
-.model-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.loader-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Tablet */
 @media (max-width: 1024px) {
   .hero-section {
@@ -276,16 +227,6 @@
 
   .hero-description {
     max-width: 100%;
-  }
-
-  .hero-canvas-layer {
-    position: absolute;
-    width: 100%;
-    height: 50vh;
-    top: auto;
-    bottom: 0;
-    right: 0;
-    left: 0;
   }
 }
 
@@ -318,23 +259,6 @@
     font-size: 0.9rem;
     width: 100%;
     max-width: 280px;
-  }
-
-  /* Place the 3D model visually above the button and center it */
-  .hero-content {
-    padding-bottom: 44vh; /* reserve space for the model above the button */
-  }
-
-  .hero-canvas-layer {
-    position: absolute; /* already absolute from tablet rule */
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 60vh;
-    top: 40vh;
-    bottom: auto; /* override tablet bottom:0 */
-    transform: translateY(-50%);
-    opacity: 0.85;
   }
 }
 

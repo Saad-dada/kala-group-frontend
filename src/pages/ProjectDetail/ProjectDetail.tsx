@@ -5,6 +5,19 @@ import GalleryLightbox from "../../components/GalleryLightbox";
 import type { ScopeOfWork } from "../../types/project";
 import "./project-detail.css";
 
+function extractVideoUrl(value: unknown): string {
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (value && typeof value === "object" && "url" in value) {
+    const url = (value as { url?: unknown }).url;
+    return typeof url === "string" ? url : "";
+  }
+
+  return "";
+}
+
 function getAreaForScope(
   areas: {
     area_internal?: number;
@@ -41,6 +54,11 @@ const typeLabels = {
   industrial: "Industrial",
 };
 
+function isVideoUrl(url: string): boolean {
+  const cleanUrl = url.split("?")[0].toLowerCase();
+  return [".mp4", ".webm", ".ogg", ".mov", ".m4v"].some((ext) => cleanUrl.endsWith(ext));
+}
+
 export default function ProjectDetail() {
   const { slug = "" } = useParams();
   const { data: project, loading, error } = useProject(slug);
@@ -53,6 +71,25 @@ export default function ProjectDetail() {
       return project.gallery_urls;
     }
     return project.featured_image_url ? [project.featured_image_url] : [];
+  }, [project]);
+
+  const videoUrls = useMemo(() => {
+    if (!project) return [] as string[];
+
+    const urlsFromRepeater = (project.acf.videos ?? [])
+      .map((item) => extractVideoUrl(item?.video))
+      .filter(Boolean);
+
+    if (urlsFromRepeater.length > 0) {
+      return urlsFromRepeater;
+    }
+
+    const fallbackUrl = extractVideoUrl(project.acf.video_url ?? project.acf.project_video);
+    if (fallbackUrl) {
+      return [fallbackUrl];
+    }
+
+    return [] as string[];
   }, [project]);
 
   const openLightbox = (index: number) => {
@@ -169,20 +206,58 @@ export default function ProjectDetail() {
           </div>
         </div>
 
+        {videoUrls.length > 0 && (
+          <div className="section-card card-stack gallery-section">
+            <h3 className="section-title">Video</h3>
+            {videoUrls.map((videoUrl, index) => (
+              <div className="project-video-wrap" key={`${videoUrl}-${index}`}>
+                <video className="project-video" controls preload="metadata" playsInline>
+                  <source src={videoUrl} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="section-card card-stack gallery-section">
           <h3 className="section-title">Gallery</h3>
           {galleryImages.length === 0 && <p className="detail-description">No images available.</p>}
           {galleryImages.length > 0 && (
             <div className="gallery-grid">
               {galleryImages.map((img, idx) => (
-                <img
+                <button
                   key={idx}
-                  src={img}
-                  alt={`${title.rendered} ${idx + 1}`}
-                  loading="lazy"
+                  type="button"
+                  className="gallery-item"
                   onClick={() => openLightbox(idx)}
-                  style={{ cursor: 'pointer' }}
-                />
+                  aria-label={`Open media ${idx + 1}`}
+                >
+                  {isVideoUrl(img) ? (
+                    <>
+                      <video
+                        src={img}
+                        className="gallery-item-media"
+                        muted
+                        preload="metadata"
+                        playsInline
+                      />
+                      <span className="gallery-video-badge" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </span>
+                    </>
+                  ) : (
+                    <img
+                      src={img}
+                      alt={`${title.rendered} ${idx + 1}`}
+                      loading="lazy"
+                      className="gallery-item-media"
+                      draggable={false}
+                    />
+                  )}
+                </button>
               ))}
             </div>
           )}
