@@ -144,10 +144,6 @@
   color: #e5e7eb;
 }
 
-.badge.status-awarded { background: rgba(59, 130, 246, 0.18); border-color: rgba(59, 130, 246, 0.4); color: #c7dfff; }
-.badge.status-ongoing { background: rgba(234, 179, 8, 0.22); border-color: rgba(234, 179, 8, 0.4); color: #fef08a; }
-.badge.status-completed { background: rgba(34, 197, 94, 0.18); border-color: rgba(34, 197, 94, 0.35); color: #bbf7d0; }
-
 .detail-body {
   max-width: 1200px;
   margin: 0 auto;
@@ -207,17 +203,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.scope-tag {
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #e5e7eb;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .detail-description {

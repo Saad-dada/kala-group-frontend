@@ -19,6 +19,15 @@ const scopeLabels: Record<ScopeOfWork, string> = {
   other: "Other",
 };
 
+function truncateWords(text: string, limit: number): string {
+  const words = text.trim().split(/\s+/);
+  if (words.length <= limit) {
+    return text;
+  }
+
+  return `${words.slice(0, limit).join(" ")}...`;
+}
+
 function getAreaForScope(project: Project, scope: ScopeOfWork): number | undefined {
   switch (scope) {
     case "internal":
@@ -129,6 +138,17 @@ export default function FeaturedProjects() {
   }
 
   const activeProject = displayProjects[activeIndex];
+  const projectDescription = activeProject?.acf?.tower_details?.description || "Explore this featured project.";
+  const limitedProjectDescription = truncateWords(projectDescription, 50);
+
+  const handleCardClick = (projectIndex: number, projectSlug: string) => {
+    if (projectIndex === activeIndex) {
+      navigate(`/projects/${projectSlug}`);
+      return;
+    }
+
+    setActiveIndex(projectIndex);
+  };
 
   return (
     <section className="featured-section in-view">
@@ -140,7 +160,7 @@ export default function FeaturedProjects() {
         <div className="featured-content">
           <div className="project-info">
             <h3 className="project-name">{activeProject?.title?.rendered || "Untitled Project"}</h3>
-            <p className="project-description">{activeProject?.acf?.tower_details?.description || "Explore this featured project."}</p>
+            <p className="project-description">{limitedProjectDescription}</p>
 
             <div className="project-meta-row">
               <span className={`badge status-${activeProject.acf.project_status}`}>{activeProject.acf.project_status}</span>
@@ -172,9 +192,6 @@ export default function FeaturedProjects() {
                 })}
               </div>
             )}
-            <button className="btn btn--primary" onClick={() => navigate(`/projects/${activeProject.slug}`)}>
-              View Project
-            </button>
           </div>
 
           <div
@@ -192,7 +209,7 @@ export default function FeaturedProjects() {
                     index === activeIndex ? "active" : ""
                   }`}
                   style={getCardStyle(index)}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => handleCardClick(index, project.slug)}
                 >
                   <div className="card-image">
                     <img

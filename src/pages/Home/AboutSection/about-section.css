@@ -1,6 +1,6 @@
 .about-section {
   min-height: 100vh;
-  background: #0a0a0a;
+  background: #e8ecf2;
   padding: 120px 0 80px;
   position: relative;
   overflow: hidden;
@@ -25,7 +25,7 @@
 .about-header {
   font-size: 2rem;
   font-weight: 500;
-  color: #94a3b8;
+  color: #475569;
   margin: 0 0 20px 0;
   letter-spacing: 0.05em;
 }
@@ -38,7 +38,7 @@
 .about-title {
   font-size: clamp(2.25rem, 4vw, 3.5rem);
   font-weight: 700;
-  color: #f8fafc;
+  color: #0f172a;
   line-height: 1.2;
   margin: 0 0 28px 0;
   letter-spacing: -0.02em;
@@ -46,7 +46,7 @@
 
 .about-description {
   font-size: 1rem;
-  color: rgba(148, 163, 184, 0.9);
+  color: #334155;
   line-height: 1.8;
   margin: 0 0 36px 0;
 }
@@ -65,8 +65,8 @@
   height: 100%;
   border-radius: 200px 200px 0 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+  box-shadow: 0 16px 44px rgba(51, 65, 85, 0.22);
 }
 
 .about-building-image {
@@ -90,77 +90,36 @@
 
 .stat-card {
   position: relative;
-  height: 280px;
-  border-radius: 20px;
+  min-height: 210px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  cursor: pointer;
+  border: 1px solid rgba(100, 116, 139, 0.25);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(20, 20, 20, 0.6);
-  backdrop-filter: blur(10px);
-}
-
-.stat-card-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s ease;
-  opacity: 0.8;
-  background-color: var(--stat-card-color);
-  background-blend-mode: overlay;
-}
-
-.stat-card:hover .stat-card-bg {
-  transform: scale(1.08);
-  opacity: 0.9;
-}
-
-.stat-card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 10, 10, 0.3) 0%,
-    rgba(10, 10, 10, 0.85) 60%,
-    rgba(10, 10, 10, 0.95) 100%
-  );
-  transition: background 0.3s ease;
-}
-
-.stat-card:hover .stat-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(10, 10, 10, 0.2) 0%,
-    rgba(10, 10, 10, 0.8) 60%,
-    rgba(10, 10, 10, 0.92) 100%
-  );
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  box-shadow: 0 10px 26px rgba(30, 41, 59, 0.18);
 }
 
 .stat-card-content {
   position: relative;
-  z-index: 2;
-  padding: 24px 28px;
+  padding: 24px;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-copy {
+  min-width: 0;
 }
 
 .stat-number {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 2.6vw, 3rem);
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 6px 0;
+  color: #dbeafe;
+  margin: 0 0 8px 0;
   line-height: 1;
   letter-spacing: -0.02em;
-  transition: transform 0.3s ease;
 }
 
 .stat-number.animated {
@@ -178,39 +137,45 @@
   }
 }
 
-.stat-card:hover .stat-number {
-  transform: translateY(-2px);
-}
-
 .stat-label {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  color: rgba(241, 245, 249, 0.96);
   margin: 0;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.4;
 }
 
-.stat-arrow {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 36px;
-  height: 36px;
+.stat-icon-wrap {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s ease;
-  z-index: 3;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  color: rgba(248, 250, 252, 0.95);
+  background: rgba(241, 245, 249, 0.14);
+  border: 1px solid rgba(241, 245, 249, 0.26);
 }
 
-.stat-card:hover .stat-arrow {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translate(3px, -3px);
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(30, 41, 59, 0.24);
+}
+
+.tone-slate { background: linear-gradient(135deg, #64748b 0%, #475569 100%); }
+.tone-indigo { background: linear-gradient(135deg, #5d6b84 0%, #4b556b 100%); }
+.tone-blue { background: linear-gradient(135deg, #5b728a 0%, #475569 100%); }
+.tone-rose { background: linear-gradient(135deg, #7b5f74 0%, #66506b 100%); }
+.tone-amber { background: linear-gradient(135deg, #7d6a57 0%, #685946 100%); }
+.tone-teal { background: linear-gradient(135deg, #5a7571 0%, #4a6661 100%); }
+.tone-cyan { background: linear-gradient(135deg, #5a7480 0%, #4a616d 100%); }
+.tone-violet { background: linear-gradient(135deg, #6e6688 0%, #5b5674 100%); }
+
+@media (max-width: 1200px) {
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Entrance animations removed — use global animation utilities if needed */
@@ -260,27 +225,21 @@
   }
 
   .stat-card {
-    height: 220px;
+    min-height: 190px;
   }
 
   .stat-number {
-    font-size: 2.75rem;
+    font-size: 2.35rem;
   }
 
   .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
-  .stat-arrow {
-    width: 32px;
-    height: 32px;
-    top: 16px;
-    right: 16px;
-  }
-
-  .stat-arrow svg {
-    width: 18px;
-    height: 18px;
+  .stat-icon-wrap {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
   }
 }
 
@@ -332,31 +291,25 @@
   }
 
   .stat-card {
-    height: 180px;
+    min-height: 165px;
   }
 
   .stat-number {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.86rem;
   }
 
   .stat-card-content {
-    padding: 20px 24px;
+    padding: 16px;
   }
 
-  .stat-arrow {
-    width: 30px;
-    height: 30px;
-    top: 14px;
-    right: 14px;
-  }
-
-  .stat-arrow svg {
-    width: 16px;
-    height: 16px;
+  .stat-icon-wrap {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
   }
 }
 
@@ -371,14 +324,14 @@
   }
 
   .stat-card {
-    height: 180px;
+    min-height: 160px;
   }
 
   .stat-number {
-    font-size: 2.25rem;
+    font-size: 1.8rem;
   }
 
   .stat-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }

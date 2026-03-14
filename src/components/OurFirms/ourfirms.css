@@ -1,5 +1,6 @@
 .our-firms-section {
     padding: 48px 0;
+    background: #e2e8f0;
 }
 
 .our-firms-container {
@@ -14,13 +15,13 @@
 
 .our-firms-title {
     font-size: 1.75rem;
-    color: #ffffff;
+    color: #0f172a;
     margin: 0 0 6px 0;
     text-align: center;
 }
 
 .our-firms-lede {
-    color: #dbe8f0;
+    color: #475569;
     margin: 0 0 18px 0;
 }
 

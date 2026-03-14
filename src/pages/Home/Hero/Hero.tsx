@@ -73,9 +73,7 @@ export default function Hero() {
             }}
           >
             <h1 className="hero-title hero-animate">
-              Where Vision
-              <br />
-              Becomes Structure
+              Bringing Colour, Quality & Perfection to Every Space.
             </h1>
             <p className="hero-description hero-animate hero-delay-1">
               Thoughtfully designed residential and commercial projects shaped by

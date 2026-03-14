@@ -5,51 +5,138 @@ import { useNavigate } from "react-router-dom";
 type Stat = {
   number: string;
   label: string;
-  image: string;
+  tone: string;
+  icon: "experience" | "apartments" | "projects" | "internal-inhand" | "internal-done" | "external-inhand" | "external-done" | "clientele";
 };
 
 const statsData: Stat[] = [
     {
       number: "11+",
       label: "Years of Experience",
-      image: "linear-gradient(135deg, #1f2937, #0f172a)",
+      tone: "tone-slate",
+      icon: "experience",
     },
     {
       number: "15k+",
       label: "Apartments Handed Over",
-      image: "linear-gradient(135deg, #172554, #0b1224)",
+      tone: "tone-indigo",
+      icon: "apartments",
     },
     {
       number: "200+",
       label: "Projects Completed",
-      image: "linear-gradient(135deg, #1c1917, #0f0a0a)",
+      tone: "tone-blue",
+      icon: "projects",
     },
     {
       number: "1.8 Cr sqft",
       label: "Internal Painting (In Hand)",
-      image: "linear-gradient(135deg, #1b1d2e, #0f1624)",
+      tone: "tone-rose",
+      icon: "internal-inhand",
     },
     {
       number: "2 Cr sqft",
       label: "Internal Painting (Handed Over)",
-      image: "linear-gradient(135deg, #2a1b1f, #12090d)",
+      tone: "tone-amber",
+      icon: "internal-done",
     },
     {
       number: "1 Cr sqft",
       label: "External Painting (In Hand)",
-      image: "linear-gradient(135deg, #0f1e1a, #07100c)",
+      tone: "tone-teal",
+      icon: "external-inhand",
     },
     {
       number: "1 Cr sqft",
       label: "External Painting (Handed Over)",
-      image: "linear-gradient(135deg, #1e1a0f, #0f0c07)",
+      tone: "tone-cyan",
+      icon: "external-done",
     },
     {
       number: "30+",
       label: "Clientele",
-      image: "linear-gradient(135deg, #231f4a, #0f0c1f)",
+      tone: "tone-violet",
+      icon: "clientele",
     },
   ];
+
+function StatIcon({ icon }: { icon: Stat["icon"] }) {
+  const commonProps = {
+    width: 42,
+    height: 42,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": true,
+  };
+
+  if (icon === "experience") {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 2L14.9 8.1L21.6 9L16.8 13.5L18 20L12 16.7L6 20L7.2 13.5L2.4 9L9.1 8.1L12 2Z" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    );
+  }
+
+  if (icon === "apartments") {
+    return (
+      <svg {...commonProps}>
+        <path d="M4 21V5.5C4 4.67 4.67 4 5.5 4H12V21M12 9H8M12 13H8M12 17H8M12 6H8M12 21H20V10H16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "projects") {
+    return (
+      <svg {...commonProps}>
+        <path d="M8 4V8M16 4V8M4 11H20M7 2H17C18.1 2 19 2.9 19 4V20C19 21.1 18.1 22 17 22H7C5.9 22 5 21.1 5 20V4C5 2.9 5.9 2 7 2Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "internal-inhand") {
+    return (
+      <svg {...commonProps}>
+        <path d="M3 17L10 10L14 14L7 21H3V17ZM12.6 7.4L14.7 5.3C15.5 4.5 16.8 4.5 17.6 5.3L18.7 6.4C19.5 7.2 19.5 8.5 18.7 9.3L16.6 11.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "internal-done") {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 2L4 5V11C4 16 7.4 20.7 12 22C16.6 20.7 20 16 20 11V5L12 2Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+        <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "external-inhand") {
+    return (
+      <svg {...commonProps}>
+        <path d="M3 20H21M5 20V9L12 4L19 9V20M9 20V14H15V20" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "external-done") {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5C7.58 5 4 8.58 4 13C4 17.42 7.58 21 12 21Z" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M12 13V9" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M12 13L15 14.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M8 4L10 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M16 4L14 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...commonProps}>
+      <path d="M17 21V19C17 16.79 14.76 15 12 15C9.24 15 7 16.79 7 19V21M12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM4 21V19C4 17.67 4.65 16.47 5.7 15.68M20 21V19C20 17.67 19.35 16.47 18.3 15.68" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 function parseNumber(value: string) {
   const match = value.match(/([0-9]*\.?[0-9]+)/);
@@ -73,8 +160,13 @@ function easeOutCubic(t: number) {
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasStartedCount, setHasStartedCount] = useState(false);
   const [animatedNumbers, setAnimatedNumbers] = useState<string[]>(() =>
-    statsData.map((stat) => stat.number)
+    statsData.map((stat) => {
+      const parsed = parseNumber(stat.number);
+      if (parsed.numeric === 0) return parsed.base;
+      return formatAnimated(0, parsed.decimals, parsed.suffix);
+    })
   );
     const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,14 +178,19 @@ export default function AboutSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+
+          if (entry.intersectionRatio >= 0.45) {
+            setHasStartedCount(true);
+            observer.disconnect();
+          }
         }
       },
-      { threshold: 0.1 }
+      { threshold: [0.1, 0.45] }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
-    }
+    } 
 
     return () => {
       if (sectionRef.current) {
@@ -103,7 +200,7 @@ export default function AboutSection() {
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!hasStartedCount) return;
 
     const start = performance.now();
     const duration = 1200;
@@ -129,7 +226,7 @@ export default function AboutSection() {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [isVisible, stats]);
+  }, [hasStartedCount, stats]);
 
   return (
     <section
@@ -172,30 +269,16 @@ export default function AboutSection() {
             {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className={`stat-card`}
+              className={`stat-card ${stat.tone}`}
             >
-              <div className="stat-card-bg" />
-              <div className="stat-card-overlay" />
               <div className="stat-card-content">
-                <h3 className="stat-number animated">{animatedNumbers[index]}</h3>
-                <p className="stat-label">{stat.label}</p>
-              </div>
-              <div className="stat-arrow">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7 17L17 7M17 7H7M17 7V17"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <div className="stat-copy">
+                  <h3 className={`stat-number ${hasStartedCount ? "animated" : ""}`}>{animatedNumbers[index]}</h3>
+                  <p className="stat-label">{stat.label}</p>
+                </div>
+                <div className="stat-icon-wrap">
+                  <StatIcon icon={stat.icon} />
+                </div>
               </div>
             </div>
           ))}
