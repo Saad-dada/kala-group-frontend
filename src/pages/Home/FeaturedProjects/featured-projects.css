@@ -354,7 +354,7 @@
   }
 
   .featured-container {
-    padding: 60px 20px 40px;
+    padding: 24px 12px;
   }
 
   .featured-title {
@@ -403,12 +403,10 @@
   }
 
   .card-title {
-    font-size: 0.75rem;
     padding: 8px 10px;
   }
 
   .carousel-card.active .card-title {
-    font-size: 0.85rem;
     padding: 10px 12px;
   }
 

@@ -77,13 +77,24 @@
 }
 
 @media (max-width: 768px) {
+  .new-sites-section {
+    padding-top: 20px;
+    padding-bottom: 24px;
+  }
+
   .new-sites-container {
     padding: 0 20px;
   }
 
   .new-sites-shell {
     border-radius: 18px;
-    padding: 18px;
+    padding: 16px;
+    box-shadow: 0 10px 24px rgba(51, 65, 85, 0.12);
+  }
+
+  .new-sites-header {
+    gap: 10px;
+    margin-bottom: 14px;
   }
 
   .new-sites-title {
@@ -92,9 +103,66 @@
 
   .new-sites-subtitle {
     font-size: 0.92rem;
+    line-height: 1.45;
+    margin-top: 6px;
   }
 
   .new-sites-grid {
-    gap: 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+
+  .new-sites-header .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .new-sites-grid .project-card {
+    height: 340px;
+    border-radius: 14px;
+  }
+
+  .new-sites-grid .project-image {
+    height: 180px;
+  }
+
+  .new-sites-grid .card-body {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .new-sites-grid .card-meta {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .new-sites-state {
+    padding: 24px 12px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .new-sites-container {
+    padding: 0 16px;
+  }
+
+  .new-sites-shell {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .new-sites-title {
+    font-size: 1.35rem;
+  }
+
+  .new-sites-grid .project-card {
+    height: 320px;
+  }
+
+  .new-sites-grid .project-image {
+    height: 168px;
   }
 }

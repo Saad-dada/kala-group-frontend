@@ -245,7 +245,7 @@
 /* ========== Mobile ========== */
 @media (max-width: 640px) {
   .about-section {
-    padding: 60px 0 40px;
+    padding: 20px 0 40px;
   }
 
   .about-container {

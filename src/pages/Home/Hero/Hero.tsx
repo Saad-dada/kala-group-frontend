@@ -6,6 +6,7 @@ export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isCubeFlippedMobile, setIsCubeFlippedMobile] = useState(false);
   const navigate = useNavigate();
 
   const goToProjects = () => navigate("/projects");
@@ -49,6 +50,20 @@ export default function Hero() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) {
+      setIsCubeFlippedMobile(false);
+    }
+  }, [isMobile]);
+
+  const handleCubeActivate = () => {
+    if (isMobile && !isCubeFlippedMobile) {
+      setIsCubeFlippedMobile(true);
+      return;
+    }
+    goToProjects();
+  };
+
   // ──────────────────────────────────────────────────────────────────────
   // RENDER
   // ──────────────────────────────────────────────────────────────────────
@@ -88,17 +103,17 @@ export default function Hero() {
 
           <div className="hero-cube-zone hero-animate hero-delay-2" aria-label="Project highlights">
             <div
-              className="hero-cube-container"
+              className={`hero-cube-container ${isCubeFlippedMobile ? "mobile-flipped" : ""}`}
               role="link"
               tabIndex={0}
-              onClick={goToProjects}
+              onClick={handleCubeActivate}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
-                  goToProjects();
+                  handleCubeActivate();
                 }
               }}
-              aria-label="View projects"
+              aria-label={isMobile && !isCubeFlippedMobile ? "Tap once to preview project details, tap again to view projects" : "View projects"}
             >
               <div className="hero-photo-cube">
                 <img className="front" src="/images/projects/project1.jpg" alt="Kala Group project showcase" />
