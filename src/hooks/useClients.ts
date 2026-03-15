@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Client } from "../types/client";
 
-const API_BASE_URL = "https://cms.kalagroup.webcult.in/wp-json/wp/v2";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function useClients() {
   const [data, setData] = useState<Client[]>([]);

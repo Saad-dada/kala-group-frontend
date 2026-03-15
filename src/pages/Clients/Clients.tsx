@@ -1,6 +1,7 @@
 import './clients.css';
 import { useClients } from '../../hooks/useClients';
 import type { Client } from '../../types/client';
+import { Link } from 'react-router-dom';
 
 export default function Clients() {
   const { data, loading, error } = useClients();
@@ -35,9 +36,9 @@ export default function Clients() {
               {data.map((c: Client) => {
                 const img = getImageUrl(c);
                 return (
-                  <div className="client-tile" key={c.id}>
+                  <Link className="client-tile" key={c.id} to={`/projects?builder=${encodeURIComponent(c.slug)}`}>
                     {img ? <img src={img} alt={(c.title?.rendered ?? 'client').replace(/<[^>]*>/g, '')} /> : <div className="client-placeholder" />}
-                  </div>
+                  </Link>
                 );
               })}
             </div>

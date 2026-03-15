@@ -1,0 +1,73 @@
+.home-counters-section {
+  background: #e6ecf3;
+}
+
+.home-counters-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.home-counters-eyebrow {
+  margin: 0;
+  color: #ef4444;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+}
+
+.home-counters-container h2 {
+  margin: 8px 0 20px;
+  color: #0f172a;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+}
+
+.home-counters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-counter-card {
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: linear-gradient(145deg, #516179 0%, #2f3f57 100%);
+  box-shadow: 0 10px 24px rgba(30, 41, 59, 0.18);
+  padding: 20px;
+}
+
+.home-counter-number {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.home-counter-label {
+  margin: 8px 0 0;
+  color: rgba(226, 232, 240, 0.95);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 1024px) {
+  .home-counters-container {
+    padding: 0 40px;
+  }
+
+  .home-counters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .home-counters-container {
+    padding: 0 20px;
+  }
+
+  .home-counters-grid {
+    grid-template-columns: 1fr;
+  }
+}

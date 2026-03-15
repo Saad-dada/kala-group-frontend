@@ -59,6 +59,26 @@ function isVideoUrl(url: string): boolean {
   return [".mp4", ".webm", ".ogg", ".mov", ".m4v"].some((ext) => cleanUrl.endsWith(ext));
 }
 
+function formatBuilderName(builder?: string) {
+  if (!builder) {
+    return "";
+  }
+
+  const normalized = builder.trim();
+  if (!normalized) {
+    return "";
+  }
+
+  const [namePart, slugPart] = normalized.split(":").map((part) => part.trim());
+  const source = namePart || slugPart || normalized;
+
+  return source
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 export default function ProjectDetail() {
   const { slug = "" } = useParams();
   const { data: project, loading, error } = useProject(slug);
@@ -127,6 +147,7 @@ export default function ProjectDetail() {
   }
 
   const { acf, title, featured_image_url } = project;
+  const builderName = formatBuilderName(acf.builder);
 
   return (
     <main className="project-detail-page">
@@ -182,6 +203,14 @@ export default function ProjectDetail() {
               </svg>
               <span style={{ textTransform: "capitalize" }}>{acf.project_status}</span>
             </div>
+            {builderName && (
+              <div className="meta-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" />
+                </svg>
+                <span>{builderName}</span>
+              </div>
+            )}
           </div>
 
           {acf.tower_details.description && (

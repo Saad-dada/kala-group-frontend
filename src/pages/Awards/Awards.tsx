@@ -1,8 +1,87 @@
 import "./awards.css";
+import { useMemo, type MouseEvent } from "react";
 import { useAwards } from "../../hooks/useAwards";
+
+function getAwardYearSortValue(yearText?: string): number | null {
+  if (!yearText) {
+    return null;
+  }
+
+  const normalized = yearText.trim();
+  if (!normalized) {
+    return null;
+  }
+
+  const fourDigitYears = normalized.match(/\b(19|20)\d{2}\b/g);
+  if (fourDigitYears && fourDigitYears.length > 0) {
+    const parsedYears = fourDigitYears
+      .map((year) => Number.parseInt(year, 10))
+      .filter((year) => Number.isFinite(year));
+
+    if (parsedYears.length > 0) {
+      return Math.max(...parsedYears);
+    }
+  }
+
+  const twoDigitYears = normalized.match(/\b\d{2}\b/g);
+  if (twoDigitYears && twoDigitYears.length > 0) {
+    const parsedYears = twoDigitYears
+      .map((year) => Number.parseInt(year, 10))
+      .filter((year) => Number.isFinite(year))
+      .map((year) => (year <= 50 ? 2000 + year : 1900 + year));
+
+    if (parsedYears.length > 0) {
+      return Math.max(...parsedYears);
+    }
+  }
+
+  return null;
+}
 
 export default function Awards() {
   const { data: awardsData, loading: awardsLoading, error: awardsError } = useAwards();
+
+  const handleAwardImageMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    const container = event.currentTarget;
+    const rect = container.getBoundingClientRect();
+
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    container.style.setProperty("--zoom-x", `${x}%`);
+    container.style.setProperty("--zoom-y", `${y}%`);
+  };
+
+  const handleAwardImageMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
+    const container = event.currentTarget;
+    container.style.setProperty("--zoom-x", "50%");
+    container.style.setProperty("--zoom-y", "50%");
+  };
+
+  const sortedAwards = useMemo(() => {
+    return [...awardsData].sort((a, b) => {
+      const aYear = getAwardYearSortValue(a.acf?.year);
+      const bYear = getAwardYearSortValue(b.acf?.year);
+
+      if (aYear === null && bYear === null) {
+        return b.id - a.id;
+      }
+
+      if (aYear === null) {
+        return 1;
+      }
+
+      if (bYear === null) {
+        return -1;
+      }
+
+      if (aYear !== bYear) {
+        return bYear - aYear;
+      }
+
+      return b.id - a.id;
+    });
+  }, [awardsData]);
 
   return (
     <main className="site-main awards-page">
@@ -27,10 +106,14 @@ export default function Awards() {
             <div className="error-state">Failed to load awards</div>
           ) : (
             <div className="awards-showcase">
-              {awardsData.map((award) => (
+              {sortedAwards.map((award) => (
                 <div key={award.id} className="award-showcase-card">
                   {award._embedded?.['wp:featuredmedia']?.[0] && (
-                    <div className="award-showcase-image">
+                    <div
+                      className="award-showcase-image"
+                      onMouseMove={handleAwardImageMouseMove}
+                      onMouseLeave={handleAwardImageMouseLeave}
+                    >
                       <img
                         src={award._embedded['wp:featuredmedia'][0].source_url}
                         alt={award._embedded['wp:featuredmedia'][0].alt_text || award.title.rendered}

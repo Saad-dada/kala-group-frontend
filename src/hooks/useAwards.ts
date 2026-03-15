@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Award } from "../types/award";
 
-const API_BASE_URL = "https://cms.kalagroup.webcult.in/wp-json/wp/v2";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function useAwards() {
   const [data, setData] = useState<Award[]>([]);

@@ -2,19 +2,20 @@ import "./about.css";
 import { useTeam } from "../../hooks/useTeam";
 import type { TeamMember } from "../../types/team";
 import { Link } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const progressStats = [
-  { value: "11+ years", label: "Building services across Mumbai with a customer-first mindset" },
-  { value: "200+ projects", label: "Residential, commercial, restoration, and large-format painting" },
-  { value: "30+ clientele", label: "Developers, societies, corporates, and institutional partners" },
-  { value: "18 Cr revenue", label: "Scaled from 0.4 Cr in our first year of operations" },
+  { value: "11+ years", label: "Years of Experience" },
+  { value: "15k+", label: "Apartments Handed Over" },
+  { value: "200+", label: "Projects Completed" },
+  { value: "30+", label: "Clientele" },
 ];
 
 const deliveryStats = [
-  { value: "1.8 Cr sq.ft", label: "Internal painting currently in hand" },
-  { value: "2 Cr sq.ft", label: "Internal painting delivered" },
-  { value: "1 Cr sq.ft", label: "External painting currently in hand" },
-  { value: "1 Cr sq.ft", label: "External painting delivered" },
+  { value: "1.8 Cr sq.ft", label: "Internal Painting (In Hand)" },
+  { value: "2 Cr sq.ft", label: "Internal Painting (Handed Over)" },
+  { value: "1 Cr sq.ft", label: "External Painting (In Hand)" },
+  { value: "1 Cr sq.ft", label: "External Painting (Handed Over)" },
 ];
 
 const brandPartners = [
@@ -33,6 +34,36 @@ function formatLabel(key: string) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function parseCountValue(value: string) {
+  const match = value.match(/([0-9]*\.?[0-9]+)/);
+  if (!match) {
+    return null;
+  }
+
+  const numericText = match[1];
+  const numeric = Number.parseFloat(numericText);
+  if (!Number.isFinite(numeric)) {
+    return null;
+  }
+
+  const decimals = numericText.includes(".") ? numericText.split(".")[1].length : 0;
+  const index = match.index ?? value.indexOf(numericText);
+  const prefix = value.slice(0, index).trim();
+  const suffix = value.slice(index + numericText.length).trim();
+
+  return { numeric, decimals, prefix, suffix };
+}
+
+function formatCountValue(amount: number, decimals: number, prefix: string, suffix: string) {
+  const formatted = decimals > 0 ? amount.toFixed(decimals) : Math.round(amount).toString();
+  const parts = [prefix, formatted, suffix].filter(Boolean);
+  return parts.join(" ");
+}
+
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 function mapTeamMember(member: TeamMember) {
   const name = typeof member.title === "object" && member.title?.rendered ? member.title.rendered : "";
   // Fix: get post from member.acf.post
@@ -49,6 +80,78 @@ function mapTeamMember(member: TeamMember) {
 
 export default function About() {
   const { data: teamData, loading: teamLoading, error: teamError } = useTeam();
+  const progressSectionRef = useRef<HTMLElement>(null);
+  const [startProgressCount, setStartProgressCount] = useState(false);
+
+  const parsedDeliveryStats = useMemo(
+    () => deliveryStats.map((item) => parseCountValue(item.value)),
+    []
+  );
+
+  const [animatedDeliveryValues, setAnimatedDeliveryValues] = useState<string[]>(() =>
+    deliveryStats.map((item, index) => {
+      const parsed = parsedDeliveryStats[index];
+      if (!parsed) {
+        return item.value;
+      }
+      return formatCountValue(0, parsed.decimals, parsed.prefix, parsed.suffix);
+    })
+  );
+
+  useEffect(() => {
+    const section = progressSectionRef.current;
+    if (!section) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          setStartProgressCount(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: [0.2, 0.35] }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!startProgressCount) {
+      return;
+    }
+
+    const start = performance.now();
+    const duration = 1200;
+    let frameId = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = easeOutCubic(progress);
+
+      setAnimatedDeliveryValues(
+        deliveryStats.map((item, index) => {
+          const parsed = parsedDeliveryStats[index];
+          if (!parsed) {
+            return item.value;
+          }
+
+          const current = parsed.numeric * eased;
+          return formatCountValue(current, parsed.decimals, parsed.prefix, parsed.suffix);
+        })
+      );
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [startProgressCount, parsedDeliveryStats]);
 
   return (
     <main className="site-main about-page">
@@ -58,24 +161,21 @@ export default function About() {
           <div className="about-hero-grid">
             <div className="about-hero-copy">
               <h1 className="about-headline">
-                Resourceful. Reliable.
+                Resourceful.
                 <br />
-                Refined
+                Reliable. Refined
               </h1>
               <p className="about-lede">
-                We are a professional painting and surface-finishing contracting firm, based in Mumbai, specializing in high-rise, façade, and large-scale interior &amp; exterior painting works. With disciplined execution, skilled manpower, and proven systems, we deliver durable finishes, clean handovers, and on-time completion—even on the most complex sites. 
-                <br />
-                We are among the very few painting contracting firms in the industry to operate on a fully integrated <strong>ERP</strong> system—bringing structure, transparency, and control to every stage of execution.
+                A New Generation firm with a core focus on building activities, at kala we strive for customer satisfaction, without compromising on the quality of our work and structures. We hold an unmatched reputation for perfection, which is backed up by our proven track record: quality, expertise, workmanship, service, competence, and reliability to deliver our impressive portfolio of clients/projects.
               </p>
               <div className="hero-meta">
-                <span>Founded 2014-15</span>
-                <span>18 Cr annual revenue</span>
-                <span>Mumbai & Western India footprint</span>
+                <span>Founded in 2014-15</span>
+                <span>22+ CR annual revene</span>
+                <span>11+ yrs of exp</span>
               </div>
               <div className="about-pills">
-                <span>Customer-first delivery</span>
-                <span>Quality without compromise</span>
-                <span>Proven multi-discipline track record</span>
+                <span>40+CR revenue including trading</span>
+                <span>End to end finiishing services</span>
               </div>
             </div>
             <div className="about-hero-media">
@@ -94,10 +194,9 @@ export default function About() {
       <section className="about-story site-section">
         <div className="about-section-header">
           <p className="about-eyebrow">Who we are</p>
-          <h2>Delivering excellence across every stroke.</h2>
+          <h2>Delivering scale with systems, safety, and consistency.</h2>
           <p className="about-body">
-            We operate with a strong in-house infrastructure, including over 65 company-owned cradles (RSP systems), enabling us to execute high-rise and façade painting works safely, efficiently, and without reliance on external resources.
-Our operations are further supported by dedicated in-house technicians and fully equipped workshops for routine maintenance and servicing, ensuring optimal equipment performance, minimal downtime, and uninterrupted site execution.
+            With 11+ years of execution experience, 15k+ apartments handed over, and 200+ projects completed, Kala Group has built a dependable delivery model for residential, commercial, and large-format painting works. Our customer-first approach and disciplined site systems help us maintain quality, transparency, and predictable outcomes across every stage of execution.
           </p>
         </div>
         <div className="about-grid">
@@ -112,49 +211,49 @@ Our operations are further supported by dedicated in-house technicians and fully
 
       <section className="about-turnover site-section">
         <div className="about-section-header">
-          <p className="about-eyebrow">Annual turnover</p>
-          <h2>Scaling steadily since inception.</h2>
+          <p className="about-eyebrow">Revenue profile</p>
+          <h2>Built on consistent growth and delivery confidence.</h2>
           <p className="about-body">
-            From a 0.4 Cr first-year turnover to an 18 Cr business today, Kala has compounded
-            growth through disciplined delivery, a loyal client base, and expanding project
-            complexity across Mumbai.
+            Kala Group currently operates at 22+ Cr annual revenue, with 40+ Cr combined revenue
+            including trading. This growth is supported by long-term client trust, repeat business,
+            and disciplined execution capability across complex high-rise and finishing projects.
           </p>
         </div>
         <div className="turnover-track">
           <div className="turnover-node">
             <p className="turnover-year">2014-15</p>
-            <p className="turnover-value">0.4 Cr</p>
-            <p className="turnover-note">First-year revenue</p>
+            <p className="turnover-value">Founded</p>
+            <p className="turnover-note">Beginning of operations</p>
           </div>
           <div className="turnover-connector" aria-hidden="true" />
           <div className="turnover-node">
-            <p className="turnover-year">Today</p>
-            <p className="turnover-value">18 Cr</p>
-            <p className="turnover-note">Driven by disciplined execution</p>
+            <p className="turnover-year">Annual revenue</p>
+            <p className="turnover-value">22+ Cr</p>
+            <p className="turnover-note">Core operations</p>
           </div>
           <div className="turnover-connector" aria-hidden="true" />
           <div className="turnover-node">
-            <p className="turnover-year">Growth</p>
-            <p className="turnover-value">+17.6 Cr</p>
-            <p className="turnover-note">Over eight years of expansion</p>
+            <p className="turnover-year">Total revenue</p>
+            <p className="turnover-value">40+ Cr</p>
+            <p className="turnover-note">Including trading</p>
           </div>
         </div>
       </section>
 
-      <section className="about-progress site-section">
+      <section ref={progressSectionRef} className="about-progress site-section">
         <div className="about-section-header">
           <p className="about-eyebrow">Progress & work experience</p>
-          <h2>Scale, volume, and repeatability.</h2>
+          <h2>Execution depth across internal and external works.</h2>
           <p className="about-body">
-            Our field teams deliver large-format painting and restoration at pace, balancing safety,
-            finish, and schedule discipline. Below is a snapshot of current work in hand and
-            recently delivered scope.
+            Our teams execute end-to-end finishing services with measurable output at scale.
+            The figures below reflect current in-hand and delivered internal/external painting
+            footprints that define our project execution capability.
           </p>
         </div>
         <div className="about-grid">
-          {deliveryStats.map((item) => (
+          {deliveryStats.map((item, index) => (
             <div key={item.value} className="about-tile about-tile-accent">
-              <p className="tile-value">{item.value}</p>
+              <p className="tile-value">{animatedDeliveryValues[index]}</p>
               <p className="tile-label">{item.label}</p>
             </div>
           ))}

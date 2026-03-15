@@ -8,6 +8,8 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const goToProjects = () => navigate("/projects");
+
   // ──────────────────────────────────────────────────────────────────────
   // INITIALIZATION & ANIMATIONS
   // ──────────────────────────────────────────────────────────────────────
@@ -82,6 +84,48 @@ export default function Hero() {
             <button className="btn btn--primary" onClick={() => navigate("/projects")}>
               Explore Projects
             </button>
+          </div>
+
+          <div className="hero-cube-zone hero-animate hero-delay-2" aria-label="Project highlights">
+            <div
+              className="hero-cube-container"
+              role="link"
+              tabIndex={0}
+              onClick={goToProjects}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  goToProjects();
+                }
+              }}
+              aria-label="View projects"
+            >
+              <div className="hero-photo-cube">
+                <img className="front" src="/images/projects/project1.jpg" alt="Kala Group project showcase" />
+                <div className="back hero-photo-desc">
+                  <div className="hero-photo-copy">
+                    <h3>Projects You Can Trust</h3>
+                    <p>
+                      Friendly teams, safety-first execution, and lasting paint finishes for homes,
+                      towers, and commercial spaces.
+                    </p>
+                    <a
+                      className="hero-cube-button"
+                      href="/projects"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goToProjects();
+                      }}
+                    >
+                      View Work
+                    </a>
+                  </div>
+                  <span className="hero-photo-dot" aria-hidden="true" />
+                </div>
+                <img className="left" src="/images/projects/project2.jpg" alt="High-rise painting work" />
+                <img className="right" src="/images/projects/project3.jpg" alt="Interior quality finish" />
+              </div>
+            </div>
           </div>
         </div>
       </section>

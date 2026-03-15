@@ -162,6 +162,174 @@
   z-index: 2;
 }
 
+.hero-cube-zone {
+  flex: 0 0 330px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-cube-container {
+  width: 300px;
+  height: 300px;
+  perspective: 900px;
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.28);
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.hero-cube-container:focus-visible {
+  outline: 3px solid rgba(51, 65, 85, 0.55);
+  outline-offset: 4px;
+}
+
+.hero-photo-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.2s ease;
+}
+
+.hero-cube-container:hover .hero-photo-cube {
+  transform: rotateY(-270deg);
+}
+
+.hero-photo-cube .front,
+.hero-photo-cube .back,
+.hero-photo-cube .left,
+.hero-photo-cube .right {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.hero-photo-cube img {
+  object-fit: cover;
+}
+
+.hero-photo-cube .front {
+  transform: translateZ(150px);
+}
+
+.hero-photo-cube .back {
+  transform: translateZ(-150px) rotateY(270deg);
+  transform-origin: center left;
+}
+
+.hero-photo-cube .left {
+  transform: rotateY(-270deg) translateX(150px);
+  transform-origin: top right;
+}
+
+.hero-photo-cube .right {
+  transform: translateZ(-150px) rotateY(180deg);
+}
+
+.hero-photo-desc {
+  background: linear-gradient(165deg, rgba(15, 30, 61, 0.95) 0%, rgba(17, 33, 61, 0.97) 100%);
+  color: #f8fafc;
+  padding: 28px 24px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-photo-desc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 30%, rgba(0, 0, 0, 0.06) 100%);
+  z-index: -2;
+}
+
+.hero-photo-desc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.05) 0%, transparent 42%);
+  z-index: -1;
+}
+
+.hero-photo-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.hero-photo-desc h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.hero-photo-desc p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(241, 245, 249, 0.92);
+  max-width: 240px;
+}
+
+.hero-cube-button {
+  margin-top: 2px;
+  width: fit-content;
+  border: none;
+  border-radius: 14px;
+  padding: 9px 18px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #f1f5f9;
+  background: rgba(71, 90, 122, 0.9);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.hero-cube-button:hover {
+  background: rgba(99, 122, 161, 0.95);
+  transform: translateY(-1px);
+}
+
+.hero-photo-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e7e2d6;
+  flex-shrink: 0;
+  box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 1360px) {
+  .hero-photo-desc h3 {
+    font-size: 1.28rem;
+  }
+
+  .hero-photo-desc p {
+    font-size: 0.88rem;
+  }
+
+  .hero-cube-button {
+    font-size: 0.86rem;
+    padding: 8px 16px;
+  }
+}
+
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
@@ -208,13 +376,15 @@
 @media (max-width: 1024px) {
   .hero-section {
     min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero-container {
     flex-direction: column;
     padding: 0 40px;
     text-align: center;
-    margin: 20vw auto 0;
+    margin: 112px auto 0;
+    gap: 28px;
   }
 
   .hero-content {
@@ -229,19 +399,24 @@
   .hero-description {
     max-width: 100%;
   }
+
+  .hero-cube-zone {
+    margin-top: 4vw;
+    scale: 0.8;
+  }
 }
 
 /* Mobile */
 @media (max-width: 640px) {
   .hero-section {
-    min-height: 100vh;
+    min-height: auto;
     min-height: 100dvh;
     padding: 0;
   }
 
   .hero-container {
     padding: 0 20px;
-    margin: 100px auto 0;
+    margin: 92px auto 0;
     gap: 20px;
   }
 

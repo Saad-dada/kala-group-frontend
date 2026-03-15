@@ -12,6 +12,7 @@ export interface TowerDetails {
 
 export interface ProjectACF {
   project_status: ProjectStatus;
+  builder?: string;
   scope_of_work: ScopeOfWork[];
   video_url?: string | { url?: string };
   project_video?: string | { url?: string };

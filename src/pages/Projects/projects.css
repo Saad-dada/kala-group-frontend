@@ -1,5 +1,5 @@
 .projects-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: #e8ecf2;
   min-height: 100vh;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .hero-boundary {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -47,10 +47,10 @@
 .projects-headline {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   line-height: 1.1;
   margin: 0 0 24px 0;
-  background: linear-gradient(90deg, #ffffff 0%, #e5e7eb 100%);
+  background: linear-gradient(90deg, #0f172a 0%, #334155 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -58,7 +58,7 @@
 
 .projects-lede {
   font-size: 1.2rem;
-  color: #e5e7eb;
+  color: #334155;
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
@@ -72,8 +72,8 @@
   align-items: center;
   justify-content: space-evenly;
   padding: 20px 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(12, 13, 17, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(241, 245, 249, 0.92);
   position: sticky;
   top: 0;
   z-index: 5;
@@ -89,7 +89,7 @@
 
 .filter-label {
   font-size: 14px;
-  color: #a1a1aa;
+  color: #334155;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -105,11 +105,11 @@
 .filter-button {
   display: inline-block;
   padding: 8px 16px;
-  color: #e5e7eb;
+  color: #334155;
   font-weight: 500;
   font-size: 13px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.4);
   cursor: pointer;
   transition: transform 0.18s ease;
   text-transform: capitalize;
@@ -126,11 +126,11 @@
 }
 
 .filter-button.active {
-  background: linear-gradient(90deg, #ef4444 0%, #0ea5e9 100%);
+  background: linear-gradient(90deg, #0b0b0b 0%, #ef4444 100%);
   color: #ffffff;
   border-color: transparent;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  font-weight: 700;
+  box-shadow: 0 12px 40px rgba(239, 68, 68, 0.1);
 }
 
 /* Active hover: only translate, don't alter border/background */
@@ -140,17 +140,39 @@
 
 .results-count {
   font-size: 13px;
-  color: #9ca3af;
+  color: #475569;
+}
+
+.builder-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(219, 234, 254, 0.7);
+  border: 1px solid rgba(147, 197, 253, 0.6);
+  color: #1e3a8a;
+  font-size: 13px;
+}
+
+.builder-filter-clear {
+  border: none;
+  background: transparent;
+  color: #1d4ed8;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
 }
 
 .projects-section {
-  padding: 32px 24px 80px;
+  padding: 12px 12px 80px;
 }
 
 .projects-section .projects-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: 12px;
 }
 
 .projects-grid {
@@ -163,7 +185,7 @@
   display: grid;
   place-items: center;
   padding: 80px 24px;
-  color: #cbd5e1;
+  color: #334155;
   text-align: center;
 }
 

@@ -2,20 +2,20 @@
 
 /* Team Page Styles */
 .page {
-  background: #050607;
-  color: #e5e7eb;
+  background: #e8ecf2;
+  color: #334155;
   min-height: 100vh;
 }
 
 .page-header {
   padding: 120px 24px 80px;
   text-align: center;
-  background: linear-gradient(180deg, #0b0d13 0%, #08090d 100%);
+  background: linear-gradient(180deg, #dfe6ee 0%, #e8ecf2 100%);
 }
 
 .page-header h1 {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  color: #f8fafc;
+  color: #0f172a;
   margin: 0 0 20px;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -23,7 +23,7 @@
 
 .page-header p {
   font-size: 1.15rem;
-  color: rgba(226, 232, 240, 0.9);
+  color: #475569;
   margin: 0;
   max-width: 600px;
   margin: 0 auto;
@@ -64,8 +64,8 @@
 }
 
 .about-page {
-  background: #050607;
-  color: #e5e7eb;
+  background: #e8ecf2;
+  color: #334155;
 }
 
 .about-hero {
@@ -74,7 +74,7 @@
   background:
     radial-gradient(circle at 18% 24%, rgba(239, 68, 68, 0.18), transparent 34%),
     radial-gradient(circle at 80% 18%, rgba(59, 130, 246, 0.16), transparent 30%),
-    linear-gradient(180deg, #0b0d13 0%, #08090d 100%);
+    linear-gradient(180deg, #dfe6ee 0%, #e8ecf2 100%);
   overflow: hidden;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .hero-boundary {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -115,15 +115,17 @@
   margin: 0;
   font-size: clamp(2.75rem, 4vw, 3.75rem);
   line-height: 1.2;
-  color: #f8fafc;
+  color: #0f172a;
+  text-align: left;
 }
 
 .about-lede {
   margin: 0;
   font-size: 1.05rem;
   line-height: 1.8;
-  color: rgba(226, 232, 240, 0.9);
+  color: #334155;
   max-width: 800px;
+  text-align: left;
 }
 
 .hero-meta {
@@ -131,15 +133,15 @@
   gap: 12px;
   flex-wrap: wrap;
   justify-content: flex-start;
-  color: rgba(226, 232, 240, 0.78);
+  color: #475569;
   font-size: 0.95rem;
 }
 
 .hero-meta span {
   padding: 8px 12px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(241, 245, 249, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.28);
 }
 
 .about-hero-media {
@@ -150,9 +152,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  box-shadow: 0 28px 58px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  background: linear-gradient(145deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.9));
+  box-shadow: 0 22px 46px rgba(51, 65, 85, 0.2);
 }
 
 .hero-image-frame img {
@@ -167,18 +169,18 @@
   position: absolute;
   left: 16px;
   bottom: 16px;
-  background: rgba(6, 6, 7, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #f8fafc;
+  background: rgba(241, 245, 249, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  color: #0f172a;
   padding: 12px 14px;
   border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 24px rgba(51, 65, 85, 0.16);
 }
 
 .hero-image-caption span {
   display: block;
   font-size: 0.9rem;
-  color: rgba(226, 232, 240, 0.85);
+  color: #475569;
 }
 
 .hero-image-caption strong {
@@ -196,11 +198,11 @@
 
 .about-pills span {
   border: 1px solid rgba(148, 163, 184, 0.25);
-  color: #e5e7eb;
+  color: #334155;
   padding: 10px 14px;
   border-radius: 999px;
   font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(241, 245, 249, 0.86);
   backdrop-filter: blur(4px);
 }
 
@@ -219,12 +221,12 @@
 .about-section-header h2 {
   margin: 6px 0 12px;
   font-size: clamp(2rem, 3vw, 2.8rem);
-  color: #f8fafc;
+  color: #0f172a;
 }
 
 .about-body {
   margin: 0;
-  color: rgba(226, 232, 240, 0.85);
+  color: #334155;
   line-height: 1.8;
   font-size: 1rem;
 }
@@ -236,34 +238,43 @@
 }
 
 .about-tile {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.28);
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 30px rgba(51, 65, 85, 0.15);
 }
 
 .about-tile-accent {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(15, 23, 42, 0.9));
-  border-color: rgba(239, 68, 68, 0.5);
+  background: linear-gradient(135deg, #415066 0%, #1f2b3d 100%);
+  border-color: rgba(96, 165, 250, 0.45);
+  box-shadow: 0 16px 32px rgba(30, 41, 59, 0.3);
+}
+
+.about-tile-accent .tile-value {
+  color: #f8fafc;
+}
+
+.about-tile-accent .tile-label {
+  color: rgba(226, 232, 240, 0.95);
 }
 
 .tile-value {
   margin: 0 0 6px 0;
   font-size: 1.5rem;
-  color: #f8fafc;
+  color: #0f172a;
   font-weight: 700;
 }
 
 .tile-label {
   margin: 0;
-  color: rgba(226, 232, 240, 0.8);
+  color: #475569;
   line-height: 1.6;
   font-size: 0.98rem;
 }
 
 .about-turnover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.0));
+  background: linear-gradient(180deg, rgba(241, 245, 249, 0.85), rgba(241, 245, 249, 0.5));
 }
 
 .turnover-track {
@@ -276,30 +287,30 @@
 }
 
 .turnover-node {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.88));
+  border: 1px solid rgba(148, 163, 184, 0.3);
   border-radius: 14px;
   padding: 18px;
   text-align: center;
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 28px rgba(51, 65, 85, 0.15);
 }
 
 .turnover-year {
   margin: 0;
-  color: rgba(226, 232, 240, 0.8);
+  color: #475569;
   font-size: 0.95rem;
 }
 
 .turnover-value {
   margin: 4px 0;
-  color: #f8fafc;
+  color: #0f172a;
   font-size: 1.6rem;
   font-weight: 700;
 }
 
 .turnover-note {
   margin: 0;
-  color: rgba(148, 163, 184, 0.9);
+  color: #64748b;
   font-size: 0.92rem;
 }
 
@@ -310,11 +321,11 @@
 }
 
 .about-progress {
-  background: #070a12;
+  background: #dfe6ee;
 }
 
 .about-team {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+  background: linear-gradient(180deg, rgba(241, 245, 249, 0.7), rgba(241, 245, 249, 0.35));
 }
 
 .team-grid {
@@ -330,9 +341,9 @@
   align-items: center;
   padding: 32px 24px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.10), rgba(59, 130, 246, 0.08), rgba(255,255,255,0.03));
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.9), rgba(239, 68, 68, 0.06));
+  box-shadow: 0 14px 30px rgba(51, 65, 85, 0.16);
   transition: transform 0.18s cubic-bezier(.4,1.2,.6,1);
   cursor: pointer;
 }
@@ -374,7 +385,7 @@
 }
 .team-name {
   margin: 0;
-  color: #f8fafc;
+  color: #0f172a;
   font-weight: 700;
   font-size: 1.15rem;
 }
@@ -387,7 +398,7 @@
 }
 .team-bio {
   margin: 0;
-  color: rgba(226, 232, 240, 0.85);
+  color: #334155;
   line-height: 1.6;
   font-size: 0.97rem;
   margin-top: 8px;
@@ -405,7 +416,7 @@
   gap: 8px;
   justify-content: center;
   font-size: 0.93rem;
-  color: #e5e7eb;
+  color: #334155;
 }
 .team-detail-row dt {
   font-weight: 600;
@@ -413,7 +424,7 @@
 }
 .team-detail-row dd {
   margin: 0;
-  color: #e5e7eb;
+  color: #334155;
 }
 
 .team-avatar {
@@ -437,7 +448,7 @@
 
 .team-name {
   margin: 0;
-  color: #f8fafc;
+  color: #0f172a;
   font-weight: 700;
 }
 
@@ -451,7 +462,7 @@
 
 .team-bio {
   margin: 0;
-  color: rgba(226, 232, 240, 0.85);
+  color: #334155;
   line-height: 1.6;
   font-size: 0.95rem;
 }
@@ -469,7 +480,7 @@
   background: transparent;
   padding: 10px;
   text-align: center;
-  color: #f8fafc;
+  color: #0f172a;
   font-weight: 600;
   display: flex;
   align-items: center;

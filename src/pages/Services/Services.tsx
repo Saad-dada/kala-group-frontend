@@ -1,5 +1,43 @@
 import './services.css';
 
+const services = [
+  {
+    icon: '🎨',
+    title: 'Internal Painting',
+    description: 'Premium wall, ceiling, and interior finish systems for homes, towers, and commercial spaces.',
+  },
+  {
+    icon: '🖌️',
+    title: 'External Painting',
+    description: 'Weather-resistant façade painting with high-durability coatings for long-term performance.',
+  },
+  {
+    icon: '🧱',
+    title: 'Gypsum Work',
+    description: 'False ceilings, partitions, and gypsum finishing solutions with clean detailing.',
+  },
+  {
+    icon: '🛠️',
+    title: 'Structural Repairing',
+    description: 'Repair and restoration works to strengthen and protect aging or damaged structures.',
+  },
+  {
+    icon: '💧',
+    title: 'Water Proofing',
+    description: 'End-to-end waterproofing systems for terraces, basements, wet areas, and façades.',
+  },
+  {
+    icon: '👷',
+    title: 'Civil Works',
+    description: 'Execution support for masonry, patchwork, and civil finishing aligned with project timelines.',
+  },
+  {
+    icon: '🧰',
+    title: 'Floor Coatings',
+    description: 'Protective and decorative floor coating applications for industrial and commercial use.',
+  },
+];
+
 export default function Services() {
   return (
     <main className="site-main services-page">
@@ -21,40 +59,13 @@ export default function Services() {
           <div className="services-surface" aria-hidden />
 
           <ul className="services-grid">
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>🎨</div>
-              <div className="service-label">Internal Painting</div>
-            </li>
-
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>🖌️</div>
-              <div className="service-label">External Painting</div>
-            </li>
-
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>🧱</div>
-              <div className="service-label">Gypsum Work</div>
-            </li>
-
-            <li className="service-item wide">
-              <div className="service-icon" aria-hidden>🛠️</div>
-              <div className="service-label">Structural Repairing</div>
-            </li>
-
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>💧</div>
-              <div className="service-label">Water Proofing</div>
-            </li>
-
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>👷</div>
-              <div className="service-label">Civil Works</div>
-            </li>
-
-            <li className="service-item">
-              <div className="service-icon" aria-hidden>🧰</div>
-              <div className="service-label">Floor Coatings</div>
-            </li>
+            {services.map((service) => (
+              <li key={service.title} className="service-item">
+                <div className="service-icon" aria-hidden>{service.icon}</div>
+                <div className="service-label">{service.title}</div>
+                <p className="service-description">{service.description}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </section>

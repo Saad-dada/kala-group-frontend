@@ -1,23 +1,87 @@
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useProjects } from "../../hooks/useProjects";
 import ProjectCard from "../../components/projects/ProjectCard";
 import type { ProjectStatus, ProjectType } from "../../types/project";
 import "./projects.css";
 
+function normalizeSlug(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function parseBuilder(value?: string) {
+  if (!value) {
+    return { name: "", slug: "" };
+  }
+
+  const normalized = value.trim();
+  if (!normalized) {
+    return { name: "", slug: "" };
+  }
+
+  const [namePart, slugPart] = normalized.split(":").map((part) => part.trim());
+
+  if (slugPart) {
+    return {
+      name: namePart || slugPart,
+      slug: normalizeSlug(slugPart),
+    };
+  }
+
+  return {
+    name: normalized,
+    slug: normalizeSlug(normalized),
+  };
+}
+
+function getBuilderSlug(value?: string) {
+  return parseBuilder(value).slug;
+}
+
+function formatBuilderLabel(slug: string) {
+  return slug
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 export default function Projects() {
   const { data: projects, loading, error } = useProjects();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [statusFilter, setStatusFilter] = useState<ProjectStatus | "all">("all");
   const [typeFilter, setTypeFilter] = useState<ProjectType | "all">("all");
+
+  const builderFilter = normalizeSlug(searchParams.get("builder") ?? "");
+
+  const filteredBuilderName = useMemo(() => {
+    if (!builderFilter) {
+      return "";
+    }
+
+    const matchedProject = projects.find((project) => getBuilderSlug(project.acf.builder) === builderFilter);
+    if (!matchedProject) {
+      return formatBuilderLabel(builderFilter);
+    }
+
+    return parseBuilder(matchedProject.acf.builder).name || formatBuilderLabel(builderFilter);
+  }, [projects, builderFilter]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const statusMatch = statusFilter === "all" || project.acf.project_status === statusFilter;
       const typeMatch = typeFilter === "all" || project.acf.project_type === typeFilter;
-      return statusMatch && typeMatch;
+      const builderMatch = !builderFilter || getBuilderSlug(project.acf.builder) === builderFilter;
+      return statusMatch && typeMatch && builderMatch;
     });
-  }, [projects, statusFilter, typeFilter]);
+  }, [projects, statusFilter, typeFilter, builderFilter]);
+
+  const clearBuilderFilter = () => {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.delete("builder");
+    setSearchParams(nextSearchParams);
+  };
 
   return (
     <main className="projects-page">
@@ -66,6 +130,15 @@ export default function Projects() {
           <div className="results-count">
             {filteredProjects.length} {filteredProjects.length === 1 ? "project" : "projects"}
           </div>
+
+          {builderFilter && (
+            <div className="builder-filter-chip" role="status" aria-live="polite">
+              Builder: <strong>{filteredBuilderName}</strong>
+              <button onClick={clearBuilderFilter} className="builder-filter-clear" type="button">
+                Clear
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
