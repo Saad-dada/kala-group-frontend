@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Client } from "../types/client";
+import { decodeHtmlEntitiesInData } from "../utils/htmlEntities";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -19,7 +20,7 @@ export function useClients() {
           signal: controller.signal,
         });
         if (!res.ok) throw new Error(`Failed to fetch clients: ${res.status}`);
-        const items = (await res.json()) as Client[];
+        const items = decodeHtmlEntitiesInData((await res.json()) as Client[]);
         // return clients in reverse order (newest first)
         setData(items.slice().reverse());
       } catch (err: any) {

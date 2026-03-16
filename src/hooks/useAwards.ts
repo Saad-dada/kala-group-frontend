@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Award } from "../types/award";
+import { decodeHtmlEntitiesInData } from "../utils/htmlEntities";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -23,7 +24,7 @@ export function useAwards() {
           throw new Error(`Failed to fetch awards: ${response.status}`);
         }
 
-        const awards = (await response.json()) as Award[];
+        const awards = decodeHtmlEntitiesInData((await response.json()) as Award[]);
         setData(awards);
       } catch (err: any) {
         if (err.name !== "AbortError") {

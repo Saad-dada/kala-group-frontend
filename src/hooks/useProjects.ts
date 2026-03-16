@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Project } from "../types/project";
+import { decodeHtmlEntitiesInData } from "../utils/htmlEntities";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -26,7 +27,7 @@ export function useProjects() {
           throw new Error(`Failed to fetch projects: ${response.status}`);
         }
 
-        const projects = (await response.json()) as Project[];
+        const projects = decodeHtmlEntitiesInData((await response.json()) as Project[]);
         
         // Ensure minimum loading time
         const elapsedTime = Date.now() - startTime;
@@ -84,7 +85,7 @@ export function useProject(slug: string) {
           throw new Error(`Failed to fetch project: ${response.status}`);
         }
 
-        const projects = (await response.json()) as Project[];
+        const projects = decodeHtmlEntitiesInData((await response.json()) as Project[]);
         
         if (projects.length === 0) {
           throw new Error("Project not found");

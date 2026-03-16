@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Firm } from "../types/firm";
+import { decodeHtmlEntitiesInData } from "../utils/htmlEntities";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -19,7 +20,7 @@ export function useFirms() {
           signal: controller.signal,
         });
         if (!res.ok) throw new Error(`Failed to fetch firms: ${res.status}`);
-        const items = (await res.json()) as Firm[];
+        const items = decodeHtmlEntitiesInData((await res.json()) as Firm[]);
         setData(items);
       } catch (err: any) {
         if (err.name !== "AbortError") {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { TeamMember } from "../types/team";
+import { decodeHtmlEntitiesInData } from "../utils/htmlEntities";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -23,7 +24,7 @@ export function useTeam() {
           throw new Error(`Failed to fetch team: ${response.status}`);
         }
 
-        const members = (await response.json()) as TeamMember[];
+        const members = decodeHtmlEntitiesInData((await response.json()) as TeamMember[]);
         // return teams in reverse order (newest first)
         setData(members.slice().reverse());
       } catch (err: any) {
