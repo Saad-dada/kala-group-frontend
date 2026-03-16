@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef, type TouchEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProjects } from "../../../hooks/useProjects";
 import type { Project, ScopeOfWork } from "../../../types/project";
@@ -43,14 +43,25 @@ function getAreaForScope(project: Project, scope: ScopeOfWork): number | undefin
   }
 }
 
+function isFeaturedProject(project: Project): boolean {
+  const topLevelFlag = (project as Project & { is_featured?: unknown }).is_featured;
+  const acfFlag = (project.acf as Project["acf"] & { is_featured?: unknown }).is_featured;
+  const rawValue = acfFlag ?? topLevelFlag;
+
+  return rawValue === true || rawValue === 1 || rawValue === "1" || rawValue === "true";
+}
+
 export default function FeaturedProjects() {
   const { data: projects, loading, error } = useProjects();
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const hasSwipedRef = useRef(false);
 
-  const displayProjects = projects.slice(0, 4);
+  const displayProjects = projects.filter(isFeaturedProject).slice(0, 4);
 
   const handlePrev = useCallback(() => {
     setActiveIndex((prev) => (prev === 0 ? displayProjects.length - 1 : prev - 1));
@@ -59,6 +70,11 @@ export default function FeaturedProjects() {
   const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev === displayProjects.length - 1 ? 0 : prev + 1));
   }, [displayProjects.length]);
+
+  const handleDotClick = (index: number) => {
+    setIsPaused(true);
+    setActiveIndex(index);
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -76,6 +92,63 @@ export default function FeaturedProjects() {
     const interval = setInterval(handleNext, AUTOPLAY_INTERVAL);
     return () => clearInterval(interval);
   }, [isPaused, handleNext, displayProjects.length]);
+
+  useEffect(() => {
+    if (displayProjects.length === 0) {
+      setActiveIndex(0);
+      return;
+    }
+
+    setActiveIndex((prev) => (prev >= displayProjects.length ? 0 : prev));
+  }, [displayProjects.length]);
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile) return;
+
+    const touch = e.touches[0];
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    hasSwipedRef.current = false;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    setIsPaused(false);
+    if (!isMobile) return;
+
+    const startX = touchStartXRef.current;
+    const startY = touchStartYRef.current;
+    if (startX === null || startY === null) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    const threshold = 35;
+    const isHorizontalSwipe = Math.abs(deltaX) > threshold && Math.abs(deltaX) > Math.abs(deltaY);
+    if (!isHorizontalSwipe) return;
+
+    hasSwipedRef.current = true;
+    if (deltaX < 0) {
+      handleNext();
+    } else {
+      handlePrev();
+    }
+
+    window.setTimeout(() => {
+      hasSwipedRef.current = false;
+    }, 0);
+  };
+
+  const handleTouchCancel = () => {
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    hasSwipedRef.current = false;
+    setIsPaused(false);
+  };
 
   const getCardStyle = (index: number) => {
     let position = index - activeIndex;
@@ -130,7 +203,7 @@ export default function FeaturedProjects() {
         <div className="featured-bg-overlay" />
         <div className="featured-container">
           <h2 className="featured-title">Featured Projects</h2>
-          <p className="featured-error">No projects available yet.</p>
+          <p className="featured-error">No featured projects available yet.</p>
           <button className="btn btn--primary" onClick={() => navigate("/projects")}>View All Projects</button>
         </div>
       </section>
@@ -142,6 +215,10 @@ export default function FeaturedProjects() {
   const limitedProjectDescription = truncateWords(projectDescription, 50);
 
   const handleCardClick = (projectIndex: number, projectSlug: string) => {
+    if (hasSwipedRef.current) {
+      return;
+    }
+
     if (projectIndex === activeIndex) {
       navigate(`/projects/${projectSlug}`);
       return;
@@ -198,8 +275,9 @@ export default function FeaturedProjects() {
             className="projects-carousel"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            onTouchStart={() => setIsPaused(true)}
-            onTouchEnd={() => setIsPaused(false)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchCancel}
           >
             <div className="carousel-track">
               {displayProjects.map((project, index) => (
@@ -222,6 +300,21 @@ export default function FeaturedProjects() {
                 </div>
               ))}
             </div>
+
+            {displayProjects.length > 1 && (
+              <div className="carousel-dots" aria-label="Featured project navigation dots">
+                {displayProjects.map((project, index) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    className={`carousel-dot ${index === activeIndex ? "active" : ""}`}
+                    onClick={() => handleDotClick(index)}
+                    aria-label={`Go to project ${index + 1}`}
+                    aria-current={index === activeIndex ? "true" : undefined}
+                  />
+                ))}
+              </div>
+            )}
 
             <div className="carousel-nav">
               <button

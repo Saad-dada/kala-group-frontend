@@ -7,6 +7,7 @@ export default function Footer() {
 
   const footerLinks = {
     company: [
+      { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
       { label: "Projects", href: "/projects" },
       { label: "Services", href: "/services" },
@@ -76,7 +77,7 @@ export default function Footer() {
           </div>
 
           {/* Social Links */}
-          <div className="footer-column">
+          <div className="footer-column footer-social-column">
             <h3 className="footer-title">Follow Us</h3>
             <div className="footer-social">
               {footerLinks.social.map((link) => (
@@ -111,18 +112,9 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="footer-bottom">
-          <p className="footer-copyright">
-            © {currentYear} Kala Group. All rights reserved.
-          </p>
-          <div className="footer-legal">
-            <a href="#privacy" className="footer-legal-link">Privacy Policy</a>
-            <span className="footer-separator">•</span>
-            <a href="#terms" className="footer-legal-link">Terms of Service</a>
+            <p className="footer-copyright footer-copyright--social">
+              © {currentYear} Kala Group. All rights reserved.
+            </p>
           </div>
         </div>
       </div>

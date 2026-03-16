@@ -11,6 +11,7 @@ export interface TowerDetails {
 }
 
 export interface ProjectACF {
+  is_featured?: boolean | number | string;
   project_status: ProjectStatus;
   builder?: string;
   scope_of_work: ScopeOfWork[];
@@ -31,6 +32,7 @@ export interface ProjectACF {
 export interface Project {
   id: number;
   slug: string;
+  is_featured?: boolean | number | string;
   title: {
     rendered: string;
   };

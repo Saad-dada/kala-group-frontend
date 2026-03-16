@@ -1,7 +1,4 @@
 import "./presence-map.css";
-import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import L from "leaflet";
 
 const cities = [
   {
@@ -30,16 +27,6 @@ const cities = [
   },
 ];
 
-function createCityPinDivIcon(cityName: string) {
-  return L.divIcon({
-    className: "presence-city-marker-wrap",
-    html: `<span class="presence-city-marker"></span><span class="presence-city-marker-label">${cityName}</span>`,
-    iconSize: [90, 24],
-    iconAnchor: [10, 10],
-    popupAnchor: [0, -10],
-  });
-}
-
 export default function PresenceMap() {
   return (
     <section className="presence-section site-section" aria-labelledby="presence-title">
@@ -60,33 +47,12 @@ export default function PresenceMap() {
 
         <div className="presence-map-card" aria-label="Map showing city presence">
           <div className="presence-map-frame">
-            <MapContainer
-              center={[22.5937, 79.9629]}
-              zoom={5}
-              scrollWheelZoom={false}
-              className="presence-leaflet-map"
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-
-              {cities.map((city) => (
-                <Marker
-                  key={city.name}
-                  position={[city.lat, city.lng]}
-                  icon={createCityPinDivIcon(city.name)}
-                >
-                  <Popup>
-                    <strong>{city.name}</strong>
-                    <br />
-                    <a href={city.href} target="_blank" rel="noreferrer">
-                      Open in Google Maps
-                    </a>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
+            <img
+              src="/images/map.png"
+              alt="India map showing Kala Group presence"
+              className="presence-static-map"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

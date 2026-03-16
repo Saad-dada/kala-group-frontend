@@ -1,6 +1,7 @@
 import "./awards.css";
-import { useMemo, type MouseEvent } from "react";
+import { useMemo, useState, useEffect, type MouseEvent } from "react";
 import { useAwards } from "../../hooks/useAwards";
+import GalleryLightbox from "../../components/GalleryLightbox";
 
 function getAwardYearSortValue(yearText?: string): number | null {
   if (!yearText) {
@@ -40,6 +41,19 @@ function getAwardYearSortValue(yearText?: string): number | null {
 
 export default function Awards() {
   const { data: awardsData, loading: awardsLoading, error: awardsError } = useAwards();
+  const [isMobile, setIsMobile] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleAwardImageMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     const container = event.currentTarget;
@@ -83,6 +97,30 @@ export default function Awards() {
     });
   }, [awardsData]);
 
+  const lightboxImages = useMemo(() => {
+    return sortedAwards
+      .map((award) => award._embedded?.["wp:featuredmedia"]?.[0]?.source_url)
+      .filter((url): url is string => Boolean(url));
+  }, [sortedAwards]);
+
+  const getAwardImageIndex = (imageUrl: string) => {
+    return lightboxImages.findIndex((url) => url === imageUrl);
+  };
+
+  const handleAwardImageClick = (imageUrl: string) => {
+    if (!isMobile) {
+      return;
+    }
+
+    const index = getAwardImageIndex(imageUrl);
+    if (index < 0) {
+      return;
+    }
+
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
   return (
     <main className="site-main awards-page">
       <section className="default-hero">
@@ -113,6 +151,16 @@ export default function Awards() {
                       className="award-showcase-image"
                       onMouseMove={handleAwardImageMouseMove}
                       onMouseLeave={handleAwardImageMouseLeave}
+                      onClick={() => handleAwardImageClick(award._embedded!['wp:featuredmedia']![0].source_url)}
+                      role={isMobile ? "button" : undefined}
+                      tabIndex={isMobile ? 0 : undefined}
+                      onKeyDown={(event) => {
+                        if (!isMobile) return;
+                        if (event.key !== "Enter" && event.key !== " ") return;
+                        event.preventDefault();
+                        handleAwardImageClick(award._embedded!['wp:featuredmedia']![0].source_url);
+                      }}
+                      aria-label={isMobile ? `Open award image for ${award.title.rendered}` : undefined}
                     >
                       <img
                         src={award._embedded['wp:featuredmedia'][0].source_url}
@@ -135,6 +183,13 @@ export default function Awards() {
           )}
         </div>
       </section>
+
+      <GalleryLightbox
+        images={lightboxImages}
+        initialIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </main>
   );
 }

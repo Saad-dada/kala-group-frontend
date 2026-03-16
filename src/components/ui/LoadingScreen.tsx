@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import "./loading-screen.css";
 import logo from "../../assets/logo.png";
 
@@ -10,47 +10,66 @@ export default function LoadingScreen({ onLoadComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const hasCompletedRef = useRef(false);
+  const onLoadCompleteRef = useRef(onLoadComplete);
 
   useEffect(() => {
-    // Simulate loading progress
-    const duration = 800; // 0.8 seconds total
-    const interval = 20; // Update every 20ms
-    const increment = 100 / (duration / interval);
+    onLoadCompleteRef.current = onLoadComplete;
+  }, [onLoadComplete]);
 
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + increment + Math.random() * 2;
-        if (next >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return next;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
+  const completeOnce = useCallback(() => {
+    if (hasCompletedRef.current) return;
+    hasCompletedRef.current = true;
+    onLoadCompleteRef.current();
   }, []);
 
   useEffect(() => {
-    if (progress >= 100 && !hasCompletedRef.current) {
-      hasCompletedRef.current = true;
-      
-      // Start exit animation
-      const exitTimer = setTimeout(() => {
-        setIsExiting(true);
-      }, 300);
+    const duration = 900;
+    const start = performance.now();
+    let frameId = 0;
 
-      // Complete loading after exit animation
-      const completeTimer = setTimeout(() => {
-        onLoadComplete();
-      }, 1100);
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const next = Math.min(100, (elapsed / duration) * 100);
+      setProgress(next);
 
-      return () => {
-        clearTimeout(exitTimer);
-        clearTimeout(completeTimer);
-      };
-    }
-  }, [progress, onLoadComplete]);
+      if (next < 100) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (progress < 100) return;
+
+    const exitTimer = window.setTimeout(() => {
+      setIsExiting(true);
+    }, 120);
+
+    const completeTimer = window.setTimeout(() => {
+      completeOnce();
+    }, 980);
+
+    return () => {
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(completeTimer);
+    };
+  }, [progress, completeOnce]);
+
+  useEffect(() => {
+    const fallbackTimer = window.setTimeout(() => {
+      completeOnce();
+    }, 3500);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+    };
+  }, [completeOnce]);
 
   return (
     <div className={`loading-screen ${isExiting ? "exiting" : ""}`}>

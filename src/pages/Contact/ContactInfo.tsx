@@ -21,7 +21,7 @@ export default function ContactInfo() {
             <div className="reach-body">
               <h3 className="reach-item-title">Corporate Office Address</h3>
               <p className="reach-item-text">Kala Group<br/>104, Hubtown Viva, Western Express Highway,<br/>Jogeshwari (East), Mumbai – 400060</p>
-              <a className="reach-link" href="https://maps.app.goo.gl/5gR1KwDYYaQxDmm4A" target="_blank" rel="noreferrer">Get Direction</a>
+              <a className="reach-link" href="https://maps.app.goo.gl/JVxPBTFa4V3jMY8r6" target="_blank" rel="noreferrer">Get Direction</a>
             </div>
           </div>
 

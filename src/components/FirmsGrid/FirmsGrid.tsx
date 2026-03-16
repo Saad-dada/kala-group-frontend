@@ -36,15 +36,11 @@ export default function FirmsGrid({ limit = 6, showHeading = true, heading = 'Ou
             const titleText = stripTags(f.title.rendered);
             return (
               <li className="firm-item" key={f.id}>
-                <div className="firm-thumb">
-                  {imgUrl ? (
+                {imgUrl && (
+                  <div className="firm-thumb">
                     <img src={imgUrl} alt={titleText} />
-                  ) : (
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                      <rect width="24" height="24" rx="4" fill="rgba(255,255,255,0.04)" />
-                    </svg>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div className="firm-name">
                   <p>{titleText}</p>

@@ -7,6 +7,7 @@ type LeftNavItem = { label: string; href: string };
 type RightNavItem = { label: string; href: string };
 
 const leftNavItems: LeftNavItem[] = [
+  { label: "Home", href: "/" },
 	{ label: "Projects", href: "/projects" },
 	{ label: "Services", href: "/services" },
   { label: "Clientile", href: "/clients" },

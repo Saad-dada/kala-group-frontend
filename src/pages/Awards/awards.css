@@ -284,6 +284,7 @@
 
   .award-showcase-image {
     height: 200px;
+    cursor: zoom-in;
   }
 
   .award-showcase-content {

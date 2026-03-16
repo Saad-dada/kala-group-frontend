@@ -338,7 +338,7 @@
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
   color: #1e293b;
   line-height: 1.15;
@@ -426,11 +426,6 @@
     margin: 30% auto 0;
     gap: 20vw;
   }
-}
-
-.hero-title {
-  font-size: clamp(2rem, 8vw, 2.5rem);
-  margin-bottom: 16px;
 }
 
 .hero-description {

@@ -92,10 +92,6 @@ export default function Hero() {
             <h1 className="hero-title hero-animate">
               Bringing Colour, Quality & Perfection to Every Space.
             </h1>
-            <p className="hero-description hero-animate hero-delay-1">
-              Thoughtfully designed residential and commercial projects shaped by
-              quality, safety, and innovation.
-            </p>
             <button className="btn btn--primary" onClick={() => navigate("/projects")}>
               Explore Projects
             </button>
