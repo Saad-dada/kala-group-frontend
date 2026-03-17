@@ -29,6 +29,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -45,6 +46,7 @@
     opacity: 0;
     transform: translateX(-40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -61,6 +63,7 @@
     opacity: 0;
     transform: translateX(40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -77,12 +80,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(226, 232, 240, 0.92) 0%,
-    rgba(226, 232, 240, 0.88) 50%,
-    rgba(203, 213, 225, 0.84) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(226, 232, 240, 0.9) 0%,
+      rgba(226, 232, 240, 0.5) 70%,
+      rgba(203, 213, 225, 0) 100%);
   z-index: 1;
 }
 

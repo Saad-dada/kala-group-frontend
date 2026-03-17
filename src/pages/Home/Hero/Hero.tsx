@@ -6,10 +6,8 @@ export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [isCubeFlippedMobile, setIsCubeFlippedMobile] = useState(false);
+  // const [isCubeFlippedMobile, setIsCubeFlippedMobile] = useState(false);
   const navigate = useNavigate();
-
-  const goToProjects = () => navigate("/projects");
 
   // ──────────────────────────────────────────────────────────────────────
   // INITIALIZATION & ANIMATIONS
@@ -50,19 +48,19 @@ export default function Hero() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) {
-      setIsCubeFlippedMobile(false);
-    }
-  }, [isMobile]);
+  // useEffect(() => {
+  //   if (!isMobile) {
+  //     setIsCubeFlippedMobile(false);
+  //   }
+  // }, [isMobile]);
 
-  const handleCubeActivate = () => {
-    if (isMobile && !isCubeFlippedMobile) {
-      setIsCubeFlippedMobile(true);
-      return;
-    }
-    goToProjects();
-  };
+  // const handleCubeActivate = () => {
+  //   if (isMobile && !isCubeFlippedMobile) {
+  //     setIsCubeFlippedMobile(true);
+  //     return;
+  //   }
+  //   goToProjects();
+  // };
 
   // ──────────────────────────────────────────────────────────────────────
   // RENDER
@@ -74,9 +72,7 @@ export default function Hero() {
       <section className={`hero-section ${isLoaded ? "loaded" : ""}`}>
         {/* Video Background */}
         <div className="hero-video-bg">
-          <video autoPlay muted loop playsInline className="hero-video">
-            <source src="/videos/bg-main.mp4" type="video/mp4" />
-          </video>
+          <img src="/images/hero-bg.jpeg" alt="Hero background" className="hero-video" />
           <div className="hero-video-overlay" />
         </div>
 
@@ -97,6 +93,7 @@ export default function Hero() {
             </button>
           </div>
 
+          {/*
           <div className="hero-cube-zone hero-animate hero-delay-2" aria-label="Project highlights">
             <div
               className={`hero-cube-container ${isCubeFlippedMobile ? "mobile-flipped" : ""}`}
@@ -138,6 +135,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+          */}
         </div>
       </section>
     </>
