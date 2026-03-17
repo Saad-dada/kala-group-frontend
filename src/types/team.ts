@@ -5,4 +5,9 @@ export type TeamMember = {
   acf?: {
     [key: string]: unknown;
   };
+  _embedded?: {
+    "wp:featuredmedia"?: Array<{
+      source_url?: string;
+    }>;
+  };
 };

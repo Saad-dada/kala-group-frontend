@@ -1,10 +1,9 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Lenis from "lenis";
 import "./styles/App.css";
 import Header from "./components/layout/Header";
 import CursorFollower from "./components/ui/CursorFollower";
-import LoadingScreen from "./components/ui/LoadingScreen";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home/Home";
 import Projects from "./pages/Projects/Projects";
@@ -18,12 +17,8 @@ import Contact from "./pages/Contact/Contact";
 import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const lenisRef = useRef<Lenis | null>(null);
-  const handleLoadComplete = useCallback(() => {
-    setIsLoading(false);
-  }, []);
 
   // Scroll to top on route change
   useEffect(() => {
@@ -57,22 +52,9 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!isLoading) return;
-
-    const safetyTimer = window.setTimeout(() => {
-      setIsLoading(false);
-    }, 4000);
-
-    return () => {
-      window.clearTimeout(safetyTimer);
-    };
-  }, [isLoading]);
-
   return (
     <>
-      {isLoading && <LoadingScreen onLoadComplete={handleLoadComplete} />}
-      <div className={`app-shell ${isLoading ? 'hidden' : ''}`}>
+      <div className="app-shell">
         <CursorFollower />
         <Header />
         <Routes>

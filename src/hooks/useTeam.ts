@@ -16,7 +16,7 @@ export function useTeam() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/team?per_page=100`, {
+        const response = await fetch(`${API_BASE_URL}/team?per_page=100&_embed=wp:featuredmedia`, {
           signal: controller.signal,
         });
 
