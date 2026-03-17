@@ -269,26 +269,26 @@ export default function About() {
             long-term client partnerships.
           </p>
         </div>
-        <div className="team-grid">
+        <div className="about-team-grid">
           {teamLoading && <p className="muted">Loading team...</p>}
           {teamError && <p className="muted" style={{ color: "#f87171" }}>Failed to load team</p>}
           {!teamLoading && !teamError && teamData.map(mapTeamMember).map((member) => (
-            <div key={member.name} className="team-card">
+            <div key={member.name} className="about-team-card">
               {member.photo ? (
-                <div className="team-photo">
+                <div className="about-team-photo">
                   <img src={member.photo} alt={member.name} />
                 </div>
               ) : (
-                <div className="team-avatar" aria-hidden="true">
+                <div className="about-team-avatar" aria-hidden="true">
                   {member.name.charAt(0)}
                 </div>
               )}
-              <div className="team-text">
-                <p className="team-name">{member.name}</p>
-                <p className="team-title">{typeof member.title === 'string' ? member.title : ''}</p>
+              <div className="about-team-text">
+                <p className="about-team-name">{member.name}</p>
+                <p className="about-team-title">{typeof member.title === 'string' ? member.title : ''}</p>
                 {member.bio && (
                   <p
-                    className="team-bio"
+                    className="about-team-bio"
                     dangerouslySetInnerHTML={{ __html: member.bio }}
                   />
                 )}

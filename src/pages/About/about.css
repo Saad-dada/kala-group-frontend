@@ -328,14 +328,14 @@
   background: linear-gradient(180deg, rgba(241, 245, 249, 0.7), rgba(241, 245, 249, 0.35));
 }
 
-.team-grid {
+.about-team-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
 /* Improved Team Card Styling */
-.team-card {
+.about-team-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -348,18 +348,18 @@
   cursor: pointer;
 }
 
-.team-card:hover {
+.about-team-card:hover {
   transform: translateY(-6px) scale(1.03);
   box-shadow: 0 28px 56px rgba(239, 68, 68, 0.18), 0 8px 24px rgba(59, 130, 246, 0.10);
 }
 
-.team-photo img {
+.about-team-photo img {
   width: 80px;
   height: 80px;
   object-fit: cover;
 }
 
-.team-avatar {
+.about-team-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -374,7 +374,7 @@
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12);
 }
 
-.team-text {
+.about-team-text {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -382,14 +382,14 @@
   text-align: center;
 }
 
-.team-name {
+.about-team-name {
   margin: 0;
   color: #0f172a;
   font-weight: 700;
   font-size: 1.15rem;
 }
 
-.team-title {
+.about-team-title {
   margin: 0;
   color: #f87171;
   font-size: 0.98rem;
@@ -397,7 +397,7 @@
   letter-spacing: 0.08em;
 }
 
-.team-bio {
+.about-team-bio {
   margin: 0;
   color: #334155;
   line-height: 1.6;
@@ -405,7 +405,7 @@
   margin-top: 8px;
 }
 
-.team-details {
+.about-team-details {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -414,7 +414,7 @@
   align-items: center;
 }
 
-.team-detail-row {
+.about-team-detail-row {
   display: flex;
   gap: 8px;
   justify-content: center;
@@ -422,17 +422,17 @@
   color: #334155;
 }
 
-.team-detail-row dt {
+.about-team-detail-row dt {
   font-weight: 600;
   color: #f87171;
 }
 
-.team-detail-row dd {
+.about-team-detail-row dd {
   margin: 0;
   color: #334155;
 }
 
-.team-avatar {
+.about-team-avatar {
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -445,19 +445,19 @@
   letter-spacing: 0.02em;
 }
 
-.team-text {
+.about-team-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.team-name {
+.about-team-name {
   margin: 0;
   color: #0f172a;
   font-weight: 700;
 }
 
-.team-title {
+.about-team-title {
   margin: 0;
   color: #f87171;
   font-size: 0.95rem;
@@ -465,7 +465,7 @@
   letter-spacing: 0.06em;
 }
 
-.team-bio {
+.about-team-bio {
   margin: 0;
   color: #334155;
   line-height: 1.6;
@@ -526,7 +526,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .team-grid {
+  .about-team-grid {
     grid-template-columns: 1fr;
   }
 
