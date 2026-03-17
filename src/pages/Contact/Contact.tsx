@@ -23,7 +23,7 @@ export default function Contact() {
       <ContactInfo />
 
       {/* Our firms (reusable component) */}
-      <OurFirms limit={6} />
+      <OurFirms />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 .our-firms-section {
-    padding: 48px 0;
+    padding: 48px 0 !important;
     background: #e2e8f0;
 }
 
@@ -10,19 +10,90 @@
 }
 
 .our-firms-header {
-    margin-bottom: 18px;
-}
-
-.our-firms-title {
-    font-size: 1.75rem;
-    color: #0f172a;
-    margin: 0 0 6px 0;
+    margin-bottom: 24px;
     text-align: center;
 }
 
-.our-firms-lede {
-    color: #475569;
-    margin: 0 0 18px 0;
+.our-firms-title {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0f172a;
 }
 
-/* Reuse FirmsGrid's responsive rules - nothing else needed here */
+.our-firms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.our-firms-group {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.our-firms-group-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #0f172a;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.our-firms-list {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0 0;
+    display: grid;
+    gap: 10px;
+}
+
+.our-firms-list li {
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: #334155;
+}
+
+@media (max-width: 1024px) {
+    .our-firms-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .our-firms-group:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .our-firms-section {
+        padding: 48px 0;
+    }
+
+    .our-firms-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .our-firms-group {
+        padding: 14px;
+    }
+
+    .our-firms-group-title {
+        font-size: 1rem;
+        padding-bottom: 8px;
+    }
+
+    .our-firms-list {
+        gap: 8px;
+    }
+
+    .our-firms-list li {
+        font-size: 0.92rem;
+    }
+}

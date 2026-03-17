@@ -4,6 +4,6 @@ import OurFirms from "../../../components/OurFirms/OurFirms";
 
 export default function Firms() {
   return (
-    <OurFirms limit={6} />
+    <OurFirms />
   );
 }
