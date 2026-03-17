@@ -27,6 +27,14 @@ function buildSocialLinks(acf?: TeamMember["acf"]): SocialLink[] {
     .filter((item) => item.url);
 }
 
+function excerptWords(text: string, maxWords: number) {
+  const normalized = text.trim().replace(/\s+/g, " ");
+  if (!normalized) return "";
+  const words = normalized.split(" ");
+  if (words.length <= maxWords) return normalized;
+  return `${words.slice(0, maxWords).join(" ")}…`;
+}
+
 function mapTeamMember(member: TeamMember) {
   const name = typeof member.title === "object" && member.title?.rendered ? member.title.rendered : "";
   const post = member.acf && typeof member.acf === 'object' && 'post' in member.acf ? String((member.acf as any).post) : "";
@@ -35,7 +43,8 @@ function mapTeamMember(member: TeamMember) {
   const acfPhoto = (member.acf?.photo as string | undefined) ?? "";
   const photo = featuredImage || acfPhoto;
   const socialLinks = buildSocialLinks(member.acf);
-  return { name, post, description, photo, socialLinks };
+  const mobileDescription = excerptWords(description, 70);
+  return { name, post, description, mobileDescription, photo, socialLinks };
 }
 
 function TeamSocialIcon({ platform }: { platform: SocialKey }) {
@@ -101,7 +110,10 @@ export default function Team() {
                       <p className="team-name">{member.name}</p>
                       <p className="team-title">{member.post}</p>
                       {member.description && (
-                        <p className="team-bio">{member.description}</p>
+                        <>
+                          <p className="team-bio team-bio-desktop">{member.description}</p>
+                          <p className="team-bio team-bio-mobile">{member.mobileDescription}</p>
+                        </>
                       )}
                       {member.socialLinks.length > 0 && (
                         <div className="team-social" aria-label={`${member.name} social links`}>
