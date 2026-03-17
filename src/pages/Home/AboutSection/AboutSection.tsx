@@ -52,7 +52,7 @@ export default function AboutSection() {
 
           <div className="about-image-wrapper">
             <div className="about-image-container">
-              <img src="/images/about-building.jpg" alt="Kala Group Building" className="about-building-image" />
+              <img src="/images/team-kala.jpeg" alt="Kala Group Team" className="about-building-image" />
             </div>
           </div>
         </div>

@@ -1,32 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./counters.css";
-import {
-  BriefcaseBusiness,
-  Building2,
-  ClipboardCheck,
-  HardHat,
-  PaintRoller,
-  Ruler,
-  Square,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
 
 type CounterItem = {
   number: string;
   label: string;
-  icon: LucideIcon;
 };
 
 const counters: CounterItem[] = [
-  { number: "11+", label: "Years of Experience", icon: BriefcaseBusiness },
-  { number: "15k+", label: "Apartments Handed Over", icon: Building2 },
-  { number: "200+", label: "Projects Completed", icon: ClipboardCheck },
-  { number: "1.8 Cr sqft", label: "Internal Painting (In Hand)", icon: PaintRoller },
-  { number: "2 Cr sqft", label: "Internal Painting (Handed Over)", icon: HardHat },
-  { number: "1 Cr sqft", label: "External Painting (In Hand)", icon: Ruler },
-  { number: "1 Cr sqft", label: "External Painting (Handed Over)", icon: Square },
-  { number: "30+", label: "Clientele", icon: Users },
+  { number: "11+", label: "Years of Experience" },
+  { number: "15k+", label: "Apartments Handed Over" },
+  { number: "200+", label: "Projects Completed" },
+  { number: "1.8 Cr sqft", label: "Internal Painting (In Hand)" },
+  { number: "2 Cr sqft", label: "Internal Painting (Handed Over)" },
+  { number: "1 Cr sqft", label: "External Painting (In Hand)" },
+  { number: "1 Cr sqft", label: "External Painting (Handed Over)" },
+  { number: "30+", label: "Clientele" },
 ];
 
 function parseNumber(value: string) {
@@ -111,14 +99,11 @@ export default function Counters() {
         <h2 id="home-counters-title">Counters</h2>
 
         <div className="home-counters-grid">
-          {counters.map(({ label, icon: Icon }, index) => (
+          {counters.map(({ label }, index) => (
             <article key={label} className="home-counter-card">
               <div className="home-counter-content">
                 <h3 className="home-counter-number">{animatedNumbers[index]}</h3>
                 <p className="home-counter-label">{label}</p>
-              </div>
-              <div className="home-counter-icon" aria-hidden>
-                <Icon size={28} strokeWidth={2} />
               </div>
             </article>
           ))}
