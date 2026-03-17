@@ -1,38 +1,54 @@
 import './services.css';
+import {
+  Building2,
+  Droplets,
+  Hammer,
+  House,
+  Layers,
+  PaintRoller,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react';
 
-const services = [
+type ServiceItem = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+};
+
+const services: ServiceItem[] = [
   {
-    icon: '🎨',
+    icon: House,
     title: 'Internal Painting',
     description: 'Premium wall, ceiling, and interior finish systems for homes, towers, and commercial spaces.',
   },
   {
-    icon: '🖌️',
+    icon: Building2,
     title: 'External Painting',
     description: 'Weather-resistant façade painting with high-durability coatings for long-term performance.',
   },
   {
-    icon: '🧱',
+    icon: Layers,
     title: 'Gypsum Work',
     description: 'False ceilings, partitions, and gypsum finishing solutions with clean detailing.',
   },
   {
-    icon: '🛠️',
+    icon: Wrench,
     title: 'Structural Repairing',
     description: 'Repair and restoration works to strengthen and protect aging or damaged structures.',
   },
   {
-    icon: '💧',
+    icon: Droplets,
     title: 'Water Proofing',
     description: 'End-to-end waterproofing systems for terraces, basements, wet areas, and façades.',
   },
   {
-    icon: '👷',
+    icon: Hammer,
     title: 'Civil Works',
     description: 'Execution support for masonry, patchwork, and civil finishing aligned with project timelines.',
   },
   {
-    icon: '🧰',
+    icon: PaintRoller,
     title: 'Floor Coatings',
     description: 'Protective and decorative floor coating applications for industrial and commercial use.',
   },
@@ -59,11 +75,13 @@ export default function Services() {
           <div className="services-surface" aria-hidden />
 
           <ul className="services-grid">
-            {services.map((service) => (
-              <li key={service.title} className="service-item">
-                <div className="service-icon" aria-hidden>{service.icon}</div>
-                <div className="service-label">{service.title}</div>
-                <p className="service-description">{service.description}</p>
+            {services.map(({ icon: Icon, title, description }) => (
+              <li key={title} className="service-item">
+                <div className="service-icon" aria-hidden>
+                  <Icon size={24} strokeWidth={1.9} />
+                </div>
+                <div className="service-label">{title}</div>
+                <p className="service-description">{description}</p>
               </li>
             ))}
           </ul>

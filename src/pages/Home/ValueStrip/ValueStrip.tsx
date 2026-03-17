@@ -1,9 +1,19 @@
 import "./value-strip.css";
+import {
+  Award,
+  BadgeCheck,
+  Building2,
+  Handshake,
+  Palette,
+  ScrollText,
+  ShieldCheck,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 
 type ValueItem = {
   title: string;
-  iconSrc?: string;
-  iconAlt?: string;
+  icon: LucideIcon;
 };
 
 type ValueStripProps = {
@@ -13,41 +23,34 @@ type ValueStripProps = {
 
 
 const items: ValueItem[] = [
-  { title: "60+ RSPs", iconSrc: "/icons/review.png", iconAlt: "60 plus RSPs" },
+  { title: "60+ RSPs", icon: Award },
   {
     title: "Associated with Top Paint Manufacturing Brands",
-    iconSrc: "/icons/brush.png",
-    iconAlt: "Top paint manufacturing brands",
+    icon: Palette,
   },
   {
     title: "Specialization in High Rise Building",
-    iconSrc: "/icons/building.png",
-    iconAlt: "High rise building specialization",
+    icon: Building2,
   },
   {
     title: "Skilled And Safety Trained Work Force",
-    iconSrc: "/icons/construction-safety.png",
-    iconAlt: "Skilled and safety trained workforce",
+    icon: ShieldCheck,
   },
   {
     title: "Trusted by leading Developers",
-    iconSrc: "/icons/trust.png",
-    iconAlt: "Trusted by leading developers",
+    icon: Handshake,
   },
   {
     title: "Quality Driven Execution",
-    iconSrc: "/icons/quality-control.png",
-    iconAlt: "Quality driven execution",
+    icon: BadgeCheck,
   },
   {
     title: "Experienced Project Team",
-    iconSrc: "/icons/feedback.png",
-    iconAlt: "Experienced project team",
+    icon: Users,
   },
   {
     title: "ISO 9001:2015 Certified",
-    iconSrc: "/icons/iso.png",
-    iconAlt: "ISO 9001:2015 certified",
+    icon: ScrollText,
   },
 ];
 
@@ -85,9 +88,11 @@ export default function ValueStrip({ rollerImageSrc, rollerImageAlt = "Paint rol
         </div>
 
         <div className="value-strip-items">
-          {items.map(({ title, iconSrc, iconAlt }) => (
+          {items.map(({ title, icon: Icon }) => (
             <article key={title} className="value-item">
-              <div className="value-item-icon">{iconSrc ? <img src={iconSrc} alt={iconAlt ?? title} /> : null}</div>
+              <div className="value-item-icon" aria-hidden="true">
+                <Icon size={22} strokeWidth={1.9} />
+              </div>
               <h3>{title}</h3>
             </article>
           ))}

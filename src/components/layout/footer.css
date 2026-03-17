@@ -150,6 +150,23 @@
   text-align: right;
 }
 
+.footer-credit {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: rgba(10, 10, 10, 0.6);
+  text-align: right;
+}
+
+.footer-credit-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-credit-link:hover {
+  color: #0a0a0a;
+}
+
 /* Tablet */
 @media (max-width: 1024px) {
   .site-footer {
@@ -238,7 +255,8 @@
   }
 
   .footer-copyright,
-  .footer-copyright--social {
+  .footer-copyright--social,
+  .footer-credit {
     font-size: 0.8rem;
     text-align: center;
     padding-top: 10px;

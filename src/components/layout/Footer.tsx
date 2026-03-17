@@ -115,6 +115,12 @@ export default function Footer() {
             <p className="footer-copyright footer-copyright--social">
               © {currentYear} Kala Group. All rights reserved.
             </p>
+            <p className="footer-credit">
+              Made by{" "}
+              <a href="https://webcult.in" target="_blank" rel="noopener noreferrer" className="footer-credit-link">
+                Webcult
+              </a>
+            </p>
           </div>
         </div>
       </div>

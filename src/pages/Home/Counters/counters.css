@@ -30,11 +30,37 @@
 }
 
 .home-counter-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   border-radius: 14px;
   border: 1px solid rgba(148, 163, 184, 0.3);
   background: linear-gradient(145deg, #516179 0%, #2f3f57 100%);
   box-shadow: 0 10px 24px rgba(30, 41, 59, 0.18);
   padding: 20px;
+}
+
+.home-counter-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-counter-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #dbeafe;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.home-counter-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .home-counter-number {
@@ -59,5 +85,15 @@
 
   .home-counters-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-counter-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .home-counter-icon svg {
+    width: 24px;
+    height: 24px;
   }
 }
