@@ -86,7 +86,7 @@
 }
 
 .client-tile {
-  background: rgba(241, 245, 249, 0.86);
+  background: #ffffff;
   border: 1px solid rgba(148, 163, 184, 0.3);
   border-radius: 12px;
   display: grid;

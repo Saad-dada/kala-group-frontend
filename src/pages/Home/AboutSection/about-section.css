@@ -23,10 +23,10 @@
 
 .about-header {
   font-size: 2rem;
-  font-weight: 500;
-  color: #475569;
+  font-weight: 700;
+  color: #000000;
   margin: 0 0 20px 0;
-  letter-spacing: 0.05em;
+  letter-spacing: -0.01em;
 }
 
 .about-highlight {
@@ -130,6 +130,7 @@
     transform: scale(0.9);
     opacity: 0.3;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -162,14 +163,37 @@
   box-shadow: 0 16px 30px rgba(30, 41, 59, 0.24);
 }
 
-.tone-slate { background: linear-gradient(135deg, #64748b 0%, #475569 100%); }
-.tone-indigo { background: linear-gradient(135deg, #5d6b84 0%, #4b556b 100%); }
-.tone-blue { background: linear-gradient(135deg, #5b728a 0%, #475569 100%); }
-.tone-rose { background: linear-gradient(135deg, #7b5f74 0%, #66506b 100%); }
-.tone-amber { background: linear-gradient(135deg, #7d6a57 0%, #685946 100%); }
-.tone-teal { background: linear-gradient(135deg, #5a7571 0%, #4a6661 100%); }
-.tone-cyan { background: linear-gradient(135deg, #5a7480 0%, #4a616d 100%); }
-.tone-violet { background: linear-gradient(135deg, #6e6688 0%, #5b5674 100%); }
+.tone-slate {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+
+.tone-indigo {
+  background: linear-gradient(135deg, #5d6b84 0%, #4b556b 100%);
+}
+
+.tone-blue {
+  background: linear-gradient(135deg, #5b728a 0%, #475569 100%);
+}
+
+.tone-rose {
+  background: linear-gradient(135deg, #7b5f74 0%, #66506b 100%);
+}
+
+.tone-amber {
+  background: linear-gradient(135deg, #7d6a57 0%, #685946 100%);
+}
+
+.tone-teal {
+  background: linear-gradient(135deg, #5a7571 0%, #4a6661 100%);
+}
+
+.tone-cyan {
+  background: linear-gradient(135deg, #5a7480 0%, #4a616d 100%);
+}
+
+.tone-violet {
+  background: linear-gradient(135deg, #6e6688 0%, #5b5674 100%);
+}
 
 @media (max-width: 1200px) {
   .about-stats {
@@ -189,6 +213,7 @@
     opacity: 0;
     transform: translateX(60px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateX(0) scale(1);

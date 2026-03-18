@@ -1,12 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./counters.css";
+import useCounters from "../../../hooks/useCounters";
+import type { CounterItem } from "../../../types/counter";
 
-type CounterItem = {
-  number: string;
-  label: string;
-};
-
-const counters: CounterItem[] = [
+const staticCounters: CounterItem[] = [
   { number: "11+", label: "Years of Experience" },
   { number: "15k+", label: "Apartments Handed Over" },
   { number: "200+", label: "Projects Completed" },
@@ -37,9 +34,12 @@ function easeOutCubic(t: number) {
 }
 
 export default function Counters() {
+  const { counters: fetchedCounters } = useCounters();
+  const displayedCounters = fetchedCounters && fetchedCounters.length > 0 ? fetchedCounters : staticCounters;
+
   const [hasStartedCount, setHasStartedCount] = useState(false);
   const [animatedNumbers, setAnimatedNumbers] = useState<string[]>(() =>
-    counters.map((counter) => {
+    displayedCounters.map((counter) => {
       const parsed = parseNumber(counter.number);
       if (parsed.numeric === 0) return parsed.base;
       return formatAnimated(0, parsed.decimals, parsed.suffix);
@@ -47,7 +47,7 @@ export default function Counters() {
   );
 
   const sectionRef = useRef<HTMLElement>(null);
-  const parsedCounters = useMemo(() => counters.map((counter) => parseNumber(counter.number)), []);
+  const parsedCounters = useMemo(() => displayedCounters.map((counter) => parseNumber(counter.number)), [displayedCounters]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -92,6 +92,15 @@ export default function Counters() {
     return () => cancelAnimationFrame(frameId);
   }, [hasStartedCount, parsedCounters]);
 
+  // When the displayed counters change (for example when fetched from the API),
+  // reset the animated numbers to their starting values if the animation hasn't started yet.
+  useEffect(() => {
+    if (hasStartedCount) return;
+    setAnimatedNumbers(
+      parsedCounters.map((item) => (item.numeric === 0 ? item.base : formatAnimated(0, item.decimals, item.suffix)))
+    );
+  }, [parsedCounters, hasStartedCount]);
+
   return (
     <section ref={sectionRef} className="home-counters-section site-section" aria-labelledby="home-counters-title">
       <div className="home-counters-container">
@@ -99,7 +108,7 @@ export default function Counters() {
         <h2 id="home-counters-title">Counters</h2>
 
         <div className="home-counters-grid">
-          {counters.map(({ label }, index) => (
+          {displayedCounters.map(({ label }, index) => (
             <article key={label} className="home-counter-card">
               <div className="home-counter-content">
                 <h3 className="home-counter-number">{animatedNumbers[index]}</h3>

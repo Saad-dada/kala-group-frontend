@@ -14,10 +14,10 @@ export default function Home() {
     <main className="site-main">
       <Hero />
       <ValueStrip />
+      <MovingClients />
       <FeaturedProjects />
       <AboutSection />
       <PresenceMap />
-      <MovingClients />
       <NewSitesBagged />
       <Counters />
       <ContactSection />
