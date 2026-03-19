@@ -104,6 +104,12 @@ export default function Counters() {
   return (
     <section ref={sectionRef} className="home-counters-section site-section" aria-labelledby="home-counters-title">
       <div className="home-counters-container">
+        <img
+          src="/images/progress.png"
+          alt="Counters section header"
+          className="home-counters-header-image"
+          style={{ width: "100%", maxWidth: 800, margin: "0 auto 24px", display: "block", borderRadius: "12px" }}
+        />
         <p className="home-counters-eyebrow">Performance Snapshot</p>
         <h2 id="home-counters-title">Counters</h2>
 

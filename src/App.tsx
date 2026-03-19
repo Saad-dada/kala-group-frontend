@@ -13,6 +13,7 @@ import Services from "./pages/Services/Services";
 import Team from "./pages/Team/Team";
 import Awards from "./pages/Awards/Awards";
 import Clients from "./pages/Clients/Clients";
+import QualitySafety from "./pages/QualitySafety";
 import Contact from "./pages/Contact/Contact";
 import NotFound from "./pages/NotFound/NotFound";
 
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/award" element={<Navigate to="/awards" replace />} />
           <Route path="/awards" element={<Awards />} />
           <Route path="/clients" element={<Clients />} />
+          <Route path="/quality-safety" element={<QualitySafety />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

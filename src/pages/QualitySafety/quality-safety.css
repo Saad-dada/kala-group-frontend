@@ -1,0 +1,163 @@
+.quality-safety-page {
+  background: #e8ecf2;
+  color: #334155;
+}
+
+.qs-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.qs-intro-section {
+  padding-top: 64px;
+  padding-bottom: 28px;
+}
+
+.qs-intro-grid,
+.qs-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.qs-content-grid--reverse {
+  grid-template-columns: 1fr;
+}
+
+.qs-content,
+.qs-image-frame {
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: linear-gradient(160deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.9));
+  box-shadow: 0 14px 30px rgba(51, 65, 85, 0.14);
+}
+
+.qs-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.qs-section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.qs-content {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.qs-eyebrow {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.qs-content p {
+  margin: 0;
+  line-height: 1.75;
+  color: #334155;
+}
+
+.qs-goal {
+  margin-top: 2px;
+  color: #1e293b;
+}
+
+.qs-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.qs-checklist li {
+  position: relative;
+  padding-left: 18px;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.qs-checklist li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #ef4444;
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+}
+
+.qs-image-frame img {
+    height: 70vh;
+    width: 100%;
+    object-fit: contain;
+}
+
+.qs-section {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.qs-section--last {
+  padding-bottom: 110px;
+}
+
+.qs-closing {
+  margin-top: 8px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .qs-container {
+    padding: 0 24px;
+  }
+
+  .qs-intro-grid,
+  .qs-content-grid,
+  .qs-content-grid--reverse {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .qs-content {
+    padding: 22px;
+  }
+
+  .qs-image-frame {
+    min-height: 260px;
+    max-height: none;
+  }
+
+  .qs-section--last {
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .qs-container {
+    padding: 0 18px;
+  }
+
+  .qs-content {
+    padding: 18px;
+  }
+
+  .qs-image-frame {
+    min-height: 220px;
+  }
+}
