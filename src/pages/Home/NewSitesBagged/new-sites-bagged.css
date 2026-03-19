@@ -2,12 +2,6 @@
   background: linear-gradient(180deg, #eaf0f6 0%, #e2eaf3 100%);
 }
 
-.new-sites-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
 .new-sites-shell {
   border-radius: 22px;
   padding: 26px;

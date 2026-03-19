@@ -24,7 +24,8 @@ function parseNumber(value: string) {
 }
 
 function formatAnimated(numeric: number, decimals: number, suffix: string) {
-  const formatted = decimals > 0 ? numeric.toFixed(decimals) : Math.round(numeric).toString();
+  const formatted =
+    decimals > 0 ? numeric.toFixed(decimals) : Math.round(numeric).toString();
   if (!suffix) return formatted;
   return `${formatted}${suffix === "+" ? "" : " "}${suffix}`;
 }
@@ -35,7 +36,10 @@ function easeOutCubic(t: number) {
 
 export default function Counters() {
   const { counters: fetchedCounters } = useCounters();
-  const displayedCounters = fetchedCounters && fetchedCounters.length > 0 ? fetchedCounters : staticCounters;
+  const displayedCounters =
+    fetchedCounters && fetchedCounters.length > 0
+      ? fetchedCounters
+      : staticCounters;
 
   const [hasStartedCount, setHasStartedCount] = useState(false);
   const [animatedNumbers, setAnimatedNumbers] = useState<string[]>(() =>
@@ -43,11 +47,14 @@ export default function Counters() {
       const parsed = parseNumber(counter.number);
       if (parsed.numeric === 0) return parsed.base;
       return formatAnimated(0, parsed.decimals, parsed.suffix);
-    })
+    }),
   );
 
   const sectionRef = useRef<HTMLElement>(null);
-  const parsedCounters = useMemo(() => displayedCounters.map((counter) => parseNumber(counter.number)), [displayedCounters]);
+  const parsedCounters = useMemo(
+    () => displayedCounters.map((counter) => parseNumber(counter.number)),
+    [displayedCounters],
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,7 +64,7 @@ export default function Counters() {
           observer.disconnect();
         }
       },
-      { threshold: [0.2, 0.35] }
+      { threshold: [0.2, 0.35] },
     );
 
     if (sectionRef.current) {
@@ -81,8 +88,12 @@ export default function Counters() {
       setAnimatedNumbers(
         parsedCounters.map((item) => {
           if (item.numeric === 0) return item.base;
-          return formatAnimated(item.numeric * eased, item.decimals, item.suffix);
-        })
+          return formatAnimated(
+            item.numeric * eased,
+            item.decimals,
+            item.suffix,
+          );
+        }),
       );
 
       if (progress < 1) frameId = requestAnimationFrame(tick);
@@ -97,27 +108,41 @@ export default function Counters() {
   useEffect(() => {
     if (hasStartedCount) return;
     setAnimatedNumbers(
-      parsedCounters.map((item) => (item.numeric === 0 ? item.base : formatAnimated(0, item.decimals, item.suffix)))
+      parsedCounters.map((item) =>
+        item.numeric === 0
+          ? item.base
+          : formatAnimated(0, item.decimals, item.suffix),
+      ),
     );
   }, [parsedCounters, hasStartedCount]);
 
   return (
-    <section ref={sectionRef} className="home-counters-section site-section" aria-labelledby="home-counters-title">
+    <section
+      ref={sectionRef}
+      className="home-counters-section site-section"
+      aria-labelledby="home-counters-title"
+    >
       <div className="home-counters-container">
+        <p className="home-counters-eyebrow">Performance Snapshot</p>
+        <h2 id="home-counters-title">Number of Highrise Projects</h2>
         <img
           src="/images/progress.png"
           alt="Counters section header"
           className="home-counters-header-image"
-          style={{ width: "100%", maxWidth: 800, margin: "0 auto 24px", display: "block", borderRadius: "12px" }}
+          style={{
+            width: "60%",
+            margin: "0 auto 24px",
+            display: "block",
+            borderRadius: "12px",
+          }}
         />
-        <p className="home-counters-eyebrow">Performance Snapshot</p>
-        <h2 id="home-counters-title">Counters</h2>
-
         <div className="home-counters-grid">
           {displayedCounters.map(({ label }, index) => (
             <article key={label} className="home-counter-card">
               <div className="home-counter-content">
-                <h3 className="home-counter-number">{animatedNumbers[index]}</h3>
+                <h3 className="home-counter-number">
+                  {animatedNumbers[index]}
+                </h3>
                 <p className="home-counter-label">{label}</p>
               </div>
             </article>

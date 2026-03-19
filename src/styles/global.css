@@ -126,13 +126,6 @@ body {
     border-radius: var(--radius-lg);
 }
 
-/* Layout helpers for consistent spacing */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
 @media (max-width:1024px) {
     .hero-badge {
         font-size: 0.8rem;

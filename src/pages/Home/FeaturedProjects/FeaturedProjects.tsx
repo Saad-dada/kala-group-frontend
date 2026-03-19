@@ -173,7 +173,7 @@ export default function FeaturedProjects() {
     return (
       <section className="featured-section in-view loading">
         <div className="featured-bg-overlay" />
-        <div className="featured-container">
+        <div className="featured-container site-section">
           <h2 className="featured-title">Featured Projects</h2>
           <div className="featured-content">
             <div className="project-info skeleton" />
@@ -201,7 +201,7 @@ export default function FeaturedProjects() {
     return (
       <section className="featured-section in-view empty">
         <div className="featured-bg-overlay" />
-        <div className="featured-container">
+        <div className="featured-container site-section">
           <h2 className="featured-title">Featured Projects</h2>
           <p className="featured-error">No featured projects available yet.</p>
           <button className="btn btn--primary" onClick={() => navigate("/projects")}>View All Projects</button>
@@ -231,7 +231,7 @@ export default function FeaturedProjects() {
     <section className="featured-section in-view">
       <div className="featured-bg-overlay" />
 
-      <div className="featured-container">
+      <div className="featured-container site-section">
         <h2 className="featured-title">Featured Projects</h2>
 
         <div className="featured-content">

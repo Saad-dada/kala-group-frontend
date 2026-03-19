@@ -15,7 +15,7 @@ export default function AboutSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -26,7 +26,10 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={`about-section ${isVisible ? "visible" : ""}`}>
+    <section
+      ref={sectionRef}
+      className={`about-section ${isVisible ? "visible" : ""} site-section`}
+    >
       <div className="about-container">
         <div className="about-content">
           <div className="about-text">
@@ -39,20 +42,29 @@ export default function AboutSection() {
               Reliable. Refined
             </h1>
             <p className="about-description">
-              A New Generation firm with a core focus on building activities, at kala we strive for
-              customer satisfaction, without compromising on the quality of our work and structures.
-              We hold an unmatched reputation for perfection, which is backed up by our proven track
-              record: quality, expertise, workmanship, service, competence, and reliability to
-              deliver our impressive portfolio of clients/projects.
+              A New Generation firm with a core focus on building activities, at
+              kala we strive for customer satisfaction, without compromising on
+              the quality of our work and structures. We hold an unmatched
+              reputation for perfection, which is backed up by our proven track
+              record: quality, expertise, workmanship, service, competence, and
+              reliability to deliver our impressive portfolio of
+              clients/projects.
             </p>
-            <button className="btn btn--outline" onClick={() => navigate("/about")}>
+            <button
+              className="btn btn--outline"
+              onClick={() => navigate("/about")}
+            >
               Know More About Us
             </button>
           </div>
 
           <div className="about-image-wrapper">
             <div className="about-image-container">
-              <img src="/images/team-kala.jpeg" alt="Kala Group Team" className="about-building-image" />
+              <img
+                src="/images/team-kala.jpeg"
+                alt="Kala Group Team"
+                className="about-building-image"
+              />
             </div>
           </div>
         </div>

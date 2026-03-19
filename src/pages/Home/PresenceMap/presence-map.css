@@ -3,22 +3,30 @@
 }
 
 .presence-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 60px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  align-items: center;
+}
+
+.presence-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.presence-copy p {
+  color: #334155;
 }
 
 .presence-eyebrow {
-  margin: 0 0 10px;
-  color: #ef4444;
+  margin: 0;
+  color: #ef4444 !important;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
 }
 
 .presence-copy h2 {
@@ -28,15 +36,8 @@
   line-height: 1.2;
 }
 
-.presence-copy p {
-  margin: 14px 0 0;
-  color: #334155;
-  line-height: 1.7;
-  max-width: 560px;
-}
-
 .presence-city-list {
-  margin: 18px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
@@ -51,6 +52,10 @@
   border: 1px solid rgba(148, 163, 184, 0.3);
   color: #0f172a;
   font-weight: 600;
+}
+
+.presence-copy button {
+  margin-top: 20px;
 }
 
 .presence-map-card {
