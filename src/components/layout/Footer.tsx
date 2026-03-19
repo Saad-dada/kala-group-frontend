@@ -17,6 +17,7 @@ export default function Footer() {
     support: [
       { label: "Contact", href: "/contact" },
       { label: "Clients", href: "/clients" },
+      { label: "Legal Disclaimer", href: "/legal-disclaimer" },
       { label: "Privacy Policy", href: "#privacy" },
       { label: "Terms of Service", href: "#terms" },
     ],
@@ -114,6 +115,9 @@ export default function Footer() {
             </div>
             <p className="footer-copyright footer-copyright--social">
               © {currentYear} Kala Group. All rights reserved.
+            </p>
+            <p className="footer-disclaimer" style={{ fontSize: "0.95rem", color: "#64748b", margin: "12px 0 0 0" }}>
+              Project images and developer logos displayed on this website are used strictly for portfolio and reference purposes. All trademarks and brand names belong to their respective owners.
             </p>
             <p className="footer-credit">
               Made by{" "}

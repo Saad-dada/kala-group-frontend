@@ -16,6 +16,7 @@ import Clients from "./pages/Clients/Clients";
 import QualitySafety from "./pages/QualitySafety";
 import Contact from "./pages/Contact/Contact";
 import NotFound from "./pages/NotFound/NotFound";
+import LegalDisclaimer from "./pages/LegalDisclaimer/LegalDisclaimer";
 
 export default function App() {
   const location = useLocation();
@@ -70,6 +71,7 @@ export default function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/quality-safety" element={<QualitySafety />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

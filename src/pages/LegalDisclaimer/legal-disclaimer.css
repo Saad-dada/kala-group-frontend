@@ -1,0 +1,15 @@
+.legal-disclaimer-page {
+  background: #f8fafc;
+  padding: 60px 0;
+}
+.legal-disclaimer-page h1 {
+  color: #0f172a;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.legal-disclaimer-page div {
+  font-size: 1.1rem;
+  color: #334155;
+  line-height: 1.7;
+}

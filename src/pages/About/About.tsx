@@ -46,7 +46,9 @@ function parseCountValue(value: string) {
     return null;
   }
 
-  const decimals = numericText.includes(".") ? numericText.split(".")[1].length : 0;
+  const decimals = numericText.includes(".")
+    ? numericText.split(".")[1].length
+    : 0;
   const index = match.index ?? value.indexOf(numericText);
   const prefix = value.slice(0, index).trim();
   const suffix = value.slice(index + numericText.length).trim();
@@ -54,8 +56,14 @@ function parseCountValue(value: string) {
   return { numeric, decimals, prefix, suffix };
 }
 
-function formatCountValue(amount: number, decimals: number, prefix: string, suffix: string) {
-  const formatted = decimals > 0 ? amount.toFixed(decimals) : Math.round(amount).toString();
+function formatCountValue(
+  amount: number,
+  decimals: number,
+  prefix: string,
+  suffix: string,
+) {
+  const formatted =
+    decimals > 0 ? amount.toFixed(decimals) : Math.round(amount).toString();
   const parts = [prefix, formatted, suffix].filter(Boolean);
   return parts.join(" ");
 }
@@ -65,10 +73,17 @@ function easeOutCubic(t: number) {
 }
 
 function mapTeamMember(member: TeamMember) {
-  const name = typeof member.title === "object" && member.title?.rendered ? member.title.rendered : "";
+  const name =
+    typeof member.title === "object" && member.title?.rendered
+      ? member.title.rendered
+      : "";
   // Fix: get post from member.acf.post
-  const title = member.acf && typeof member.acf === 'object' && 'post' in member.acf ? String((member.acf as any).post) : "";
-  const bio = (member.acf?.bio as string | undefined) ?? (member.content?.rendered ?? "");
+  const title =
+    member.acf && typeof member.acf === "object" && "post" in member.acf
+      ? String((member.acf as any).post)
+      : "";
+  const bio =
+    (member.acf?.bio as string | undefined) ?? member.content?.rendered ?? "";
   const photo = (member.acf?.photo as string | undefined) ?? "";
 
   const details = Object.entries(member.acf ?? {})
@@ -85,17 +100,19 @@ export default function About() {
 
   const parsedDeliveryStats = useMemo(
     () => deliveryStats.map((item) => parseCountValue(item.value)),
-    []
+    [],
   );
 
-  const [animatedDeliveryValues, setAnimatedDeliveryValues] = useState<string[]>(() =>
+  const [animatedDeliveryValues, setAnimatedDeliveryValues] = useState<
+    string[]
+  >(() =>
     deliveryStats.map((item, index) => {
       const parsed = parsedDeliveryStats[index];
       if (!parsed) {
         return item.value;
       }
       return formatCountValue(0, parsed.decimals, parsed.prefix, parsed.suffix);
-    })
+    }),
   );
 
   useEffect(() => {
@@ -111,7 +128,7 @@ export default function About() {
           observer.disconnect();
         }
       },
-      { threshold: [0.2, 0.35] }
+      { threshold: [0.2, 0.35] },
     );
 
     observer.observe(section);
@@ -140,8 +157,13 @@ export default function About() {
           }
 
           const current = parsed.numeric * eased;
-          return formatCountValue(current, parsed.decimals, parsed.prefix, parsed.suffix);
-        })
+          return formatCountValue(
+            current,
+            parsed.decimals,
+            parsed.prefix,
+            parsed.suffix,
+          );
+        }),
       );
 
       if (progress < 1) {
@@ -166,7 +188,13 @@ export default function About() {
                 Reliable. Refined
               </h1>
               <p className="about-lede">
-                A New Generation firm with a core focus on building activities, at kala we strive for customer satisfaction, without compromising on the quality of our work and structures. We hold an unmatched reputation for perfection, which is backed up by our proven track record: quality, expertise, workmanship, service, competence, and reliability to deliver our impressive portfolio of clients/projects.
+                A New Generation firm with a core focus on building activities,
+                at kala we strive for customer satisfaction, without
+                compromising on the quality of our work and structures. We hold
+                an unmatched reputation for perfection, which is backed up by
+                our proven track record: quality, expertise, workmanship,
+                service, competence, and reliability to deliver our impressive
+                portfolio of clients/projects.
               </p>
               <div className="hero-meta">
                 <span>Founded in 2014-15</span>
@@ -180,7 +208,10 @@ export default function About() {
             </div>
             <div className="about-hero-media">
               <div className="hero-image-frame">
-                <img src="/images/about-building.jpg" alt="Kala Group project" />
+                <img
+                  src="/images/about-building.jpg"
+                  alt="Kala Group project"
+                />
                 <div className="hero-image-caption">
                   <span>Trusted in Mumbai</span>
                   <strong>End-to-end civil & painting services</strong>
@@ -196,7 +227,12 @@ export default function About() {
           <p className="about-eyebrow">Who we are</p>
           <h2>Delivering scale with systems, safety, and consistency.</h2>
           <p className="about-body">
-            With 11+ years of execution experience, 15k+ apartments handed over, and 200+ projects completed, Kala Group has built a dependable delivery model for residential, commercial, and large-format painting works. Our customer-first approach and disciplined site systems help us maintain quality, transparency, and predictable outcomes across every stage of execution.
+            With 11+ years of execution experience, 15k+ apartments handed over,
+            and 200+ projects completed, Kala Group has built a dependable
+            delivery model for residential, commercial, and large-format
+            painting works. Our customer-first approach and disciplined site
+            systems help us maintain quality, transparency, and predictable
+            outcomes across every stage of execution.
           </p>
         </div>
         <div className="about-grid">
@@ -214,16 +250,21 @@ export default function About() {
           <p className="about-eyebrow">Revenue profile</p>
           <h2>Built on consistent growth and delivery confidence.</h2>
           <p className="about-body">
-            Kala Group currently operates at 22+ Cr annual revenue, with 40+ Cr combined revenue
-            including trading. This growth is supported by long-term client trust, repeat business,
-            and disciplined execution capability across complex high-rise and finishing projects.
+            Kala Group currently operates at 22+ Cr annual revenue, with 40+ Cr
+            combined revenue including trading. This growth is supported by
+            long-term client trust, repeat business, and disciplined execution
+            capability across complex high-rise and finishing projects.
           </p>
+        </div>
+        {/* Turnover section with image */}
+        <div className="about-turnover-image" >
+          <img src="/images/turnover.jpeg" alt="Turnover" />
         </div>
         <div className="turnover-track">
           <div className="turnover-node">
             <p className="turnover-year">2014-15</p>
             <p className="turnover-value">Founded</p>
-            <p className="turnover-note">Beginning of operations</p>
+            <p className="turnover-note">the operations</p>
           </div>
           <div className="turnover-connector" aria-hidden="true" />
           <div className="turnover-node">
@@ -237,6 +278,12 @@ export default function About() {
             <p className="turnover-value">40+ Cr</p>
             <p className="turnover-note">Including trading</p>
           </div>
+          <div className="turnover-connector" aria-hidden="true" />
+          <div className="turnover-node">
+            <p className="turnover-year">2024-2025</p>
+            <p className="turnover-value">Achieved</p>
+            <p className="turnover-note">the Unprecedented</p>
+          </div>
         </div>
       </section>
 
@@ -245,9 +292,10 @@ export default function About() {
           <p className="about-eyebrow">Progress & work experience</p>
           <h2>Execution depth across internal and external works.</h2>
           <p className="about-body">
-            Our teams execute end-to-end finishing services with measurable output at scale.
-            The figures below reflect current in-hand and delivered internal/external painting
-            footprints that define our project execution capability.
+            Our teams execute end-to-end finishing services with measurable
+            output at scale. The figures below reflect current in-hand and
+            delivered internal/external painting footprints that define our
+            project execution capability.
           </p>
         </div>
         <div className="about-grid">
@@ -265,39 +313,49 @@ export default function About() {
           <p className="about-eyebrow">Leadership team</p>
           <h2>People behind Kala Group.</h2>
           <p className="about-body">
-            Seasoned founders and directors who combine financial rigor, on-ground execution, and
-            long-term client partnerships.
+            Seasoned founders and directors who combine financial rigor,
+            on-ground execution, and long-term client partnerships.
           </p>
         </div>
         <div className="about-team-grid">
           {teamLoading && <p className="muted">Loading team...</p>}
-          {teamError && <p className="muted" style={{ color: "#f87171" }}>Failed to load team</p>}
-          {!teamLoading && !teamError && teamData.map(mapTeamMember).map((member) => (
-            <div key={member.name} className="about-team-card">
-              {member.photo ? (
-                <div className="about-team-photo">
-                  <img src={member.photo} alt={member.name} />
-                </div>
-              ) : (
-                <div className="about-team-avatar" aria-hidden="true">
-                  {member.name.charAt(0)}
-                </div>
-              )}
-              <div className="about-team-text">
-                <p className="about-team-name">{member.name}</p>
-                <p className="about-team-title">{typeof member.title === 'string' ? member.title : ''}</p>
-                {member.bio && (
-                  <p
-                    className="about-team-bio"
-                    dangerouslySetInnerHTML={{ __html: member.bio }}
-                  />
+          {teamError && (
+            <p className="muted" style={{ color: "#f87171" }}>
+              Failed to load team
+            </p>
+          )}
+          {!teamLoading &&
+            !teamError &&
+            teamData.map(mapTeamMember).map((member) => (
+              <div key={member.name} className="about-team-card">
+                {member.photo ? (
+                  <div className="about-team-photo">
+                    <img src={member.photo} alt={member.name} />
+                  </div>
+                ) : (
+                  <div className="about-team-avatar" aria-hidden="true">
+                    {member.name.charAt(0)}
+                  </div>
                 )}
+                <div className="about-team-text">
+                  <p className="about-team-name">{member.name}</p>
+                  <p className="about-team-title">
+                    {typeof member.title === "string" ? member.title : ""}
+                  </p>
+                  {member.bio && (
+                    <p
+                      className="about-team-bio"
+                      dangerouslySetInnerHTML={{ __html: member.bio }}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
-        <div style={{ textAlign: 'center', marginTop: '32px' }}>
-          <Link to="/team" className="btn btn--primary">View More Details</Link>
+        <div style={{ textAlign: "center", marginTop: "32px" }}>
+          <Link to="/team" className="btn btn--primary">
+            View More Details
+          </Link>
         </div>
       </section>
 
@@ -306,14 +364,19 @@ export default function About() {
           <p className="about-eyebrow">Brand associations</p>
           <h2>Trusted by leading paint and coating majors.</h2>
           <p className="about-body">
-            Partnerships with global and national brands ensure best-in-class materials, methods,
-            and technical support across every project stage.
+            Partnerships with global and national brands ensure best-in-class
+            materials, methods, and technical support across every project
+            stage.
           </p>
         </div>
         <div className="brand-grid">
           {brandPartners.map((brand) => (
             <div key={brand.name} className="brand-card">
-              {brand.image ? <img src={brand.image} alt={brand.name} /> : <span>{brand.name}</span>}
+              {brand.image ? (
+                <img src={brand.image} alt={brand.name} />
+              ) : (
+                <span>{brand.name}</span>
+              )}
             </div>
           ))}
         </div>
