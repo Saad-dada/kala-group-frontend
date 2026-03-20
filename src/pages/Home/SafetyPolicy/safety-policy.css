@@ -54,3 +54,42 @@
     height: 220px;
   }
 }
+
+@media (max-width: 640px) {
+  .safety-policy-section {
+    padding: 18px 0;
+  }
+
+  .safety-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    align-items: start;
+    padding: 0 16px;
+  }
+
+  .safety-content {
+    text-align: left;
+    padding: 0 6px;
+  }
+
+  .safety-content h2 {
+    font-size: clamp(1.5rem, 5.5vw, 1.9rem);
+    margin-bottom: 10px;
+  }
+
+  .safety-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 48ch;
+  }
+
+  .safety-content button {
+    margin-top: 16px;
+  }
+
+  .safety-visual img {
+    height: 180px;
+    border-radius: 10px;
+  }
+}

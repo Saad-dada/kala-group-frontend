@@ -39,6 +39,7 @@
   z-index: 1;
   clip-path: inset(0 0 0 100%);
   animation: value-strip-reveal-rtl 2s linear 0.1s both;
+  overflow-x: visible; /* ensure no horizontal scroll on desktop */
 }
 
 .value-item {
@@ -143,7 +144,7 @@
 
   .value-strip-boundary {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 0;
     padding: 0 24px;
   }
 
@@ -170,7 +171,7 @@
   }
 
   .value-strip-boundary {
-    padding: 0 16px;
+    padding: 0;
   }
 
   .value-strip-visual {
@@ -179,10 +180,36 @@
   }
 
   .value-strip-items {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px 8px;
-    animation: none;
-    clip-path: inset(0 0 0 0);
+      display: flex;
+      gap: 12px;
+      overflow-x: hidden; /* prevent manual scroll on mobile */
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      animation: none;
+      clip-path: inset(0 0 0 0);
+      padding-bottom: 6px;
+      /* space for optional scrollbar */
+    }
+
+  .value-item {
+    flex: 0 0 calc((100% / 4) - 8px);
+    box-sizing: border-box;
+    scroll-snap-align: start;
+  }
+
+  /* hide scrollbar for nicer carousel appearance */
+  .value-strip-items::-webkit-scrollbar {
+    display: none;
+    height: 6px;
+  }
+
+  .value-strip-items {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    padding: 0 12px;
+    /* Firefox */
   }
 
   .value-item-icon {
@@ -199,4 +226,44 @@
   .value-item h3 {
     font-size: 0.68rem;
   }
+
+  .value-strip .carousel-dots {
+    display: none !important;
+  }
+
+  /* show mobile nav buttons */
+  .value-strip .mobile-nav {
+    display: flex !important;
+  }
+}
+
+/* dots (reuse featured style for visual uniformity) */
+.value-strip .carousel-dots {
+  display: none !important;
+}
+
+/* mobile nav (prev/next) */
+.value-strip .mobile-nav {
+  display: none;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.value-strip .nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.95);
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+}
+
+.value-strip .nav-btn:active {
+  transform: translateY(1px);
 }

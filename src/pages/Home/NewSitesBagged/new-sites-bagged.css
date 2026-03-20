@@ -77,7 +77,7 @@
   }
 
   .new-sites-container {
-    padding: 0 20px;
+    padding: 0;
   }
 
   .new-sites-shell {
@@ -113,10 +113,6 @@
     font-size: 0.9rem;
   }
 
-  .new-sites-grid .project-card {
-    height: 340px;
-    border-radius: 14px;
-  }
 
   .new-sites-grid .project-image {
     height: 180px;
@@ -150,10 +146,6 @@
 
   .new-sites-title {
     font-size: 1.35rem;
-  }
-
-  .new-sites-grid .project-card {
-    height: 320px;
   }
 
   .new-sites-grid .project-image {

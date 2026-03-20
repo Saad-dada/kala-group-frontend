@@ -199,9 +199,20 @@
   }
 
   .footer-grid {
-    grid-template-columns: 1fr;
+    /* two columns so Company + Support sit side-by-side */
+    grid-template-columns: 1fr 1fr;
     gap: 36px;
     padding-bottom: 28px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .footer-social-column {
+    grid-column: 1 / -1;
+    align-items: center;
   }
 
   .footer-brand {

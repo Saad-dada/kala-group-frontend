@@ -20,6 +20,13 @@
   color: #0f172a;
 }
 
+.home-counters-container img {
+  width: 60%;
+  margin: 0 auto 24px;
+  height: auto;
+  display: block;
+}
+
 .home-counters-eyebrow {
   margin: 0;
   color: #ef4444;
@@ -107,5 +114,17 @@
   .home-counter-icon svg {
     width: 24px;
     height: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-counters-container {
+    padding: 1.5rem 3rem;
+  }
+
+  .home-counters-container img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }

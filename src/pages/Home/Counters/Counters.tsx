@@ -129,12 +129,6 @@ export default function Counters() {
           src="/images/progress.png"
           alt="Counters section header"
           className="home-counters-header-image"
-          style={{
-            width: "60%",
-            margin: "0 auto 24px",
-            display: "block",
-            borderRadius: "12px",
-          }}
         />
         <div className="home-counters-grid">
           {displayedCounters.map(({ label }, index) => (
