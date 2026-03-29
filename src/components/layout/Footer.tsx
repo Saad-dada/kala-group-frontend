@@ -22,10 +22,21 @@ export default function Footer() {
       { label: "Terms of Service", href: "#terms" },
     ],
     social: [
-      { label: "LinkedIn", href: "#", icon: "linkedin" },
-      { label: "Facebook", href: "#", icon: "facebook" },
-      { label: "Instagram", href: "#", icon: "instagram" },
-      { label: "Twitter", href: "#", icon: "twitter" },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/hind-wallcare-8478b7250/",
+        icon: "linkedin",
+      },
+      {
+        label: "Facebook",
+        href: "https://www.facebook.com/p/Hind-Wall-Care-100086234131469/",
+        icon: "facebook",
+      },
+      {
+        label: "Instagram",
+        href: "https://www.instagram.com/hind_wallcare/",
+        icon: "instagram",
+      },
     ],
   };
 

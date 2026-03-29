@@ -1,9 +1,22 @@
 import { useTeam } from "../../hooks/useTeam";
 import "./team.css";
 import type { TeamMember } from "../../types/team";
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, type LucideIcon } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  type LucideIcon,
+} from "lucide-react";
 
-type SocialKey = "instagram" | "facebook" | "linkedin" | "twitter" | "youtube" | "pinterest";
+type SocialKey =
+  | "instagram"
+  | "facebook"
+  | "linkedin"
+  | "twitter"
+  | "youtube"
+  | "pinterest";
 
 type SocialLink = {
   key: SocialKey;
@@ -21,19 +34,41 @@ function normalizeSocialUrl(value: unknown) {
 function buildSocialLinks(acf?: TeamMember["acf"]): SocialLink[] {
   if (!acf || typeof acf !== "object") return [];
 
-  const keys: SocialKey[] = ["instagram", "facebook", "linkedin", "twitter", "youtube", "pinterest"];
+  const keys: SocialKey[] = [
+    "instagram",
+    "facebook",
+    "linkedin",
+    "twitter",
+    "youtube",
+    "pinterest",
+  ];
   return keys
     .map((key) => ({ key, url: normalizeSocialUrl(acf[key]) }))
     .filter((item) => item.url);
 }
 
 function mapTeamMember(member: TeamMember) {
-  const name = typeof member.title === "object" && member.title?.rendered ? member.title.rendered : "";
-  const post = member.acf && typeof member.acf === 'object' && 'post' in member.acf ? String((member.acf as any).post) : "";
-  const description = member.acf && typeof member.acf === 'object' && 'description' in member.acf ? String((member.acf as any).description) : "";
-  const featuredImage = member._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "";
-  const acfPhoto = (member.acf?.photo as string | undefined) ?? "";
-  const photo = featuredImage || acfPhoto;
+  const name =
+    typeof member.title === "object" && member.title?.rendered
+      ? member.title.rendered
+      : "";
+  const post =
+    member.acf && typeof member.acf === "object" && "post" in member.acf
+      ? String((member.acf as any).post)
+      : "";
+  const description =
+    member.acf && typeof member.acf === "object" && "description" in member.acf
+      ? String((member.acf as any).description)
+      : "";
+  // Prefer explicit attachments embed (wp:attachment) when available,
+  // otherwise fall back to wp:featuredmedia if that is present.
+  const embedded = member._embedded as any;
+  const featuredImage =
+    embedded?.["wp:featuredmedia"]?.[0]?.source_url || // from _embed or media fallback
+    embedded?.["wp:attachment"]?.[0]?.source_url || // from attachment fallback
+    embedded?.["wp:attachment"]?.[0]?.media_details?.sizes?.full?.source_url; // nested variant
+
+  const photo = featuredImage;
   const socialLinks = buildSocialLinks(member.acf);
   return { name, post, description, photo, socialLinks };
 }
@@ -67,12 +102,11 @@ export default function Team() {
       <section className="default-hero">
         <div className="hero-boundary">
           <div className="hero-badge">Our Team</div>
-          <h1 className="team-headline">
-            Meet the People Behind the Work
-          </h1>
+          <h1 className="team-headline">Meet the People Behind the Work</h1>
           <p className="team-lede">
-            Our diverse team brings together expertise in engineering, project management,
-            and customer service to deliver exceptional building solutions.
+            Our diverse team brings together expertise in engineering, project
+            management, and customer service to deliver exceptional building
+            solutions.
           </p>
         </div>
       </section>
@@ -80,11 +114,18 @@ export default function Team() {
       <section className="team-grid-section site-section">
         <div className="team-container">
           {teamLoading && <p className="muted">Loading team...</p>}
-          {teamError && <p className="muted" style={{ color: "#f87171" }}>Failed to load team</p>}
+          {teamError && (
+            <p className="muted" style={{ color: "#f87171" }}>
+              Failed to load team
+            </p>
+          )}
           {!teamLoading && !teamError && (
             <div className="team-grid">
-              {teamData.map(mapTeamMember).map((member) => (
-                <div key={member.name} className="team-card">
+              {teamData.map(mapTeamMember).map((member, i) => [
+                <div
+                  key={`${member.name}-desktop`}
+                  className={`team-card team-card--desktop ${i % 2 === 1 ? "team-card--reverse" : ""}`}
+                >
                   <div className="team-media">
                     {member.photo ? (
                       <div className="team-photo">
@@ -105,7 +146,10 @@ export default function Team() {
                       </div>
 
                       {member.socialLinks.length > 0 && (
-                        <div className="team-social" aria-label={`${member.name} social links`}>
+                        <div
+                          className="team-social"
+                          aria-label={`${member.name} social links`}
+                        >
                           {member.socialLinks.map((social) => (
                             <a
                               key={social.key}
@@ -121,16 +165,74 @@ export default function Team() {
                         </div>
                       )}
                     </div>
+                    {member.description && (
+                      <div className="team-desc">
+                        <p className="team-bio team-bio-desktop">
+                          {member.description}
+                        </p>
+                        <p className="team-bio team-bio-mobile">
+                          {member.description}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>,
+
+                /* Mobile-only card: different classes to avoid style collisions */
+                <div
+                  key={`${member.name}-mobile`}
+                  className="team-card team-card--mobile"
+                  aria-hidden="true"
+                >
+                  <div className="mobile-media">
+                    {member.photo ? (
+                      <div className="mobile-photo">
+                        <img src={member.photo} alt={member.name} />
+                      </div>
+                    ) : (
+                      <div className="mobile-avatar" aria-hidden="true">
+                        {member.name.charAt(0)}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mobile-text-wrap">
+                    <div className="mobile-header">
+                      <div className="mobile-header-left">
+                        <p className="mobile-name">{member.name}</p>
+                        <p className="mobile-title">{member.post}</p>
+                      </div>
+
+                      {member.socialLinks.length > 0 && (
+                        <div
+                          className="mobile-social"
+                          aria-label={`${member.name} social links`}
+                        >
+                          {member.socialLinks.map((social) => (
+                            <a
+                              key={social.key}
+                              href={social.url}
+                              className="mobile-social-link"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${member.name} ${social.key}`}
+                            >
+                              <TeamSocialIcon platform={social.key} />
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {member.description && (
-                    <div className="team-desc">
-                      <p className="team-bio team-bio-desktop">{member.description}</p>
-                      <p className="team-bio team-bio-mobile">{member.description}</p>
+                    /* moved out so this becomes a direct child of the grid and can span full width */
+                    <div className="mobile-desc">
+                      <p className="mobile-bio">{member.description}</p>
                     </div>
                   )}
-                </div>
-              ))}
+                </div>,
+              ])}
             </div>
           )}
         </div>

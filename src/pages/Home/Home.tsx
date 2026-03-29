@@ -8,7 +8,7 @@ import NewSitesBagged from "./NewSitesBagged";
 import PresenceMap from "./PresenceMap";
 import MovingClients from "./MovingClients";
 import Counters from "./Counters";
-import SafetyPolicy from "./SafetyPolicy/SafetyPolicy";
+import HindwallcareSection from "./HindwallcareSection";
 
 export default function Home() {
   return (
@@ -21,9 +21,9 @@ export default function Home() {
       <PresenceMap />
       <NewSitesBagged />
       <Counters />
-      <SafetyPolicy />
-      <ContactSection />
+      <HindwallcareSection />
       <Firms />
+      <ContactSection />
     </main>
   );
 }

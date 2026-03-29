@@ -60,6 +60,7 @@ function SectionBlock({
   imageSrc,
   children,
   last = false,
+  reverse = false,
 }: {
   eyebrow: string;
   title: string;
@@ -67,6 +68,7 @@ function SectionBlock({
   imageSrc: string;
   children: ReactNode;
   last?: boolean;
+  reverse?: boolean;
 }) {
   return (
     <section className={`site-section qs-section${last ? " qs-section--last" : ""}`}>
@@ -75,17 +77,20 @@ function SectionBlock({
           <p className="qs-eyebrow">{eyebrow}</p>
           <h2 className="qs-section-title">{title}</h2>
         </div>
-        <div className="qs-image-frame">
-          <img src={imageSrc} alt={imageAlt} />
+
+        <div className={`qs-content-grid ${reverse ? "qs-content-grid--reverse" : ""} ${last ? "qs-content-grid--last" : ""}`}>
+          <div className="qs-content">{children}</div>
+          <div className="qs-image-frame">
+            {imageSrc ? <img src={imageSrc} alt={imageAlt} /> : null}
+          </div>
         </div>
-        <div className="qs-content">{children}</div>
       </div>
     </section>
   );
 }
 
 export default function QualitySafety() {
-  const { images } = useQualitySafetyImages();
+  const { images, loading, error } = useQualitySafetyImages();
 
   const img = (n: 1 | 2 | 3 | 4 | 5 | 6 | 7) => images?.[`image_${n}`] ?? "";
 
@@ -101,80 +106,94 @@ export default function QualitySafety() {
         </div>
       </section>
 
-      <SectionBlock
-        eyebrow="Quality & Safety"
-        title="Built on Quality. Driven by Safety."
-        imageAlt="Quality and safety visual"
-        imageSrc={img(1)}
-      >
-        <p>At Kala Coloring Landmarks, quality workmanship and worker safety are the foundation of every project.</p>
-        <p>Our systems ensure that every project meets the highest standards of durability, finish quality, and worker safety.</p>
-        <p className="qs-goal">
-          <strong>Our Goal:</strong> Deliver exceptional finishing quality while ensuring zero harm on every project site.
+      {loading && <p className="muted">Loading images...</p>}
+      {error && (
+        <p className="muted" style={{ color: "#f87171" }}>
+          Failed to load images
         </p>
-      </SectionBlock>
+      )}
 
-      <SectionBlock
-        eyebrow="Our Standards"
-        title="Our Commitment to Quality"
-        imageAlt="Quality inspection"
-        imageSrc={img(2)}
-      >
-        <Checklist items={qualityPoints} />
-      </SectionBlock>
+      {!loading && !error && (
+        <>
+          <SectionBlock
+            eyebrow="Quality & Safety"
+            title="Built on Quality. Driven by Safety."
+            imageAlt="Quality and safety visual"
+            imageSrc={img(1)}
+          >
+            <p>At Kala Coloring Landmarks, quality workmanship and worker safety are the foundation of every project.</p>
+            <p>Our systems ensure that every project meets the highest standards of durability, finish quality, and worker safety.</p>
+            <p className="qs-goal">
+              <strong>Our Goal:</strong> Deliver exceptional finishing quality while ensuring zero harm on every project site.
+            </p>
+          </SectionBlock>
 
-      <SectionBlock
-        eyebrow="People First"
-        title="Safety First Culture"
-        imageAlt="Safety gear"
-        imageSrc={img(3)}
-      >
-        <Checklist items={safetyCulturePoints} />
-      </SectionBlock>
+          <SectionBlock
+            eyebrow="Our Standards"
+            title="Our Commitment to Quality"
+            imageAlt="Quality inspection"
+            imageSrc={img(2)}
+            reverse
+          >
+            <Checklist items={qualityPoints} />
+          </SectionBlock>
 
-      <SectionBlock
-        eyebrow="Execution Safety"
-        title="Working at Height Safety"
-        imageAlt="Working at height safety"
-        imageSrc={img(4)}
-      >
-        <Checklist items={heightSafetyPoints} />
-      </SectionBlock>
+          <SectionBlock
+            eyebrow="People First"
+            title="Safety First Culture"
+            imageAlt="Safety gear"
+            imageSrc={img(3)}
+          >
+            <Checklist items={safetyCulturePoints} />
+          </SectionBlock>
 
-      <SectionBlock
-        eyebrow="Planning"
-        title="Risk Assessment & Site Planning"
-        imageAlt="Risk planning"
-        imageSrc={img(5)}
-      >
-        <Checklist items={riskPlanningPoints} />
-      </SectionBlock>
+          <SectionBlock
+            eyebrow="Execution Safety"
+            title="Working at Height Safety"
+            imageAlt="Working at height safety"
+            imageSrc={img(4)}
+            reverse
+          >
+            <Checklist items={heightSafetyPoints} />
+          </SectionBlock>
 
-      <SectionBlock
-        eyebrow="Site Controls"
-        title="Equipment & Material Handling"
-        imageAlt="Equipment and materials"
-        imageSrc={img(6)}
-      >
-        <p>
-          All tools and equipment are regularly inspected. Strict procedures are followed for handling paints,
-          safe storage of materials, ventilation during interior painting, and proper waste management.
-        </p>
-      </SectionBlock>
+          <SectionBlock
+            eyebrow="Planning"
+            title="Risk Assessment & Site Planning"
+            imageAlt="Risk planning"
+            imageSrc={img(5)}
+          >
+            <Checklist items={riskPlanningPoints} />
+          </SectionBlock>
 
-      <SectionBlock
-        eyebrow="Preparedness"
-        title="Emergency Preparedness"
-        imageAlt="Emergency preparedness"
-        imageSrc={img(7)}
-        last
-      >
-        <Checklist items={emergencyPoints} />
-        <p className="qs-closing">
-          At Kala Coloring Landmarks, we believe that quality and safety go hand in hand. Our disciplined
-          processes ensure superior finishing quality, operational safety, and client satisfaction.
-        </p>
-      </SectionBlock>
+          <SectionBlock
+            eyebrow="Site Controls"
+            title="Equipment & Material Handling"
+            imageAlt="Equipment and materials"
+            imageSrc={img(6)}
+            reverse
+          >
+            <p>
+              All tools and equipment are regularly inspected. Strict procedures are followed for handling paints,
+              safe storage of materials, ventilation during interior painting, and proper waste management.
+            </p>
+          </SectionBlock>
+
+          <SectionBlock
+            eyebrow="Preparedness"
+            title="Emergency Preparedness"
+            imageAlt="Emergency preparedness"
+            imageSrc={img(7)}
+            last
+          >
+            <Checklist items={emergencyPoints} />
+            <p className="qs-closing">
+              At Kala Coloring Landmarks, we believe that quality and safety go hand in hand. Our disciplined
+              processes ensure superior finishing quality, operational safety, and client satisfaction.
+            </p>
+          </SectionBlock>
+        </>
+      )}
     </main>
   );
 }

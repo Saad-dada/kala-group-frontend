@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { readCache, writeCache } from "../utils/clientCache";
 
 type QualitySafetyImages = {
   image_1: string;
@@ -47,6 +48,19 @@ export default function useQualitySafetyImages(): UseQualitySafetyImagesResult {
 
     async function fetchImages() {
       try {
+        // Try cached first (stale-while-revalidate)
+        const CACHE_KEY = "qualitySafety_images_v1";
+        const CACHE_TTL = 1000 * 60 * 60 * 24; // 24h
+        const cached = readCache<QualitySafetyImages>(CACHE_KEY);
+        if (cached.data && !cancelled) {
+          setImages(cached.data);
+          // if cache is fresh, skip network fetch; otherwise continue to revalidate
+          if (cached.isFresh) {
+            setLoading(false);
+            return;
+          }
+        }
+
         const res = await fetch(ENDPOINT);
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         const data = await res.json();
@@ -62,10 +76,10 @@ export default function useQualitySafetyImages(): UseQualitySafetyImagesResult {
         const keys = ["image_1", "image_2", "image_3", "image_4", "image_5", "image_6", "image_7"] as const;
         const urls = await Promise.all(keys.map((key) => resolveMediaUrl(acf[key])));
 
+        const resolved = Object.fromEntries(keys.map((key, i) => [key, urls[i]])) as QualitySafetyImages;
         if (!cancelled) {
-          setImages(
-            Object.fromEntries(keys.map((key, i) => [key, urls[i]])) as QualitySafetyImages
-          );
+          setImages(resolved);
+          writeCache<QualitySafetyImages>("qualitySafety_images_v1", resolved, CACHE_TTL);
         }
       } catch (err: any) {
         if (!cancelled) setError(String(err.message ?? err));
