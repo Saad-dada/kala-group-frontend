@@ -58,7 +58,28 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: rgba(10, 10, 10, 0.7);
+  margin: 0 0 24px 0;
+}
+
+/* Contact Info in Brand Section */
+.footer-contact-info--brand {
+  gap: 12px !important;
+}
+
+.footer-contact-info--brand .footer-contact-item {
   margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.footer-contact-info--brand .footer-contact-item strong {
+  margin-bottom: 2px;
+  font-size: 0.75rem;
+}
+
+.footer-contact-info--brand .footer-contact-item span,
+.footer-contact-info--brand .footer-contact-item a {
+  font-size: 0.85rem;
 }
 
 /* Footer Columns */
@@ -103,6 +124,36 @@
     color: rgba(10, 10, 10, 0.7);
     transform: none;
   }
+}
+
+/* Contact Info */
+.footer-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-contact-item {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.footer-contact-item strong {
+  display: block;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-contact-item span,
+.footer-contact-item a {
+  color: rgba(10, 10, 10, 0.7);
+  font-size: 0.9rem;
+  display: block;
 }
 
 /* Social Links */

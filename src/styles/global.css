@@ -8,6 +8,12 @@ body {
     --bg-dark: #0a0a0a;
     --text-hero: #f8fafc;
     --muted: #cbd5e1;
+    --content-max: 1400px;
+    --page-gutter: clamp(16px, 3.2vw, 60px);
+    --section-space: clamp(40px, 6vw, 88px);
+    --section-space-tight: clamp(26px, 4vw, 56px);
+    --hero-pad-top: clamp(90px, 11vw, 120px);
+    --hero-pad-bottom: clamp(40px, 7vw, 80px);
     --accent-1: #ef4444;
     /* red */
     --accent-2: #0ea5e9;
@@ -21,6 +27,63 @@ body {
     /* Stat card color tokens (pattern follows red accent) */
     --stat-card-color: rgba(239, 68, 68, 0.06);
     --stat-card-accent: var(--accent-1);
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+section,
+.site-section {
+    scroll-margin-top: 84px;
+}
+
+:is(.hero-container,
+    .about-container,
+    .contact-container,
+    .presence-container,
+    .moving-clients-container,
+    .home-counters-container,
+    .footer-container,
+    .awards-container,
+    .team-container,
+    .clients-container,
+    .services-container,
+    .projects-container,
+    .qs-container,
+    .site-container,
+    .firms-container,
+    .contact-info) {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--page-gutter) !important;
+    padding-right: var(--page-gutter) !important;
+}
+
+:is(.services-content,
+    .clients-content,
+    .team-grid-section,
+    .awards-grid-section,
+    .projects-section,
+    .qs-section--last) {
+    padding-bottom: var(--section-space);
+}
+
+.default-hero,
+.services-hero,
+.projects-hero,
+.clients-hero,
+.awards-hero,
+.team-hero,
+.contact-hero,
+.about-hero {
+    padding-top: var(--hero-pad-top) !important;
+    padding-bottom: var(--hero-pad-bottom) !important;
+    padding-left: var(--page-gutter) !important;
+    padding-right: var(--page-gutter) !important;
 }
 
 /* Buttons: single unified visual for all button class variants
@@ -140,7 +203,7 @@ body {
    ============================ */
 .default-hero,
 .services-hero {
-    padding: 120px 40px 80px;
+    padding: var(--hero-pad-top) var(--page-gutter) var(--hero-pad-bottom);
     text-align: center;
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
     position: relative;
@@ -189,13 +252,13 @@ body {
 }
 
 .services-content {
-    padding-bottom: 120px;
+    padding-bottom: var(--section-space);
 }
 
 .services-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 var(--page-gutter);
     text-align: center;
 }
 
@@ -218,7 +281,7 @@ body {
     }
 
     .services-container {
-        padding: 0 40px;
+        padding: 0 var(--page-gutter);
     }
 }
 
@@ -238,7 +301,7 @@ body {
     }
 
     .services-container {
-        padding: 0 24px;
+        padding: 0 var(--page-gutter);
     }
 
     .services-container p {
@@ -296,7 +359,38 @@ body {
     .clients-content,
     .team-grid-section,
     .awards-grid-section {
-        padding-bottom: 84px;
+        padding-bottom: var(--section-space);
+    }
+}
+
+@media (max-width: 900px) {
+    .awards-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    }
+
+    .clients-logos {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    :is(.projects-grid,
+        .awards-showcase,
+        .clients-logos,
+        .clients-stats,
+        .firms-list,
+        .our-firms-grid,
+        .qs-intro-grid,
+        .qs-content-grid,
+        .qs-content-grid--reverse) {
+        grid-template-columns: 1fr !important;
+    }
+
+    .service-item,
+    .project-card,
+    .award-showcase-card,
+    .client-tile {
+        min-width: 0;
     }
 }
 

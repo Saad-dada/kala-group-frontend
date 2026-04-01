@@ -40,6 +40,13 @@ export default function Footer() {
     ],
   };
 
+  const contactInfo = {
+    address: "104, Hubtown Viva, Jogeshwari East, Mumbai – 400060",
+    phone: "+022-62389099",
+    emails: ["hindwallcare@gmail.com", "sales@kalagroup.in"],
+    hours: "Mon – Fri: 10:00 AM – 7:00 PM",
+  };
+
   return (
     <footer className="site-footer">
       <div className="footer-container">
@@ -49,7 +56,31 @@ export default function Footer() {
             <Link to="/" className="footer-logo">
               <img src={logo} alt="Kala Group Logo" />
             </Link>
-            <p className="footer-tagline">Resourceful. Reliable. Refined.</p>
+            <div className="footer-contact-info footer-contact-info--brand">
+              <p className="footer-contact-item">
+                <span>{contactInfo.address}</span>
+              </p>
+              <p className="footer-contact-item">
+                <a href={`tel:${contactInfo.phone}`} className="footer-link">
+                  {contactInfo.phone}
+                </a>
+              </p>
+              <p className="footer-contact-item">
+                {contactInfo.emails.map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="footer-link"
+                    style={{ display: "block" }}
+                  >
+                    {email}
+                  </a>
+                ))}
+              </p>
+              <p className="footer-contact-item">
+                <span>{contactInfo.hours}</span>
+              </p>
+            </div>
           </div>
 
           {/* Company Links */}

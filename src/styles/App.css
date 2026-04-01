@@ -17,25 +17,7 @@
 }
 
 .site-section {
-  padding: 48px 0;
-}
-
-@media (max-width: 1024px) {
-  .site-section {
-    padding: 40px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .site-section {
-    padding: 32px 0;
-  }
-}
-
-@media (max-width: 380px) {
-  .site-section {
-    padding: 26px 0;
-  }
+  padding: var(--section-space-tight) 0;
 }
 
 .site-section h1,

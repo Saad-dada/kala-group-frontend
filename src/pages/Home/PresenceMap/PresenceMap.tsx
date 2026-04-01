@@ -65,10 +65,9 @@ export default function PresenceMap() {
         >
           <div className="presence-map-frame">
             <img
-              src="/images/map.png"
+              src="/images/new-map.png"
               alt="India map showing Kala Group presence"
               className="presence-static-map"
-              loading="lazy"
             />
           </div>
         </div>
