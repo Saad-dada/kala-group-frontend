@@ -260,7 +260,7 @@
 }
 
 .small-label {
-  color: var(--muted);
+  color: var(--accent-3);
   font-size: 0.85rem;
   margin-bottom: 6px;
 }

@@ -20,6 +20,9 @@ export default function HindwallcareSection() {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const playingRef = useRef(true);
+  const touchStartXRef = useRef(0);
+  const touchStartTimeRef = useRef(0);
+  const trackRef = useRef<HTMLDivElement>(null);
   const PLACEHOLDER_SVG = `data:image/svg+xml;utf8,${encodeURIComponent(
     `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'>
       <rect width='100%' height='100%' fill='%23f5f7fa' />
@@ -83,17 +86,51 @@ export default function HindwallcareSection() {
     if (!images.length) return;
     const interval = setInterval(() => {
       if (!playingRef.current) return;
-      setIndex((i) => (i + 1) % images.length);
+      setIndex((i) => {
+        // Loop back to start when reaching the end
+        return i >= images.length - 1 ? 0 : i + 1;
+      });
     }, 4500);
     return () => clearInterval(interval);
   }, [images]);
 
   function prev() {
-    setIndex((i) => (i - 1 + images.length) % images.length);
+    setIndex((i) => Math.max(i - 1, 0));
   }
 
   function next() {
-    setIndex((i) => (i + 1) % images.length);
+    setIndex((i) => Math.min(i + 1, images.length - 1));
+  }
+
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartTimeRef.current = Date.now();
+    playingRef.current = false;
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchDuration = Date.now() - touchStartTimeRef.current;
+    const deltaX = touchStartXRef.current - touchEndX;
+    const velocity = Math.abs(deltaX) / touchDuration;
+
+    // Swipe threshold: 50px or velocity > 0.5px/ms
+    const isSwipe = Math.abs(deltaX) > 50 || velocity > 0.5;
+
+    if (isSwipe) {
+      if (deltaX > 0) {
+        // Swiped left — go to next slide
+        setIndex((i) => Math.min(i + 1, images.length - 1));
+      } else {
+        // Swiped right — go to previous slide
+        setIndex((i) => Math.max(i - 1, 0));
+      }
+    }
+
+    // Resume auto-play
+    setTimeout(() => {
+      playingRef.current = true;
+    }, 500);
   }
 
   return (
@@ -105,6 +142,8 @@ export default function HindwallcareSection() {
           className="hindwallcare-slider"
           onMouseEnter={() => (playingRef.current = false)}
           onMouseLeave={() => (playingRef.current = true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           {loading && (
             <div className="hindwallcare-loading">Loading images…</div>
@@ -134,6 +173,7 @@ export default function HindwallcareSection() {
             <>
               <div
                 className="hindwallcare-track"
+                ref={trackRef}
                 style={{ transform: `translateX(${-index * 100}%)` }}
               >
                 {images.map((src, i) => (

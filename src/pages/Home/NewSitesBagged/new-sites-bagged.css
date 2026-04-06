@@ -82,23 +82,23 @@
 
   .new-sites-shell {
     border-radius: 18px;
-    padding: 16px;
+    padding: 32px 24px;
     box-shadow: 0 10px 24px rgba(51, 65, 85, 0.12);
   }
 
   .new-sites-header {
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 32px;
+    margin-bottom: 24px;
   }
 
   .new-sites-title {
-    font-size: clamp(1.5rem, 7vw, 1.9rem);
+    font-size: 1.6rem;
   }
 
   .new-sites-subtitle {
     font-size: 0.92rem;
     line-height: 1.45;
-    margin-top: 6px;
+    margin-top: 12px;
   }
 
   .new-sites-grid {
@@ -140,7 +140,7 @@
   }
 
   .new-sites-shell {
-    padding: 14px;
+    padding: 24px;
     border-radius: 14px;
   }
 

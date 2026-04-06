@@ -9,7 +9,7 @@ body {
     --text-hero: #f8fafc;
     --muted: #cbd5e1;
     --content-max: 1400px;
-    --page-gutter: clamp(16px, 3.2vw, 60px);
+    --page-gutter: clamp(16px, 4vw, 32px);
     --section-space: clamp(40px, 6vw, 88px);
     --section-space-tight: clamp(26px, 4vw, 56px);
     --hero-pad-top: clamp(90px, 11vw, 120px);
@@ -84,6 +84,10 @@ section,
     padding-bottom: var(--hero-pad-bottom) !important;
     padding-left: var(--page-gutter) !important;
     padding-right: var(--page-gutter) !important;
+}
+
+.mobile-only {
+    display: none;
 }
 
 /* Buttons: single unified visual for all button class variants
@@ -370,6 +374,14 @@ section,
 
     .clients-logos {
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    }
+
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block;
     }
 }
 

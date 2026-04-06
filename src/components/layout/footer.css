@@ -230,7 +230,7 @@
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 60px;
     padding-bottom: 40px;
   }
 
@@ -252,7 +252,7 @@
   .footer-grid {
     /* two columns so Company + Support sit side-by-side */
     grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    gap: 44px;
     padding-bottom: 28px;
   }
 
@@ -328,7 +328,7 @@
 /* Small Mobile */
 @media (max-width: 380px) {
   .footer-grid {
-    gap: 28px;
+    gap: 32px;
   }
 
   .footer-title {

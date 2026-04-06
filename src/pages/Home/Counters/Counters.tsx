@@ -126,9 +126,14 @@ export default function Counters() {
         <p className="home-counters-eyebrow">Performance Snapshot</p>
         <h2 id="home-counters-title">Number of Highrise Projects</h2>
         <img
-          src="/images/progress.png"
+          src="/images/progress-new.svg"
           alt="Counters section header"
-          className="home-counters-header-image"
+          className="mobile-only home-counters-header-image"
+        />
+        <img
+          src="/images/progress-new.webp"
+          alt="Counters section header"
+          className="desktop-only home-counters-header-image"
         />
         <div className="home-counters-grid">
           {displayedCounters.map(({ label }, index) => (
