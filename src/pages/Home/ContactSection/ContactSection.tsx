@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Lottie from "lottie-react";
 import "./contact-section.css";
 import contactRightAnimation from "../../../assets/contact-right.json";
@@ -19,7 +18,6 @@ interface SubmissionState {
 }
 
 export default function ContactSection() {
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   
@@ -85,15 +83,7 @@ export default function ContactSection() {
     setSubmission({ loading: true, success: false, error: null });
 
     try {
-      // Get reCAPTCHA token
-      if (!executeRecaptcha) {
-        throw new Error('reCAPTCHA is not available');
-      }
-
-      const recaptchaToken = await executeRecaptcha('contact_form_submit');
-      
-      // Submit form with reCAPTCHA token
-      const response = await submitContactForm(formData, recaptchaToken);
+      const response = await submitContactForm(formData);
 
       if (response.success) {
         setSubmission({
