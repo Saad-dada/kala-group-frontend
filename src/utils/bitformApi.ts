@@ -56,12 +56,50 @@ export async function submitContactForm(
   }
 
   try {
+    // Format phone number according to Bitform format: +c #### ### ###
+    let phoneFormatted = data.phone.trim();
+    
+    // Remove all non-digits except leading +
+    const cleanPhone = phoneFormatted.replace(/^\+\d+/, (match) => {
+      return match; // Keep country code
+    }).replace(/\D/g, '');
+    
+    // Extract country code if present
+    let countryCode = '';
+    if (phoneFormatted.startsWith('+')) {
+      const match = phoneFormatted.match(/^\+(\d+)/);
+      if (match) {
+        countryCode = match[1];
+      }
+    }
+    
+    // If no country code, assume +91 (India)
+    if (!countryCode) {
+      countryCode = '91';
+    }
+    
+    // Extract just the digits from the phone number part
+    const digits = cleanPhone.replace(countryCode, '');
+    
+    // Format as +c #### ### ###
+    if (digits.length >= 10) {
+      const part1 = digits.substring(0, 4);
+      const part2 = digits.substring(4, 7);
+      const part3 = digits.substring(7, 10);
+      phoneFormatted = `+${countryCode} ${part1} ${part2} ${part3}`;
+    } else {
+      // Fallback if number is invalid
+      phoneFormatted = `+${countryCode} ${digits}`;
+    }
+
     const formPayload = {
-      'b1-2': data.name, // Replace with your actual field keys from Bitform
-      'b1-5': data.email,
-      'b1-6': data.phone,
-      'b1-3': data.message,
+      'b1-2': data.name.trim(),
+      'b1-5': data.email.trim().toLowerCase(),
+      'b1-6': phoneFormatted,
+      'b1-3': data.message.trim(),
     };
+
+    console.log('Submitting form payload:', formPayload);
 
     const response = await fetch(
       `${config.baseUrl}/wp-json/bitform/v1/entry/${config.formId}`,
@@ -80,15 +118,25 @@ export async function submitContactForm(
     const responseData = (await response.json()) as {
       code: number;
       message: string;
+      errors?: Record<string, string>;
     };
+
+    console.log('Bitform response:', responseData);
 
     // Check for success codes from Bitform API
     const isSuccess =
       response.ok && responseData.code === 4000;
 
+    // If validation errors exist, include them in the message
+    const errorMessage =
+      responseData.message ||
+      (responseData.errors
+        ? `Validation error: ${JSON.stringify(responseData.errors)}`
+        : 'Unknown error');
+
     return {
       code: responseData.code,
-      message: responseData.message || 'Unknown error',
+      message: errorMessage,
       success: isSuccess,
     };
   } catch (error) {
