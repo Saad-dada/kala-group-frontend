@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import "./contact-section.css";
 import contactRightAnimation from "../../../assets/contact-right.json";
@@ -20,8 +19,7 @@ interface SubmissionState {
 
 export default function ContactSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLSection>(null);
-  const navigate = useNavigate();
+  const sectionRef = useRef<HTMLElement>(null);
   
   const [formData, setFormData] = useState<FormData>({
     name: '',
