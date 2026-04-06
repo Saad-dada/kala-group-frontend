@@ -92,14 +92,23 @@ export async function submitContactForm(
       phoneFormatted = `+${countryCode} ${digits}`;
     }
 
-    const formPayload = {
+    const fieldData = {
       'b1-2': data.name.trim(),
       'b1-5': data.email.trim().toLowerCase(),
       'b1-6': phoneFormatted,
       'b1-3': data.message.trim(),
     };
 
+    const formPayload = fieldData;
+
     console.log('Submitting form payload:', formPayload);
+    console.log('Payload JSON:', JSON.stringify(formPayload));
+
+    // Create form-urlencoded body
+    const bodyParams = new URLSearchParams();
+    Object.entries(fieldData).forEach(([key, value]) => {
+      bodyParams.append(key, value);
+    });
 
     const response = await fetch(
       `${config.baseUrl}/wp-json/bitform/v1/entry/${config.formId}`,
@@ -108,18 +117,34 @@ export async function submitContactForm(
         mode: 'cors',
         credentials: 'omit',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'Bitform-Api-Key': config.apiKey,
         },
-        body: JSON.stringify(formPayload),
+        body: bodyParams.toString(),
       }
     );
 
-    const responseData = (await response.json()) as {
-      code: number;
-      message: string;
-      errors?: Record<string, string>;
-    };
+    console.log('HTTP Status:', response.status);
+
+    const responseText = await response.text();
+    console.log('Raw Response:', responseText);
+
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText) as {
+        code: number;
+        message: string;
+        errors?: Record<string, string>;
+        data?: Record<string, unknown>;
+      };
+    } catch (e) {
+      console.error('Failed to parse response JSON:', e);
+      return {
+        code: 5002,
+        message: `Invalid response format: ${responseText}`,
+        success: false,
+      };
+    }
 
     console.log('Bitform response:', responseData);
 
