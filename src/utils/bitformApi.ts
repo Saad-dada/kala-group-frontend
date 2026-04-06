@@ -40,10 +40,12 @@ function getBitformConfig(): BitformConfig {
 /**
  * Submit form data to Bitform
  * @param data - Form submission data with name, email, phone, message
+ * @param recaptchaToken - reCAPTCHA v3 token for verification
  * @returns Promise with API response
  */
 export async function submitContactForm(
-  data: FormSubmissionData
+  data: FormSubmissionData,
+  recaptchaToken?: string
 ): Promise<BitformResponse> {
   const config = getBitformConfig();
 
@@ -97,6 +99,7 @@ export async function submitContactForm(
       'b1-5': data.email.trim().toLowerCase(),
       'b1-6': phoneFormatted,
       'b1-3': data.message.trim(),
+      ...(recaptchaToken ? { 'g-recaptcha-response': recaptchaToken } : {}),
     };
 
     const formPayload = fieldData;
