@@ -126,12 +126,12 @@ export default function Counters() {
         <p className="home-counters-eyebrow">Performance Snapshot</p>
         <h2 id="home-counters-title">Number of Highrise Projects</h2>
         <img
-          src="/images/progress-new.svg"
+          src="/images/progress-new.png"
           alt="Counters section header"
           className="mobile-only home-counters-header-image"
         />
         <img
-          src="/images/progress-new.webp"
+          src="/images/progress-new.png"
           alt="Counters section header"
           className="desktop-only home-counters-header-image"
         />
