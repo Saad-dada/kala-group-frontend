@@ -67,6 +67,14 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
+          <a
+            className="btn btn--outline"
+            href="https://app.kalagroup.in"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Kala 360 AI
+          </a>
           <Link className="btn btn--primary" to="/contact">
             Contact Us
           </Link>
@@ -99,6 +107,15 @@ export default function Header() {
               {label}
             </Link>
           ))}
+          <a
+            className="btn btn--outline mobile-contact"
+            href="https://app.kalagroup.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMobileMenu}
+          >
+            Kala 360 AI
+          </a>
           <Link
             className="btn btn--primary mobile-contact"
             to="/contact"
